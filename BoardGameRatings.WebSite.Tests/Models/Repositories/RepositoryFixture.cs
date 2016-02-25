@@ -1,16 +1,13 @@
-﻿using System;
-using BoardGameRatings.WebSite.Models;
+﻿using BoardGameRatings.WebSite.Models;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 {
-    public class RepositoryFixture 
-    {        
-        private readonly ServiceCollection _serviceCollection;        
-        internal DbContextOptions<ApplicationDbContext> ContextOptions { get; private set; }    
-        internal ApplicationDbContext Context { get; private set; }    
+    public class RepositoryFixture
+    {
+        private readonly ServiceCollection _serviceCollection;
 
         public RepositoryFixture()
         {
@@ -19,8 +16,11 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseInMemoryDatabase();
-            ContextOptions = optionsBuilder.Options;            
+            ContextOptions = optionsBuilder.Options;
         }
+
+        internal DbContextOptions<ApplicationDbContext> ContextOptions { get; }
+        internal ApplicationDbContext Context { get; private set; }
 
         public void Begin()
         {
@@ -29,7 +29,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         }
 
         public void End()
-        {            
+        {
             Context.Dispose();
         }
     }

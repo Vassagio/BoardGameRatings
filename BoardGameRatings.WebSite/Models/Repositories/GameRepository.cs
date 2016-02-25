@@ -4,10 +4,12 @@ using Microsoft.Data.Entity;
 
 namespace BoardGameRatings.WebSite.Models.Repositories
 {
-    public class GameRepository {
+    public class GameRepository : IGameRepository
+    {
         private readonly ApplicationDbContext _context;
 
-        public GameRepository(ApplicationDbContext context) {
+        public GameRepository(ApplicationDbContext context)
+        {
             _context = context;
         }
 
@@ -29,9 +31,15 @@ namespace BoardGameRatings.WebSite.Models.Repositories
             _context.SaveChanges();
         }
 
-        public Game Find(int id)
+        public Game GetById(int id)
         {
             return _context.Games.FirstOrDefault(g => g.Id == id);
+        }
+
+        public void Update(Game game)
+        {
+            _context.Entry(game).State = EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }

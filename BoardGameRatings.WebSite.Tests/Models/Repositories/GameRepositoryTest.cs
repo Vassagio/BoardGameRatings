@@ -6,23 +6,34 @@ using BoardGameRatings.WebSite.Models.Repositories;
 using BoardGameRatings.WebSite.Tests.Extensions;
 using Xunit;
 
-namespace BoardGameRatings.WebSite.Tests.Models.Repositories {
-    public class GameRepositoryTest : IClassFixture<RepositoryFixture>, IDisposable {
+namespace BoardGameRatings.WebSite.Tests.Models.Repositories
+{
+    public class GameRepositoryTest : IClassFixture<RepositoryFixture>, IDisposable
+    {
         private readonly RepositoryFixture _fixture;
 
-        public GameRepositoryTest(RepositoryFixture fixture) {
+        public GameRepositoryTest(RepositoryFixture fixture)
+        {
             _fixture = fixture;
             _fixture.Begin();
         }
 
+
+        public void Dispose()
+        {
+            _fixture.End();
+        }
+
         [Fact]
-        public void CreateANewGameRepository() {
+        public void CreateANewGameRepository()
+        {
             var gameRepository = new GameRepository(_fixture.Context);
             Assert.NotNull(gameRepository);
         }
 
-        [Fact,]
-        public void GetAllGames() {
+        [Fact]
+        public void GetAllGames()
+        {
             var games = new List<Game>
             {
                 new Game {Name = "Game 1"},
@@ -39,8 +50,10 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories {
         }
 
         [Fact]
-        public void AddGame() {
-            var game = new Game() {
+        public void AddGame()
+        {
+            var game = new Game
+            {
                 Name = "Game 1"
             };
 
@@ -53,11 +66,12 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories {
         }
 
         [Fact]
-        public void RemoveGame() {
-            var game1 = new Game { Name = "Game 1" };
-            var game2 = new Game { Name = "Game 2" };
-            var game3 = new Game { Name = "Game 3" };
-            var games = new List<Game> { game1, game2, game3 };
+        public void RemoveGame()
+        {
+            var game1 = new Game {Name = "Game 1"};
+            var game2 = new Game {Name = "Game 2"};
+            var game3 = new Game {Name = "Game 3"};
+            var games = new List<Game> {game1, game2, game3};
 
             var gameRepository = new GameRepository(_fixture.Context.GamesContain(games));
 
@@ -69,7 +83,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories {
         }
 
         [Fact]
-        public void FindGame()
+        public void GetGameById()
         {
             var game3 = new Game {Name = "Game 3"};
             var games = new List<Game>
@@ -81,15 +95,33 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories {
 
             var gameRepository = new GameRepository(_fixture.Context.GamesContain(games));
 
-            var result = gameRepository.Find(game3.Id);
+            var result = gameRepository.GetById(game3.Id);
 
             Assert.Equal(game3.Id, result.Id);
             Assert.Equal(game3.Name, result.Name);
-            Assert.Equal(game3.Description, result.Description);            
+            Assert.Equal(game3.Description, result.Description);
         }
 
-        public void Dispose() {
-            _fixture.End();
+        [Fact]
+        public void UpdateGame()
+        {
+            var games = new List<Game>
+            {
+                new Game {Name = "Game 1"},
+                new Game {Name = "Game 2"},
+                new Game {Name = "Game 3"}
+            };
+
+            var gameRepository = new GameRepository(_fixture.Context.GamesContain(games));
+
+            var game = gameRepository.GetById(1);
+            game.Description = "Battleship boardgame";
+            gameRepository.Update(game);
+            var result = gameRepository.GetById(1);
+
+            Assert.Equal(1, result.Id);
+            Assert.Equal("Game 1", game.Name);
+            Assert.Equal("Battleship boardgame", game.Description);
         }
     }
 }

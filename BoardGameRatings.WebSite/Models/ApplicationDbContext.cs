@@ -11,7 +11,8 @@ namespace BoardGameRatings.WebSite.Models
         {
         }
 
-        public ApplicationDbContext(IServiceProvider serviceProvider, DbContextOptions options) : base(serviceProvider, options)
+        public ApplicationDbContext(IServiceProvider serviceProvider, DbContextOptions options)
+            : base(serviceProvider, options)
         {
         }
 

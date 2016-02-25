@@ -1201,6 +1201,18 @@
           "lib/net45/Microsoft.CodeAnalysis.CSharp.dll": {}
         }
       },
+      "Microsoft.CSharp/4.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -3168,7 +3180,7 @@
           "lib/portable-net45+win8/Microsoft.CodeAnalysis.CSharp.dll": {}
         }
       },
-      "Microsoft.CSharp/4.0.1-beta-23516": {
+      "Microsoft.CSharp/4.0.0": {
         "type": "package",
         "dependencies": {
           "System.Collections": "4.0.10",
@@ -3189,10 +3201,10 @@
           "System.Threading": "4.0.10"
         },
         "compile": {
-          "ref/dotnet5.1/Microsoft.CSharp.dll": {}
+          "ref/dotnet/Microsoft.CSharp.dll": {}
         },
         "runtime": {
-          "lib/dotnet5.4/Microsoft.CSharp.dll": {}
+          "lib/dotnet/Microsoft.CSharp.dll": {}
         }
       },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
@@ -6184,6 +6196,18 @@
           "lib/net45/Microsoft.CodeAnalysis.CSharp.dll": {}
         }
       },
+      "Microsoft.CSharp/4.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -8317,6 +8341,18 @@
           "lib/net45/Microsoft.CodeAnalysis.CSharp.dll": {}
         }
       },
+      "Microsoft.CSharp/4.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -10287,7 +10323,7 @@
           "lib/portable-net45+win8/Microsoft.CodeAnalysis.CSharp.dll": {}
         }
       },
-      "Microsoft.CSharp/4.0.1-beta-23516": {
+      "Microsoft.CSharp/4.0.0": {
         "type": "package",
         "dependencies": {
           "System.Collections": "4.0.10",
@@ -10308,10 +10344,10 @@
           "System.Threading": "4.0.10"
         },
         "compile": {
-          "ref/dotnet5.1/Microsoft.CSharp.dll": {}
+          "ref/dotnet/Microsoft.CSharp.dll": {}
         },
         "runtime": {
-          "lib/dotnet5.4/Microsoft.CSharp.dll": {}
+          "lib/dotnet/Microsoft.CSharp.dll": {}
         }
       },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
@@ -13616,7 +13652,7 @@
           "lib/portable-net45+win8/Microsoft.CodeAnalysis.CSharp.dll": {}
         }
       },
-      "Microsoft.CSharp/4.0.1-beta-23516": {
+      "Microsoft.CSharp/4.0.0": {
         "type": "package",
         "dependencies": {
           "System.Collections": "4.0.10",
@@ -13637,10 +13673,10 @@
           "System.Threading": "4.0.10"
         },
         "compile": {
-          "ref/dotnet5.1/Microsoft.CSharp.dll": {}
+          "ref/dotnet/Microsoft.CSharp.dll": {}
         },
         "runtime": {
-          "lib/dotnet5.4/Microsoft.CSharp.dll": {}
+          "lib/dotnet/Microsoft.CSharp.dll": {}
         }
       },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
@@ -16797,12 +16833,12 @@
         "ThirdPartyNotices.rtf"
       ]
     },
-    "Microsoft.CSharp/4.0.1-beta-23516": {
+    "Microsoft.CSharp/4.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "fb+HO3nIjHao9lqsVVM0ne3GM/+1EfRQUoM58cxEOt+5biy/8DQ1nxIahZ9VaJKw7Wgb6XhRhsdwg8DkePEOJA==",
+      "sha512": "oWqeKUxHXdK6dL2CFjgMcaBISbkk+AqEg+yvJHE4DElNzS4QaTsCflgkkqZwVlWby1Dg9zo9n+iCAMFefFdJ/A==",
       "files": [
-        "lib/dotnet5.4/Microsoft.CSharp.dll",
+        "lib/dotnet/Microsoft.CSharp.dll",
         "lib/MonoAndroid10/_._",
         "lib/MonoTouch10/_._",
         "lib/net45/_._",
@@ -16812,34 +16848,25 @@
         "lib/wpa81/_._",
         "lib/xamarinios10/_._",
         "lib/xamarinmac20/_._",
-        "Microsoft.CSharp.4.0.1-beta-23516.nupkg",
-        "Microsoft.CSharp.4.0.1-beta-23516.nupkg.sha512",
+        "Microsoft.CSharp.4.0.0.nupkg",
+        "Microsoft.CSharp.4.0.0.nupkg.sha512",
         "Microsoft.CSharp.nuspec",
-        "ref/dotnet5.1/de/Microsoft.CSharp.xml",
-        "ref/dotnet5.1/es/Microsoft.CSharp.xml",
-        "ref/dotnet5.1/fr/Microsoft.CSharp.xml",
-        "ref/dotnet5.1/it/Microsoft.CSharp.xml",
-        "ref/dotnet5.1/ja/Microsoft.CSharp.xml",
-        "ref/dotnet5.1/ko/Microsoft.CSharp.xml",
-        "ref/dotnet5.1/Microsoft.CSharp.dll",
-        "ref/dotnet5.1/Microsoft.CSharp.xml",
-        "ref/dotnet5.1/ru/Microsoft.CSharp.xml",
-        "ref/dotnet5.1/zh-hans/Microsoft.CSharp.xml",
-        "ref/dotnet5.1/zh-hant/Microsoft.CSharp.xml",
+        "ref/dotnet/de/Microsoft.CSharp.xml",
+        "ref/dotnet/es/Microsoft.CSharp.xml",
+        "ref/dotnet/fr/Microsoft.CSharp.xml",
+        "ref/dotnet/it/Microsoft.CSharp.xml",
+        "ref/dotnet/ja/Microsoft.CSharp.xml",
+        "ref/dotnet/ko/Microsoft.CSharp.xml",
+        "ref/dotnet/Microsoft.CSharp.dll",
+        "ref/dotnet/Microsoft.CSharp.xml",
+        "ref/dotnet/ru/Microsoft.CSharp.xml",
+        "ref/dotnet/zh-hans/Microsoft.CSharp.xml",
+        "ref/dotnet/zh-hant/Microsoft.CSharp.xml",
         "ref/MonoAndroid10/_._",
         "ref/MonoTouch10/_._",
         "ref/net45/_._",
-        "ref/netcore50/de/Microsoft.CSharp.xml",
-        "ref/netcore50/es/Microsoft.CSharp.xml",
-        "ref/netcore50/fr/Microsoft.CSharp.xml",
-        "ref/netcore50/it/Microsoft.CSharp.xml",
-        "ref/netcore50/ja/Microsoft.CSharp.xml",
-        "ref/netcore50/ko/Microsoft.CSharp.xml",
         "ref/netcore50/Microsoft.CSharp.dll",
         "ref/netcore50/Microsoft.CSharp.xml",
-        "ref/netcore50/ru/Microsoft.CSharp.xml",
-        "ref/netcore50/zh-hans/Microsoft.CSharp.xml",
-        "ref/netcore50/zh-hant/Microsoft.CSharp.xml",
         "ref/win8/_._",
         "ref/wp80/_._",
         "ref/wpa81/_._",
@@ -21841,7 +21868,8 @@
       "Microsoft.Extensions.Logging >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Console >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
-      "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-rc1-final"
+      "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-rc1-final",
+      "Microsoft.CSharp >= 4.0.0"
     ],
     "DNX,Version=v4.5.1": [],
     "DNXCore,Version=v5.0": []

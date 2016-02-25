@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BoardGameRatings.WebSite.Contexts;
+using BoardGameRatings.WebSite.Models;
+using BoardGameRatings.WebSite.Models.Extensions;
+using BoardGameRatings.WebSite.Models.Repositories;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using BoardGameRatings.WebSite.Models;
-using BoardGameRatings.WebSite.Models.Extensions;
 
 namespace BoardGameRatings.WebSite
 {
@@ -22,7 +19,7 @@ namespace BoardGameRatings.WebSite
 
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
 
             if (env.IsDevelopment())
             {
@@ -30,7 +27,7 @@ namespace BoardGameRatings.WebSite
                 builder.AddUserSecrets();
 
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-                builder.AddApplicationInsightsSettings(developerMode: true);
+                builder.AddApplicationInsightsSettings(true);
             }
 
             builder.AddEnvironmentVariables();
@@ -48,9 +45,12 @@ namespace BoardGameRatings.WebSite
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));                
+                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             services.AddMvc();
+
+            services.AddScoped<IGamesContext, GamesContext>();
+            services.AddScoped<IGameRepository, GameRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +67,8 @@ namespace BoardGameRatings.WebSite
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-               .CreateScope()) {
+                    .CreateScope())
+                {
                     serviceScope.ServiceProvider.GetService<ApplicationDbContext>().Database.Migrate();
                     serviceScope.ServiceProvider.GetService<ApplicationDbContext>().EnsureSeedData();
                 }
@@ -83,10 +84,12 @@ namespace BoardGameRatings.WebSite
                         .CreateScope())
                     {
                         serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
-                             .Database.Migrate();
+                            .Database.Migrate();
                     }
                 }
-                catch { }
+                catch
+                {
+                }
             }
 
             app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
@@ -95,12 +98,7 @@ namespace BoardGameRatings.WebSite
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
         }
 
         // Entry point for the application.
