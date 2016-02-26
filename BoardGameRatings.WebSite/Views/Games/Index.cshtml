@@ -12,6 +12,9 @@
             <td>@game.Name</td>
             <td>@game.Description</td>
             <td>
+                <a href="@Url.RouteUrl(GamesController.BuildEditActionRouteValues(game.Id))">Edit</a>
+            </td>
+            <td>
                 <a href="@Url.RouteUrl(GamesController.BuildRemoveActionRouteValues(game.Id))">Remove</a>
             </td>
         </tr>
