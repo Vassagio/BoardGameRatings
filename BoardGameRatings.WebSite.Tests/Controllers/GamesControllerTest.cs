@@ -17,16 +17,28 @@ namespace BoardGameRatings.WebSite.Tests.Controllers
         }
 
         [Fact]
-        public void NewRendersGames()
+        public void IndexRendersGames()
         {
             var gamesViewModel = new GamesViewModel();
             var mockGamesContext = new MockGamesContext().StubBuildViewModelToReturn(gamesViewModel);
             var controller = new GamesController(mockGamesContext);
             var result = (ViewResult) controller.Index();
 
-            Assert.Equal("Index", result.ViewName);
             Assert.Equal(gamesViewModel, result.ViewData.Model);
             mockGamesContext.VerifyBuildViewModelCalled();
+        }
+
+        [Fact]
+        public void RemoveRedirectsToTheIndexView()
+        {
+            var mockGamesContext = new MockGamesContext();
+            var controller = new GamesController(mockGamesContext);
+            var result = controller.Remove(10);
+
+            Assert.IsType<RedirectToRouteResult>(result);
+            Assert.Equal("Index", result.RouteValues["action"]);
+            Assert.Equal("Games", result.RouteValues["controller"]);
+            mockGamesContext.VerifyRemoveCalledWith(10);
         }
     }
 }

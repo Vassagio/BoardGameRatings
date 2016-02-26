@@ -98,7 +98,12 @@ namespace BoardGameRatings.WebSite
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("games", "{controller=Games}/{action=Index}/{id?}");
+                routes.MapRoute("removeGame", "{controller=Games}/{action=Remove}/{id?}");
+            });
         }
 
         // Entry point for the application.
