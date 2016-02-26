@@ -58,5 +58,17 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             }
             mockGameRepository.VerifyGetAllCalled();
         }
+
+        [Fact]
+        public void ContextRemovesAGame()
+        {
+            var game = new Game {Name = "Game 2"};
+            var mockGameRepository = new MockGameRepository();
+            var gameContext = new GamesContext(mockGameRepository);
+
+            gameContext.Remove(game.Id);
+
+            mockGameRepository.VerifyRemoveCalled();
+        }
     }
 }

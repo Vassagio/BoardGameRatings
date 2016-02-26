@@ -18,6 +18,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             return _mock.Object.BuildViewModel();
         }
 
+        public void Remove(int id)
+        {
+            _mock.Object.Remove(id);
+        }
+
         public MockGamesContext StubBuildViewModelToReturn(GamesViewModel gamesViewModel)
         {
             _mock.Setup(m => m.BuildViewModel()).Returns(gamesViewModel);
@@ -27,6 +32,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         public void VerifyBuildViewModelCalled()
         {
             _mock.Verify(m => m.BuildViewModel(), Times.Once);
+        }
+
+        public void VerifyRemoveCalledWith(int id)
+        {
+            _mock.Verify(m => m.Remove(id), Times.Once);
         }
     }
 }

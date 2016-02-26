@@ -27,5 +27,11 @@ namespace BoardGameRatings.WebSite.Contexts
                 Games = games
             };
         }
+
+        public void Remove(int id)
+        {
+            var game = _gameRepository.GetById(id);
+            _gameRepository.Remove(game);
+        }
     }
 }

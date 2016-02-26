@@ -49,5 +49,10 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         {
             _mock.Verify(m => m.GetAll(), Times.Once);
         }
+
+        public void VerifyRemoveCalled()
+        {
+            _mock.Verify(m => m.Remove(It.IsAny<Game>()), Times.Once);
+        }
     }
 }
