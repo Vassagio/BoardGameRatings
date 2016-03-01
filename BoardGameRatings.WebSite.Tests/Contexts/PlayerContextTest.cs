@@ -30,7 +30,7 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             var viewModel = playerContext.BuildViewModel(player.Id);
 
             Assert.NotNull(viewModel);
-            Assert.Equal("First 1 Last 1", viewModel.GetFullName());
+            Assert.Equal("First 2 Last 2", viewModel.GetFullName());
             mockPlayerRepository.VerifyGetByIdCalledWith(player.Id);
             mockPlayerMapper.VerifyMapCalledWith(player);
         }
@@ -52,7 +52,7 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
         [Fact]
         public void ContextSavesAnUpdatedPlayer()
         {
-            var player = new Player {Id = 2, FirstName = "First 2", LastName= "Last 2"};
+            var player = new Player {Id = 2, FirstName = "First 2", LastName = "Last 2"};
             var playerViewModel = new PlayerViewModel
             {
                 Id = 2,
@@ -73,7 +73,7 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
         public void ContextSavesANewPlayer()
         {
             var player = new Player {Id = 4, FirstName = "New First", LastName = "New Last"};
-            var playerViewModel = new PlayerViewModel {Id = 4, FirstName = "New First", LastName= "New Last"};
+            var playerViewModel = new PlayerViewModel {Id = 4, FirstName = "New First", LastName = "New Last"};
             var mockPlayerRepository = new MockPlayerRepository();
             var mockPlayerMapper = new MockPlayerMapper().StubMapToReturn(player);
             var playerContext = new PlayerContext(mockPlayerRepository, mockPlayerMapper);

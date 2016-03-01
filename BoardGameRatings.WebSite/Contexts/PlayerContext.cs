@@ -7,8 +7,8 @@ namespace BoardGameRatings.WebSite.Contexts
 {
     public class PlayerContext : IPlayerContext
     {
-        private readonly IPlayerRepository _playerRepository;
         private readonly IPlayerMapper _mapper;
+        private readonly IPlayerRepository _playerRepository;
 
         public PlayerContext(IPlayerRepository playerRepository, IPlayerMapper mapper)
         {
