@@ -5,7 +5,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Routing;
 
 namespace BoardGameRatings.WebSite.Controllers
-{    
+{
     public class PlayerController : Controller
     {
         private static readonly string CONTROLLER_NAME = "Player";
