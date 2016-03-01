@@ -54,6 +54,10 @@ namespace BoardGameRatings.WebSite
             services.AddScoped<IGamesContext, GamesContext>();
             services.AddScoped<IGameContext, GameContext>();
             services.AddScoped<IGameMapper, GameMapper>();
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<IPlayersContext, PlayersContext>();
+            services.AddScoped<IPlayerContext, PlayerContext>();
+            services.AddScoped<IPlayerMapper, PlayerMapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,10 +108,16 @@ namespace BoardGameRatings.WebSite
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+
                 routes.MapRoute("games", "{controller=Games}/{action=Index}/{id?}");
                 routes.MapRoute("removeGame", "{controller=Games}/{action=Remove}/{id?}");
                 routes.MapRoute("editGame", "{controller=Games}/{action=Edit}/{id?}");
                 routes.MapRoute("addGame", "{controller=Games}/{action=Add}/{id?}");
+
+                routes.MapRoute("players", "{controller=Players}/{action=Index}/{id?}");
+                routes.MapRoute("removePlayer", "{controller=Players}/{action=Remove}/{id?}");
+                routes.MapRoute("editPlayer", "{controller=Players}/{action=Edit}/{id?}");
+                routes.MapRoute("addPlayer", "{controller=Players}/{action=Add}/{id?}");
             });
         }
 

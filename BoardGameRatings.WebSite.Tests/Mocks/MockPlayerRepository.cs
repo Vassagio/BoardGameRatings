@@ -63,7 +63,17 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public void VerifyRemoveCalledWith(Player player)
         {
-            _mock.Verify(m => m.Remove(player));
+            _mock.Verify(m => m.Remove(player), Times.Once);
+        }
+
+        public void VerifyUpdateCalledWith(Player player)
+        {
+            _mock.Verify(m => m.Update(player), Times.Once);
+        }
+
+        public void VerifyAddCalledWith(Player player)
+        {
+            _mock.Verify(m => m.Add(player), Times.Once);
         }
     }
 }
