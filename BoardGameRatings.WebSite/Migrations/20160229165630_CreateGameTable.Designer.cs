@@ -8,7 +8,7 @@ using BoardGameRatings.WebSite.Models;
 namespace BoardGameRatings.WebSite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160224220605_CreateGameTable")]
+    [Migration("20160229165630_CreateGameTable")]
     partial class CreateGameTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,8 +33,8 @@ namespace BoardGameRatings.WebSite.Migrations
                     b.HasKey("Id")
                         .HasAnnotation("SqlServer:Clustered", false);
 
-                    b.HasAlternateKey("Name")
-                        .HasAnnotation("SqlServer:Clustered", true);
+                    b.HasIndex("Name")
+                        .IsUnique();
                 });
         }
     }

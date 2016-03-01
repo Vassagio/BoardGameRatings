@@ -11,7 +11,7 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
     public class GamesContextTest
     {
         [Fact]
-        public void CreatesAGameContext()
+        public void CreatesAGamesContext()
         {
             var gameRepository = new MockGameRepository();
             var gamesContext = new GamesContext(gameRepository);

@@ -45,7 +45,8 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             return this;
         }
 
-        public MockGameRepository StubGetByIdToReturn(Game game) {
+        public MockGameRepository StubGetByIdToReturn(Game game)
+        {
             _mock.Setup(m => m.GetById(It.IsAny<int>())).Returns(game);
             return this;
         }
@@ -68,6 +69,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         public void VerifyGetByIdCalledWith(int id)
         {
             _mock.Verify(m => m.GetById(id), Times.Once);
+        }
+
+        public void VerifyAddCalledWith(Game game)
+        {
+            _mock.Verify(m => m.Add(game), Times.Once);
         }
     }
 }
