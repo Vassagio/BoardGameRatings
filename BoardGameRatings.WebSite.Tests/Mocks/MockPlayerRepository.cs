@@ -38,5 +38,32 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         {
             _mock.Object.Update(player);
         }
+
+        public MockPlayerRepository StubGetAllToReturn(IEnumerable<Player> players)
+        {
+            _mock.Setup(m => m.GetAll()).Returns(players);
+            return this;
+        }
+
+        public void VerifyGetAllCalled()
+        {
+            _mock.Verify(m => m.GetAll(), Times.Once);
+        }
+
+        public MockPlayerRepository StubGetByIdToReturn(Player player)
+        {
+            _mock.Setup(m => m.GetById(It.IsAny<int>())).Returns(player);
+            return this;
+        }
+
+        public void VerifyGetByIdCalledWith(int id)
+        {
+            _mock.Verify(m => m.GetById(id), Times.Once);
+        }
+
+        public void VerifyRemoveCalledWith(Player player)
+        {
+            _mock.Verify(m => m.Remove(player));
+        }
     }
 }

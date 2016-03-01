@@ -8,7 +8,8 @@ using Xunit;
 
 namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 {
-    public class PlayerRepositoryTest : IClassFixture<RepositoryFixture>, IDisposable {
+    public class PlayerRepositoryTest : IClassFixture<RepositoryFixture>, IDisposable
+    {
         private readonly RepositoryFixture _fixture;
 
         public PlayerRepositoryTest(RepositoryFixture fixture)
@@ -68,9 +69,9 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         [Fact]
         public void RemovePlayer()
         {
-            var player1 = new Player { FirstName = "First 1", LastName = "Last 1"};
-            var player2 = new Player { FirstName = "First 2", LastName = "Last 2" };
-            var player3 = new Player { FirstName = "First 3", LastName = "Last 3" };
+            var player1 = new Player {FirstName = "First 1", LastName = "Last 1"};
+            var player2 = new Player {FirstName = "First 2", LastName = "Last 2"};
+            var player3 = new Player {FirstName = "First 3", LastName = "Last 3"};
             var players = new List<Player> {player1, player2, player3};
 
             var playerRepository = new PlayerRepository(_fixture.Context.PlayersContain(players));
@@ -85,7 +86,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         [Fact]
         public void GetPlayerById()
         {
-            var player3 = new Player { FirstName = "First 3", LastName = "Last 3" };
+            var player3 = new Player {FirstName = "First 3", LastName = "Last 3"};
             var players = new List<Player>
             {
                 new Player {FirstName = "First 1", LastName = "Last 1"},
@@ -106,7 +107,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         public void UpdatePlayer()
         {
             var players = new List<Player>
-      {
+            {
                 new Player {FirstName = "First 1", LastName = "Last 1"},
                 new Player {FirstName = "First 2", LastName = "Last 2"},
                 new Player {FirstName = "First 3", LastName = "Last 3"}
