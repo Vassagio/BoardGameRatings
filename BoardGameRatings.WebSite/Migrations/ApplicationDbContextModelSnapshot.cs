@@ -33,6 +33,27 @@ namespace BoardGameRatings.WebSite.Migrations
                 b.HasIndex("Name")
                     .IsUnique();
             });
+
+            modelBuilder.Entity("BoardGameRatings.WebSite.Models.Player", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                b.Property<string>("FirstName")
+                    .IsRequired()
+                    .HasAnnotation("MaxLength", 20);
+
+                b.Property<string>("LastName")
+                    .IsRequired()
+                    .HasAnnotation("MaxLength", 30);
+
+                b.HasKey("Id")
+                    .HasAnnotation("SqlServer:Clustered", false);
+
+                b.HasIndex("FirstName", "LastName")
+                    .IsUnique();
+            });
         }
     }
 }

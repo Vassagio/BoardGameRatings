@@ -3,7 +3,7 @@ using BoardGameRatings.WebSite.Models;
 using BoardGameRatings.WebSite.ViewModels;
 using Xunit;
 
-namespace BoardGameRatings.WebSite.Tests
+namespace BoardGameRatings.WebSite.Tests.Mappers
 {
     public class GameMapperTest
     {

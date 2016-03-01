@@ -13,8 +13,9 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
         [Fact]
         public void CreatesAGamesContext()
         {
-            var gameRepository = new MockGameRepository();
-            var gamesContext = new GamesContext(gameRepository);
+            var mockGameRepository = new MockGameRepository();
+            var mockGameMapper = new MockGameMapper();
+            var gamesContext = new GamesContext(mockGameRepository, mockGameMapper);
 
             Assert.NotNull(gamesContext);
         }
@@ -22,8 +23,9 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
         [Fact]
         public void ContextBuildsAViewModel()
         {
-            var gameRepository = new MockGameRepository();
-            var gamesContext = new GamesContext(gameRepository);
+            var mockGameRepository = new MockGameRepository();
+            var mockGameMapper = new MockGameMapper();
+            var gamesContext = new GamesContext(mockGameRepository, mockGameMapper);
 
             var viewModel = gamesContext.BuildViewModel();
 
@@ -34,14 +36,12 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
         [Fact]
         public void ContextBuildsAViewModelWithAllGames()
         {
-            var games = new List<Game>
-            {
-                new Game {Name = "Game 1"},
-                new Game {Name = "Game 2"},
-                new Game {Name = "Game 3"}
-            };
+            var game = new Game {Name = "Game 1"};
+            var gameViewModel = new GameViewModel {Name = "Game 1"};
+            var games = new List<Game> {game};
             var mockGameRepository = new MockGameRepository().StubGetAllToReturn(games);
-            var gamesContext = new GamesContext(mockGameRepository);
+            var mockGameMapper = new MockGameMapper().StubMapToReturn(gameViewModel);
+            var gamesContext = new GamesContext(mockGameRepository, mockGameMapper);
 
             var viewModel = gamesContext.BuildViewModel();
 
@@ -50,13 +50,12 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             Assert.Equal(games.Count, viewModel.Games.Count());
 
             var gameViewModels = viewModel.Games.ToList();
-            for (var i = 0; i < games.Count; i++)
-            {
-                Assert.Equal(games[i].Id, gameViewModels[i].Id);
-                Assert.Equal(games[i].Name, gameViewModels[i].Name);
-                Assert.Equal(games[i].Description, gameViewModels[i].Description);
-            }
+            Assert.Equal(game.Id, gameViewModels.First().Id);
+            Assert.Equal(game.Name, gameViewModels.First().Name);
+            Assert.Equal(game.Description, gameViewModels.First().Description);
+
             mockGameRepository.VerifyGetAllCalled();
+            mockGameMapper.VerifyMapCalledWith(game);
         }
 
         [Fact]
@@ -64,7 +63,8 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
         {
             var game = new Game {Name = "Game 2"};
             var mockGameRepository = new MockGameRepository().StubGetByIdToReturn(game);
-            var gamesContext = new GamesContext(mockGameRepository);
+            var mockGameMapper = new MockGameMapper();
+            var gamesContext = new GamesContext(mockGameRepository, mockGameMapper);
 
             gamesContext.Remove(game.Id);
 

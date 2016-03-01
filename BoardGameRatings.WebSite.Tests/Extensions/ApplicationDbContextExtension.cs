@@ -11,5 +11,12 @@ namespace BoardGameRatings.WebSite.Tests.Extensions
             context.SaveChanges();
             return context;
         }
+
+        public static ApplicationDbContext PlayersContain(this ApplicationDbContext context, IEnumerable<Player> players)
+        {
+            context.Players.AddRange(players);
+            context.SaveChanges();
+            return context;
+        }
     }
 }

@@ -1,0 +1,36 @@
+﻿@using BoardGameRatings.WebSite.Controllers
+@model BoardGameRatings.WebSite.ViewModels.PlayersViewModel
+
+@{
+    ViewData["Title"] = "Players";
+}
+
+<div class="btn btn-default">
+    <a href="@Url.RouteUrl(PlayersController.BuildAddActionRouteValues())">Add</a>
+</div>
+
+<div>
+    <table class="table table-striped table-bordered table-responsive">
+        <thead>
+        <tr>
+            <th class="head">Name</th>
+            <th>Description</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        @foreach (var player in Model.Players)
+        {
+            <tr>
+                <td class="col-md-2">@player.FirstName</td>
+                <td class="col-md-8">@player.LastName</td>
+                <td class="col-md-1">
+                    <a href="@Url.RouteUrl(PlayersController.BuildEditActionRouteValues(player.Id))">Edit</a>
+                </td>
+                <td class="col-md-1">
+                    <a href="@Url.RouteUrl(PlayersController.BuildRemoveActionRouteValues(player.Id))">Remove</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

@@ -13,7 +13,6 @@ namespace BoardGameRatings.WebSite.Models.Extensions
                 context.Games.RemoveRange(context.Games);
                 context.SaveChanges();
             }
-
             var battlestarGalactica = new Game
             {
                 Name = "Battlestar Galactica",
@@ -35,6 +34,24 @@ namespace BoardGameRatings.WebSite.Models.Extensions
             context.Games.Add(battlestarGalactica);
             context.Games.Add(settlersOfCatan);
             context.Games.Add(lastNightOnEarth);
+
+            if (context.Players.Any())
+            {
+                context.Players.RemoveRange(context.Players);
+                context.SaveChanges();
+            }
+            var brandonLamkey = new Player {FirstName = "Brandon", LastName = "Lamkey"};
+            var charlieKohlhaas = new Player {FirstName = "Charlie", LastName = "Kohlhaas"};
+            var derekKohlhagen = new Player {FirstName = "Derek", LastName = "Kohlhagen"};
+            var johnDavidson = new Player {FirstName = "John", LastName = "Davidson"};
+            var ritchKing = new Player {FirstName = "Ritch", LastName = "King"};
+            var williamChronowski = new Player {FirstName = "William", LastName = "Chronowski"};
+            context.Players.Add(brandonLamkey);
+            context.Players.Add(charlieKohlhaas);
+            context.Players.Add(derekKohlhagen);
+            context.Players.Add(johnDavidson);
+            context.Players.Add(ritchKing);
+            context.Players.Add(williamChronowski);
             context.SaveChanges();
         }
     }
