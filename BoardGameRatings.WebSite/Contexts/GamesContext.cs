@@ -33,5 +33,11 @@ namespace BoardGameRatings.WebSite.Contexts
             var game = _gameRepository.GetById(id);
             _gameRepository.Remove(game);
         }
+
+        public void Update(int id)
+        {
+            var game = _gameRepository.GetById(id);
+            _gameRepository.Update(game);
+        }
     }
 }

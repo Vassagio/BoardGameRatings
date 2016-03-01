@@ -1,4 +1,5 @@
 ﻿using BoardGameRatings.WebSite.Contexts;
+using BoardGameRatings.WebSite.Mappers;
 using BoardGameRatings.WebSite.Models;
 using BoardGameRatings.WebSite.Models.Extensions;
 using BoardGameRatings.WebSite.Models.Repositories;
@@ -49,8 +50,10 @@ namespace BoardGameRatings.WebSite
 
             services.AddMvc();
 
-            services.AddScoped<IGamesContext, GamesContext>();
             services.AddScoped<IGameRepository, GameRepository>();
+            services.AddScoped<IGamesContext, GamesContext>();
+            services.AddScoped<IGameContext, GameContext>();
+            services.AddScoped<IGameMapper, GameMapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -103,6 +106,8 @@ namespace BoardGameRatings.WebSite
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute("games", "{controller=Games}/{action=Index}/{id?}");
                 routes.MapRoute("removeGame", "{controller=Games}/{action=Remove}/{id?}");
+                routes.MapRoute("editGame", "{controller=Games}/{action=Edit}/{id?}");
+                routes.MapRoute("addGame", "{controller=Games}/{action=Add}/{id?}");
             });
         }
 

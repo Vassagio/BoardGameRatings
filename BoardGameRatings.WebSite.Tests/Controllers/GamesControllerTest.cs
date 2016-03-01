@@ -40,5 +40,31 @@ namespace BoardGameRatings.WebSite.Tests.Controllers
             Assert.Equal("Games", result.RouteValues["controller"]);
             mockGamesContext.VerifyRemoveCalledWith(10);
         }
+
+        [Fact]
+        public void EditRedirectsToTheGameIndexView()
+        {
+            var id = 5;
+            var mockGamesContext = new MockGamesContext();
+            var controller = new GamesController(mockGamesContext);
+            var result = controller.Edit(id);
+
+            Assert.IsType<RedirectToRouteResult>(result);
+            Assert.Equal("Index", result.RouteValues["action"]);
+            Assert.Equal("Game", result.RouteValues["controller"]);
+            Assert.Equal(id, result.RouteValues["id"]);
+        }
+
+        [Fact]
+        public void AddRedirectsToTheGameIndexView()
+        {
+            var mockGamesContext = new MockGamesContext();
+            var controller = new GamesController(mockGamesContext);
+            var result = controller.Add();
+
+            Assert.IsType<RedirectToRouteResult>(result);
+            Assert.Equal("Index", result.RouteValues["action"]);
+            Assert.Equal("Game", result.RouteValues["controller"]);
+        }
     }
 }

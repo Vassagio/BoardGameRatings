@@ -5,15 +5,32 @@
     ViewData["Title"] = "Games";
 }
 
-<table class="table table-striped table-bordered table-responsive">
-    @foreach (var game in Model.Games)
-    {
+<div class="btn btn-default">
+    <a href="@Url.RouteUrl(GamesController.BuildAddActionRouteValues())">Add</a>
+</div>
+
+<div>
+    <table class="table table-striped table-bordered table-responsive">
+        <thead>
         <tr>
-            <td>@game.Name</td>
-            <td>@game.Description</td>
-            <td>
-                <a href="@Url.RouteUrl(GamesController.BuildRemoveActionRouteValues(game.Id))">Remove</a>
-            </td>
+            <th class="head">Name</th>
+            <th>Description</th>
+            <th></th>
+            <th></th>
         </tr>
-    }
-</table>
+        </thead>
+        @foreach (var game in Model.Games)
+        {
+            <tr>
+                <td class="col-md-2">@game.Name</td>
+                <td class="col-md-8">@game.Description</td>
+                <td class="col-md-1">
+                    <a href="@Url.RouteUrl(GamesController.BuildEditActionRouteValues(game.Id))">Edit</a>
+                </td>
+                <td class="col-md-1">
+                    <a href="@Url.RouteUrl(GamesController.BuildRemoveActionRouteValues(game.Id))">Remove</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

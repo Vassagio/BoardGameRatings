@@ -30,8 +30,8 @@ namespace BoardGameRatings.WebSite.Migrations
                 b.HasKey("Id")
                     .HasAnnotation("SqlServer:Clustered", false);
 
-                b.HasAlternateKey("Name")
-                    .HasAnnotation("SqlServer:Clustered", true);
+                b.HasIndex("Name")
+                    .IsUnique();
             });
         }
     }

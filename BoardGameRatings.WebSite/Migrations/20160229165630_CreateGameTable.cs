@@ -18,9 +18,9 @@ namespace BoardGameRatings.WebSite.Migrations
                 {
                     table.PrimaryKey("PK_Game", x => x.Id)
                         .Annotation("SqlServer:Clustered", false);
-                    table.UniqueConstraint("AK_Game_Name", x => x.Name)
-                        .Annotation("SqlServer:Clustered", true);
                 });
+            migrationBuilder.CreateIndex("IX_Game_Name", "Game", "Name",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

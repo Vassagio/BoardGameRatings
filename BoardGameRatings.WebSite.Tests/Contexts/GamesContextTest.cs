@@ -11,21 +11,21 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
     public class GamesContextTest
     {
         [Fact]
-        public void CreatesAGameContext()
+        public void CreatesAGamesContext()
         {
             var gameRepository = new MockGameRepository();
-            var gameContext = new GamesContext(gameRepository);
+            var gamesContext = new GamesContext(gameRepository);
 
-            Assert.NotNull(gameContext);
+            Assert.NotNull(gamesContext);
         }
 
         [Fact]
         public void ContextBuildsAViewModel()
         {
             var gameRepository = new MockGameRepository();
-            var gameContext = new GamesContext(gameRepository);
+            var gamesContext = new GamesContext(gameRepository);
 
-            var viewModel = gameContext.BuildViewModel();
+            var viewModel = gamesContext.BuildViewModel();
 
             Assert.NotNull(viewModel);
             Assert.IsType<GamesViewModel>(viewModel);
@@ -41,9 +41,9 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
                 new Game {Name = "Game 3"}
             };
             var mockGameRepository = new MockGameRepository().StubGetAllToReturn(games);
-            var gameContext = new GamesContext(mockGameRepository);
+            var gamesContext = new GamesContext(mockGameRepository);
 
-            var viewModel = gameContext.BuildViewModel();
+            var viewModel = gamesContext.BuildViewModel();
 
             Assert.NotNull(viewModel);
             Assert.IsType<GamesViewModel>(viewModel);
@@ -63,12 +63,13 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
         public void ContextRemovesAGame()
         {
             var game = new Game {Name = "Game 2"};
-            var mockGameRepository = new MockGameRepository();
-            var gameContext = new GamesContext(mockGameRepository);
+            var mockGameRepository = new MockGameRepository().StubGetByIdToReturn(game);
+            var gamesContext = new GamesContext(mockGameRepository);
 
-            gameContext.Remove(game.Id);
+            gamesContext.Remove(game.Id);
 
-            mockGameRepository.VerifyRemoveCalled();
+            mockGameRepository.VerifyGetByIdCalledWith(game.Id);
+            mockGameRepository.VerifyRemoveCalledWith(game);
         }
     }
 }
