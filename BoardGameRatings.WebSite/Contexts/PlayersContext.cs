@@ -5,7 +5,7 @@ using BoardGameRatings.WebSite.ViewModels;
 
 namespace BoardGameRatings.WebSite.Contexts
 {
-    public class PlayersContext
+    public class PlayersContext : IPlayersContext
     {
         private readonly IPlayerMapper _mapper;
         private readonly IPlayerRepository _playerRepository;
