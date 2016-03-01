@@ -17,11 +17,13 @@ namespace BoardGameRatings.WebSite.Models
         }
 
         public DbSet<Game> Games { get; set; }
+        public DbSet<Player> Players { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             new GameModelBuilder(builder.Entity<Game>()).Build();
+            new PlayerModelBuilder(builder.Entity<Player>()).Build();
         }
     }
 }
