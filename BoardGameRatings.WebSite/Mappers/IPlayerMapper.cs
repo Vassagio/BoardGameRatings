@@ -1,5 +1,7 @@
-﻿using BoardGameRatings.WebSite.Models;
+﻿using System.Collections.Generic;
+using BoardGameRatings.WebSite.Models;
 using BoardGameRatings.WebSite.ViewModels;
+using Microsoft.AspNet.Mvc.Rendering;
 
 namespace BoardGameRatings.WebSite.Mappers
 {
@@ -7,5 +9,6 @@ namespace BoardGameRatings.WebSite.Mappers
     {
         Player Map(PlayerViewModel viewModel);
         PlayerViewModel Map(Player player);
+        PlayerViewModel Map(Player player, IEnumerable<SelectListItem> games );        
     }
 }

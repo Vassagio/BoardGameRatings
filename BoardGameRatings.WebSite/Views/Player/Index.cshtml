@@ -7,28 +7,56 @@
     ViewData["Title"] = @Model.GetFullName();
 }
 
-@using (Html.BeginForm(PlayerController.BuildSaveActionRouteValues(@Model)))
-{
+@using (Html.BeginForm(PlayerController.BuildSaveActionRouteValues(@Model))) {
     @Html.AntiForgeryToken()
 
     <div class="form-group row">
-        @Html.LabelFor(m => m.FirstName, new
-        {
-            @class = "control-label col-md-2"
-        })
-        <div class="col-md-10">
+        @Html.LabelFor(m => m.FirstName, new {
+       @class = "control-label col-md-2"
+   })
+        <div class="col-md-4">
             @Html.TextBoxFor(m => m.FirstName)
         </div>
     </div>
 
     <div class="form-group row">
-        @Html.LabelFor(m => m.LastName, new
-        {
-            @class = "control-label col-md-2"
-        })
-        <div class="col-md-10 ">
+        @Html.LabelFor(m => m.LastName, new {
+       @class = "control-label col-md-2"
+   })
+        <div class="col-md-4 ">
             @Html.TextBoxFor(m => m.LastName)
         </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(m => m.Games, new {
+       @class = "control-label col-md-2"
+   })
+        <div class="col-md-2 ">
+            @Html.DropDownListFor(m => m.GameId, Model.Games)
+        </div>
+        <a href="#" class="btn btn-default col-md-1">Add Game</a>
+    
+        <table class="table table-striped table-bordered table-responsive">
+            <thead>
+                <tr>                    
+                    <th class="head">Owned</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var game in Model.Games) {
+                <tr>
+                    <td class="col-md-2">@game.Text</td>                    
+                    <td class="col-md-1">
+                        <a href="#">Edit</a>
+                    </td>
+                    <td class="col-md-1">
+                        <a href="#">Remove</a>
+                    </td>
+                </tr>
+            }
+        </table>
     </div>
 
     <div class="form-group">
@@ -36,7 +64,7 @@
     </div>
 
     <div class="btn-group">
-        <input type="submit" value="Save" class="btn btn-default"/>
+        <input type="submit" value="Save" class="btn btn-default" />
         <a href="@Url.RouteUrl(PlayersController.BuildIndexActionRouteValues())" class="btn btn-default">Cancel</a>
     </div>
 }

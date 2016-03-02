@@ -18,6 +18,13 @@ namespace BoardGameRatings.WebSite.Models.Repositories
             return _context.Players;
         }
 
+        public IEnumerable<Game> GetAllGamesBy(int playerId)
+        {
+            return _context.PlayerGames
+                .Where(pg => pg.PlayerId == playerId)
+                .Select(pg => pg.Game);
+        }
+
         public Player Add(Player player)
         {
             _context.Players.Add(player);
@@ -31,9 +38,9 @@ namespace BoardGameRatings.WebSite.Models.Repositories
             _context.SaveChanges();
         }
 
-        public Player GetById(int id)
+        public Player GetBy(int playerId)
         {
-            return _context.Players.FirstOrDefault(g => g.Id == id);
+            return _context.Players.FirstOrDefault(g => g.Id == playerId);
         }
 
         public void Update(Player player)

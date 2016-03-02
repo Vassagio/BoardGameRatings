@@ -29,9 +29,9 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Object.Remove(game);
         }
 
-        public Game GetById(int id)
+        public Game GetBy(int gameId)
         {
-            return _mock.Object.GetById(id);
+            return _mock.Object.GetBy(gameId);
         }
 
         public void Update(Game game)
@@ -47,7 +47,7 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public MockGameRepository StubGetByIdToReturn(Game game)
         {
-            _mock.Setup(m => m.GetById(It.IsAny<int>())).Returns(game);
+            _mock.Setup(m => m.GetBy(It.IsAny<int>())).Returns(game);
             return this;
         }
 
@@ -66,9 +66,9 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Verify(m => m.Update(game), Times.Once);
         }
 
-        public void VerifyGetByIdCalledWith(int id)
+        public void VerifyGetByCalledWith(int id)
         {
-            _mock.Verify(m => m.GetById(id), Times.Once);
+            _mock.Verify(m => m.GetBy(id), Times.Once);
         }
 
         public void VerifyAddCalledWith(Game game)

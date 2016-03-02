@@ -96,7 +96,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var playerRepository = new PlayerRepository(_fixture.Context.PlayersContain(players));
 
-            var result = playerRepository.GetById(player3.Id);
+            var result = playerRepository.GetBy(player3.Id);
 
             Assert.Equal(player3.Id, result.Id);
             Assert.Equal(player3.FirstName, result.FirstName);
@@ -115,15 +115,51 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var playerRepository = new PlayerRepository(_fixture.Context.PlayersContain(players));
 
-            var player = playerRepository.GetById(1);
+            var player = playerRepository.GetBy(1);
             player.FirstName = "William";
             player.LastName = "Chronowski";
             playerRepository.Update(player);
-            var result = playerRepository.GetById(1);
+            var result = playerRepository.GetBy(1);
 
             Assert.Equal(1, result.Id);
             Assert.Equal("William", player.FirstName);
             Assert.Equal("Chronowski", player.LastName);
+        }
+
+        [Fact]
+        public void GetAllGamesOwnedByPlayer()
+        {
+            var players = new List<Player>
+           {
+                new Player {Id = 1, FirstName = "First 1", LastName = "Last 1"},
+                new Player {Id = 2, FirstName = "First 2", LastName = "Last 2"}
+            };
+
+            var games = new List<Game>
+            {
+               new Game {Id = 1, Name = "Game 1"},
+               new Game {Id = 2, Name = "Game 2"},
+               new Game {Id = 3, Name = "Game 3"}
+            };
+
+            var playerGames = new List<PlayerGame>
+            {
+                new PlayerGame {GameId = 1, PlayerId = 1},
+                new PlayerGame {GameId = 2, PlayerId = 1},
+                new PlayerGame {GameId = 3, PlayerId = 1},
+                new PlayerGame {GameId = 2, PlayerId = 2},
+            };
+
+            var context = _fixture.Context.PlayersContain(players)
+                .GamesContain(games)
+                .PlayerGamesContain(playerGames);
+            var playerRepository = new PlayerRepository(context);
+
+            var resultPlayer1 = playerRepository.GetAllGamesBy(1);
+            var resultPlayer2 = playerRepository.GetAllGamesBy(2);
+
+            Assert.Equal(3, resultPlayer1.Count());
+            Assert.Equal(1, resultPlayer2.Count());
         }
     }
 }

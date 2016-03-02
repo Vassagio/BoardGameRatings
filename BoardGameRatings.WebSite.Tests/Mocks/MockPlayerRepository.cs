@@ -19,6 +19,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             return _mock.Object.GetAll();
         }
 
+        public IEnumerable<Game> GetAllGamesBy(int playerId)
+        {
+            return _mock.Object.GetAllGamesBy(playerId);
+        }
+
         public Player Add(Player player)
         {
             return _mock.Object.Add(player);
@@ -29,9 +34,9 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Object.Remove(player);
         }
 
-        public Player GetById(int id)
+        public Player GetBy(int playerId)
         {
-            return _mock.Object.GetById(id);
+            return _mock.Object.GetBy(playerId);
         }
 
         public void Update(Player player)
@@ -45,20 +50,26 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             return this;
         }
 
+        public MockPlayerRepository StubGetAllGamesByToReturn(IEnumerable<Game> games)
+        {
+            _mock.Setup(m => m.GetAllGamesBy(It.IsAny<int>())).Returns(games);
+            return this;
+        }
+
         public void VerifyGetAllCalled()
         {
             _mock.Verify(m => m.GetAll(), Times.Once);
         }
 
-        public MockPlayerRepository StubGetByIdToReturn(Player player)
+        public MockPlayerRepository StubGetByToReturn(Player player)
         {
-            _mock.Setup(m => m.GetById(It.IsAny<int>())).Returns(player);
+            _mock.Setup(m => m.GetBy(It.IsAny<int>())).Returns(player);
             return this;
         }
 
-        public void VerifyGetByIdCalledWith(int id)
+        public void VerifyGetByCalledWith(int playerId)
         {
-            _mock.Verify(m => m.GetById(id), Times.Once);
+            _mock.Verify(m => m.GetBy(playerId), Times.Once);
         }
 
         public void VerifyRemoveCalledWith(Player player)
@@ -74,6 +85,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         public void VerifyAddCalledWith(Player player)
         {
             _mock.Verify(m => m.Add(player), Times.Once);
+        }
+
+        public void VerifyGetAllGamesByCalledWith(int playerId)
+        {
+            _mock.Verify(m => m.GetAllGamesBy(playerId));
         }
     }
 }

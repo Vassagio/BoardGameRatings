@@ -30,7 +30,7 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             var viewModel = gameContext.BuildViewModel(game.Id);
 
             Assert.NotNull(viewModel);
-            mockGameRepository.VerifyGetByIdCalledWith(game.Id);
+            mockGameRepository.VerifyGetByCalledWith(game.Id);
             mockGameMapper.VerifyMapCalledWith(game);
         }
 
@@ -63,7 +63,7 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
 
             gameContext.Save(gameViewModel);
 
-            mockGameRepository.VerifyGetByIdCalledWith(gameViewModel.Id);
+            mockGameRepository.VerifyGetByCalledWith(gameViewModel.Id);
             mockGameRepository.VerifyUpdateCalledWith(game);
         }
 
@@ -78,7 +78,7 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
 
             gameContext.Save(gameViewModel);
 
-            mockGameRepository.VerifyGetByIdCalledWith(gameViewModel.Id);
+            mockGameRepository.VerifyGetByCalledWith(gameViewModel.Id);
             mockGameRepository.VerifyAddCalledWith(game);
             mockGameMapper.VerifyMapCalledWith(gameViewModel);
         }

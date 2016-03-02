@@ -2,12 +2,8 @@ using System.Collections.Generic;
 
 namespace BoardGameRatings.WebSite.Models.Repositories
 {
-    public interface IPlayerRepository
+    public interface IPlayerRepository : IRepository<Player>
     {
-        IEnumerable<Player> GetAll();
-        Player Add(Player player);
-        void Remove(Player player);
-        Player GetById(int id);
-        void Update(Player player);
+        IEnumerable<Game> GetAllGamesBy(int playerId);
     }
 }

@@ -95,7 +95,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var gameRepository = new GameRepository(_fixture.Context.GamesContain(games));
 
-            var result = gameRepository.GetById(game3.Id);
+            var result = gameRepository.GetBy(game3.Id);
 
             Assert.Equal(game3.Id, result.Id);
             Assert.Equal(game3.Name, result.Name);
@@ -114,10 +114,10 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var gameRepository = new GameRepository(_fixture.Context.GamesContain(games));
 
-            var game = gameRepository.GetById(1);
+            var game = gameRepository.GetBy(1);
             game.Description = "Battleship boardgame";
             gameRepository.Update(game);
-            var result = gameRepository.GetById(1);
+            var result = gameRepository.GetBy(1);
 
             Assert.Equal(1, result.Id);
             Assert.Equal("Game 1", game.Name);

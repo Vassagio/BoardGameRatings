@@ -21,7 +21,7 @@ namespace BoardGameRatings.WebSite.Contexts
         {
             if (id.HasValue)
             {
-                var game = _gameRepository.GetById(id.Value);
+                var game = _gameRepository.GetBy(id.Value);
                 return _mapper.Map(game);
             }
             return new GameViewModel();
@@ -29,7 +29,7 @@ namespace BoardGameRatings.WebSite.Contexts
 
         public void Save(GameViewModel model)
         {
-            var game = _gameRepository.GetById(model.Id);
+            var game = _gameRepository.GetBy(model.Id);
             if (game != null)
                 Update(game, model);
             else

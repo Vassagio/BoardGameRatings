@@ -31,9 +31,9 @@ namespace BoardGameRatings.WebSite.Models.Repositories
             _context.SaveChanges();
         }
 
-        public Game GetById(int id)
+        public Game GetBy(int gameId)
         {
-            return _context.Games.FirstOrDefault(g => g.Id == id);
+            return _context.Games.FirstOrDefault(g => g.Id == gameId);
         }
 
         public void Update(Game game)

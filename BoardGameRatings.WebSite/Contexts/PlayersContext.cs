@@ -27,7 +27,7 @@ namespace BoardGameRatings.WebSite.Contexts
 
         public void Remove(int id)
         {
-            var player = _playerRepository.GetById(id);
+            var player = _playerRepository.GetBy(id);
             _playerRepository.Remove(player);
         }
     }
