@@ -25,12 +25,16 @@ namespace BoardGameRatings.WebSite.Contexts
         }
 
 
-        public PlayerViewModel BuildViewModel(int? id = null)
-        {            
-            var gameSelectListItems = GetGameSelectListItems();                     
+        public PlayerViewModel BuildViewModel(int? id = null) {
+            var gameSelectListItems = GetGameSelectListItems();
             var player = _playerRepository.GetBy(id ?? 0);
+            var gamesOwned = GetGamesOwned(id);
+            return _playerMapper.Map(player, gameSelectListItems, gamesOwned);
+        }
 
-            return _playerMapper.Map(player, gameSelectListItems);
+        private IEnumerable<GameViewModel> GetGamesOwned(int? id) {
+            var playerGames = _playerRepository.GetAllGamesBy(id ?? 0);
+            return playerGames.Select(g => _gameMapper.Map(g));
         }
 
         private IEnumerable<SelectListItem> GetGameSelectListItems()

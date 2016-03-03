@@ -12,5 +12,6 @@ namespace BoardGameRatings.WebSite.ViewModels
 
         public int GameId { get; set; }
         public IEnumerable<SelectListItem> Games { get; set; }
+        public IEnumerable<GameViewModel> GamesOwned { get; set; }
     }
 }

@@ -35,12 +35,16 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             var games = new List<Game>{game};
             var item = new SelectListItem {Value = "1", Text = "Game 1"};
             var gameSelectListItems = new List<SelectListItem> {item};
+            var gameViewModel = new GameViewModel {Id = 1, Name = "Game 1"};
+            var gamesOwned = new List<GameViewModel> {gameViewModel};
             var player = new Player {Id = 2, FirstName = "First 2", LastName = "Last 2"};
-            var playerViewModel = new PlayerViewModel {Id = 2, FirstName = "First 2", LastName = "Last 2", Games = gameSelectListItems};
-            var mockPlayerRepository = new MockPlayerRepository().StubGetByToReturn(player);
+            var playerViewModel = new PlayerViewModel {Id = 2, FirstName = "First 2", LastName = "Last 2", Games = gameSelectListItems, GamesOwned = gamesOwned};
+
+            var mockPlayerRepository = new MockPlayerRepository().StubGetAllGamesByToReturn(games).StubGetByToReturn(player);
             var mockGameRepository = new MockGameRepository().StubGetAllToReturn(games);
             var mockPlayerMapper = new MockPlayerMapper().StubMapWithGamesToReturn(playerViewModel);
-            var mockGameMapper = new MockGameMapper().StubSelectMapToReturn(item);
+            var mockGameMapper = new MockGameMapper().StubMapToReturn(gameViewModel).StubSelectMapToReturn(item);
+
             var playerContext = BuildPlayerContext(mockPlayerRepository, mockGameRepository, mockPlayerMapper, mockGameMapper);
 
             var viewModel = playerContext.BuildViewModel(player.Id);
@@ -48,10 +52,13 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             Assert.NotNull(viewModel);
             Assert.Equal("First 2 Last 2", viewModel.GetFullName());
             Assert.Equal(1, viewModel.Games.Count());
+            Assert.Equal(1, viewModel.GamesOwned.Count());
             mockPlayerRepository.VerifyGetByCalledWith(player.Id);
+            mockPlayerRepository.VerifyGetAllGamesByCalledWith(player.Id);
             mockGameRepository.VerifyGetAllCalled();
-            mockPlayerMapper.VerifyMapCalledWith(player, gameSelectListItems);
+            mockPlayerMapper.VerifyMapCalledWith(player, gameSelectListItems, gamesOwned);
             mockGameMapper.VerifySelectMapCalledWith(game);
+            mockGameMapper.VerifyMapCalledWith(game);
         }
 
 
@@ -62,8 +69,9 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             var games = new List<Game> { game };
             var item = new SelectListItem { Value = "1", Text = "Game 1" };
             var gameSelectListItems = new List<SelectListItem> { item };
+            var gamesOwned = new List<GameViewModel>();
             var player = new Player();
-            var playerViewModel = new PlayerViewModel { Games = gameSelectListItems };
+            var playerViewModel = new PlayerViewModel { Games = gameSelectListItems, GamesOwned = gamesOwned};
             var mockPlayerRepository = new MockPlayerRepository().StubGetByToReturn(player);
             var mockGameRepository = new MockGameRepository().StubGetAllToReturn(games);
             var mockPlayerMapper = new MockPlayerMapper().StubMapWithGamesToReturn(playerViewModel);
@@ -77,7 +85,7 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             Assert.Equal(1, viewModel.Games.Count());
             mockPlayerRepository.VerifyGetByCalledWith(player.Id);
             mockGameRepository.VerifyGetAllCalled();
-            mockPlayerMapper.VerifyMapCalledWith(player, gameSelectListItems);
+            mockPlayerMapper.VerifyMapCalledWith(player, gameSelectListItems, gamesOwned);
             mockGameMapper.VerifySelectMapCalledWith(game);
         }
 

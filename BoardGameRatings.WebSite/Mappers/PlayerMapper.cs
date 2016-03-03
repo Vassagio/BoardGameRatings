@@ -28,12 +28,13 @@ namespace BoardGameRatings.WebSite.Mappers
             };
         }
 
-        public PlayerViewModel Map(Player player, IEnumerable<SelectListItem> games)
+        public PlayerViewModel Map(Player player, IEnumerable<SelectListItem> games, IEnumerable<GameViewModel> gamesOwned)
         {
             var viewModel = new PlayerViewModel();
             if (player != null)
                 viewModel = Map(player);
             viewModel.Games = games;
+            viewModel.GamesOwned = gamesOwned;
             return viewModel;
         }
     }
