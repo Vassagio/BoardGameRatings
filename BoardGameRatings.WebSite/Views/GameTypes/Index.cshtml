@@ -1,8 +1,8 @@
 ﻿@using BoardGameRatings.WebSite.Controllers
-@model BoardGameRatings.WebSite.ViewModels.GameTypesViewModel
+@model BoardGameRatings.WebSite.ViewModels.CategoriesViewModel
 
 @{
-    ViewData["Title"] = "GameTypes";
+    ViewData["Title"] = "Categories";
 }
 
 <div>
@@ -10,19 +10,19 @@
         <thead>
         <tr>
             <th class="head">
-                <a class="btn btn-default" href="@Url.RouteUrl(GameTypesController.BuildAddActionRouteValues())">Description</a>
+                <a class="btn btn-default" href="@Url.RouteUrl(CategoriesController.BuildAddActionRouteValues())">Description</a>
             </th>
             <th></th>
         </tr>
         </thead>
-        @foreach (var game in Model.GameTypes)
+        @foreach (var game in Model.Categories)
         {
             <tr>
                 <td class="col-md-3">
-                    <a href="@Url.RouteUrl(GameTypesController.BuildEditActionRouteValues(game.Id))">@game.Description</a>
+                    <a href="@Url.RouteUrl(CategoriesController.BuildEditActionRouteValues(game.Id))">@game.Description</a>
                 </td>
                 <td class="col-md-1 text-center">
-                    <a href="@Url.RouteUrl(GameTypesController.BuildRemoveActionRouteValues(game.Id))">
+                    <a href="@Url.RouteUrl(CategoriesController.BuildRemoveActionRouteValues(game.Id))">
                         <i class="fa fa-trash" style="color: red"></i>
                     </a>
                 </td>

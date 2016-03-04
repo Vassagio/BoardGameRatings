@@ -32,14 +32,14 @@ namespace BoardGameRatings.WebSite.Models.Repositories
                 .FirstOrDefault(pg => pg.PlayerId == playerId && pg.GameId == gameId);
         }
 
-        public Player Add(Player gameType)
+        public Player Add(Player player)
         {
-            var found = GetBy(gameType.FirstName, gameType.LastName);
+            var found = GetBy(player.FirstName, player.LastName);
             if (found != null)
                 return found;
-            _context.Players.Add(gameType);
+            _context.Players.Add(player);
             _context.SaveChanges();
-            return gameType;
+            return player;
         }
 
         public void Remove(Player player)

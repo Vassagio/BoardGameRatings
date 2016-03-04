@@ -19,9 +19,9 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             return _mock.Object.GetAll();
         }
 
-        public Game Add(Game gameType)
+        public Game Add(Game player)
         {
-            return _mock.Object.Add(gameType);
+            return _mock.Object.Add(player);
         }
 
         public void Remove(Game game)

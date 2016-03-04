@@ -12,10 +12,10 @@ namespace BoardGameRatings.WebSite.Tests.Extensions
             return context;
         }
 
-        public static ApplicationDbContext GameTypesContain(this ApplicationDbContext context,
-            IEnumerable<GameType> gameTypes)
+        public static ApplicationDbContext CategoriesContain(this ApplicationDbContext context,
+            IEnumerable<Category> categories)
         {
-            context.GameTypes.AddRange(gameTypes);
+            context.Categories.AddRange(categories);
             context.SaveChanges();
             return context;
         }

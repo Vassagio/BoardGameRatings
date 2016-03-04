@@ -4,11 +4,11 @@ namespace BoardGameRatings.WebSite.Models.Extensions
 {
     public static class ApplicationDbContextExtension
     {
-        private static readonly GameType Competitive = new GameType {Description = "Competitive"};
-        private static readonly GameType Cooperative = new GameType {Description = "Cooperative"};
-        private static readonly GameType OneVs = new GameType {Description = "1 vs."};
-        private static readonly GameType Teams = new GameType {Description = "Teams"};
-        private static readonly GameType Traitor = new GameType {Description = "Traitor"};
+        private static readonly Category Competitive = new Category {Description = "Competitive"};
+        private static readonly Category Cooperative = new Category {Description = "Cooperative"};
+        private static readonly Category OneVs = new Category {Description = "1 vs."};
+        private static readonly Category Teams = new Category {Description = "Teams"};
+        private static readonly Category Traitor = new Category {Description = "Traitor"};
 
         private static readonly Game BattlestarGalactica = new Game
         {
@@ -54,7 +54,7 @@ namespace BoardGameRatings.WebSite.Models.Extensions
         {
             if (!context.AllMigrationsApplied()) return;
 
-            AddGameTypes(context);
+            AddCategories(context);
             AddGames(context);
             AddPlayers(context);
             AddPlayerGames(context);
@@ -62,19 +62,19 @@ namespace BoardGameRatings.WebSite.Models.Extensions
             context.SaveChanges();
         }
 
-        private static void AddGameTypes(ApplicationDbContext context)
+        private static void AddCategories(ApplicationDbContext context)
         {
-            if (context.GameTypes.Any())
+            if (context.Categories.Any())
             {
-                context.GameTypes.RemoveRange(context.GameTypes);
+                context.Categories.RemoveRange(context.Categories);
                 context.SaveChanges();
             }
 
-            context.GameTypes.Add(Competitive);
-            context.GameTypes.Add(Cooperative);
-            context.GameTypes.Add(OneVs);
-            context.GameTypes.Add(Teams);
-            context.GameTypes.Add(Traitor);
+            context.Categories.Add(Competitive);
+            context.Categories.Add(Cooperative);
+            context.Categories.Add(OneVs);
+            context.Categories.Add(Teams);
+            context.Categories.Add(Traitor);
         }
 
         private static void AddGames(ApplicationDbContext context)

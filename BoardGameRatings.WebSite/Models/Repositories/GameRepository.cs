@@ -19,15 +19,15 @@ namespace BoardGameRatings.WebSite.Models.Repositories
             return _context.Games;
         }
 
-        public Game Add(Game gameType)
+        public Game Add(Game player)
         {
-            var found = GetBy(gameType.Name);
+            var found = GetBy(player.Name);
             if (found != null)
                 return found;
 
-            _context.Games.Add(gameType);
+            _context.Games.Add(player);
             _context.SaveChanges();
-            return gameType;
+            return player;
         }
 
         public void Remove(Game game)
