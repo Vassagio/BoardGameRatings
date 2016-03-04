@@ -9,11 +9,11 @@ using Microsoft.AspNet.Mvc.Rendering;
 namespace BoardGameRatings.WebSite.Contexts
 {
     public class PlayerContext : IPlayerContext
-    {        
+    {
+        private readonly IGameMapper _gameMapper;
         private readonly IGameRepository _gameRepository;
         private readonly IPlayerMapper _playerMapper;
         private readonly IPlayerRepository _playerRepository;
-        private readonly IGameMapper _gameMapper;
 
         public PlayerContext(IPlayerRepository playerRepository, IGameRepository gameRepository,
             IPlayerMapper playerMapper, IGameMapper gameMapper)
@@ -25,23 +25,13 @@ namespace BoardGameRatings.WebSite.Contexts
         }
 
 
-        public PlayerViewModel BuildViewModel(int? id = null) {
+        public PlayerViewModel BuildViewModel(int? id = null)
+        {
             var gameSelectListItems = GetGameSelectListItems();
             var player = _playerRepository.GetBy(id ?? 0);
             var gamesOwned = GetGamesOwned(id);
             return _playerMapper.Map(player, gameSelectListItems, gamesOwned);
         }
-
-        private IEnumerable<GameViewModel> GetGamesOwned(int? id) {
-            var playerGames = _playerRepository.GetAllGamesBy(id ?? 0);
-            return playerGames.Select(g => _gameMapper.Map(g));
-        }
-
-        private IEnumerable<SelectListItem> GetGameSelectListItems()
-        {
-            var games = _gameRepository.GetAll();
-            return games.Select(g => _gameMapper.SelectMap(g)).ToList();            
-        }      
 
         public void Save(PlayerViewModel model)
         {
@@ -50,6 +40,23 @@ namespace BoardGameRatings.WebSite.Contexts
                 Update(player, model);
             else
                 Add(model);
+        }
+
+        public void AddGameOwned(int playerId, int gameId)
+        {
+            _playerRepository.AddGameOwned(playerId, gameId);
+        }
+
+        private IEnumerable<GameViewModel> GetGamesOwned(int? id)
+        {
+            var playerGames = _playerRepository.GetAllGamesBy(id ?? 0);
+            return playerGames.Select(g => _gameMapper.Map(g));
+        }
+
+        private IEnumerable<SelectListItem> GetGameSelectListItems()
+        {
+            var games = _gameRepository.GetAll();
+            return games.Select(g => _gameMapper.SelectMap(g)).ToList();
         }
 
         private void Update(Player player, PlayerViewModel model)
@@ -63,11 +70,6 @@ namespace BoardGameRatings.WebSite.Contexts
         {
             var player = _playerMapper.Map(model);
             _playerRepository.Add(player);
-        }
-
-        public void AddGameOwned(int playerId, int gameId)
-        {
-            _playerRepository.AddGameOwned(playerId, gameId);
         }
     }
 }

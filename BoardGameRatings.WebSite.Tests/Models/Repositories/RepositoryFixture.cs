@@ -15,7 +15,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             _serviceCollection.AddEntityFramework().AddInMemoryDatabase();
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseInMemoryDatabase();            
+            optionsBuilder.UseInMemoryDatabase();
             ContextOptions = optionsBuilder.Options;
         }
 

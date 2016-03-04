@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.Data.Entity.Migrations;
 using Microsoft.Data.Entity.Metadata;
+using Microsoft.Data.Entity.Migrations;
 
 namespace BoardGameRatings.WebSite.Migrations
 {
@@ -9,36 +7,23 @@ namespace BoardGameRatings.WebSite.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "PlayerGame",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    GameId = table.Column<int>(nullable: false),
-                    PlayerId = table.Column<int>(nullable: false)
-                },
+            migrationBuilder.CreateTable("PlayerGame", table => new
+            {
+                Id = table.Column<int>(nullable: false)
+                    .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                GameId = table.Column<int>(nullable: false),
+                PlayerId = table.Column<int>(nullable: false)
+            },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PlayerGame", x => x.Id)
                         .Annotation("SqlServer:Clustered", false);
-                    table.ForeignKey(
-                        name: "FK_PlayerGame_Game_GameId",
-                        column: x => x.GameId,
-                        principalTable: "Game",
-                        principalColumn: "Id",
+                    table.ForeignKey("FK_PlayerGame_Game_GameId", x => x.GameId, "Game", "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PlayerGame_Player_PlayerId",
-                        column: x => x.PlayerId,
-                        principalTable: "Player",
-                        principalColumn: "Id",
+                    table.ForeignKey("FK_PlayerGame_Player_PlayerId", x => x.PlayerId, "Player", "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerGame_PlayerId_GameId",
-                table: "PlayerGame",
-                columns: new[] { "PlayerId", "GameId" },
+            migrationBuilder.CreateIndex("IX_PlayerGame_PlayerId_GameId", "PlayerGame", new[] {"PlayerId", "GameId"},
                 unique: true)
                 .Annotation("SqlServer:Clustered", true);
         }

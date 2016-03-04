@@ -15,7 +15,7 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" asp-append-version="true"/>
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
     </environment>
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
@@ -38,6 +38,9 @@
                 </li>
                 <li>
                     <a asp-controller="Players" asp-action="Index">Players</a>
+                </li>
+                <li>
+                    <a asp-controller="GameTypes" asp-action="Index">Game Types</a>
                 </li>
             </ul>
         </div>

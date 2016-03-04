@@ -42,8 +42,10 @@ namespace BoardGameRatings.WebSite.Tests.Mappers
         }
 
         [Fact]
-        public void MapGameToSelectListItem() {
-            var game = new Game {
+        public void MapGameToSelectListItem()
+        {
+            var game = new Game
+            {
                 Id = 2,
                 Name = "Game Name",
                 Description = "This is a game"
@@ -52,7 +54,7 @@ namespace BoardGameRatings.WebSite.Tests.Mappers
             var item = mapper.SelectMap(game);
 
             Assert.Equal(game.Id.ToString(), item.Value);
-            Assert.Equal(game.Name, item.Text);            
+            Assert.Equal(game.Name, item.Text);
         }
     }
 }

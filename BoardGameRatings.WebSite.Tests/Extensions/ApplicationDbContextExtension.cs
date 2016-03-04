@@ -12,6 +12,14 @@ namespace BoardGameRatings.WebSite.Tests.Extensions
             return context;
         }
 
+        public static ApplicationDbContext GameTypesContain(this ApplicationDbContext context,
+            IEnumerable<GameType> gameTypes)
+        {
+            context.GameTypes.AddRange(gameTypes);
+            context.SaveChanges();
+            return context;
+        }
+
         public static ApplicationDbContext PlayersContain(this ApplicationDbContext context, IEnumerable<Player> players)
         {
             context.Players.AddRange(players);
@@ -19,7 +27,9 @@ namespace BoardGameRatings.WebSite.Tests.Extensions
             return context;
         }
 
-        public static ApplicationDbContext PlayerGamesContain(this ApplicationDbContext context, IEnumerable<PlayerGame> playerGames) {
+        public static ApplicationDbContext PlayerGamesContain(this ApplicationDbContext context,
+            IEnumerable<PlayerGame> playerGames)
+        {
             context.PlayerGames.AddRange(playerGames);
             context.SaveChanges();
             return context;

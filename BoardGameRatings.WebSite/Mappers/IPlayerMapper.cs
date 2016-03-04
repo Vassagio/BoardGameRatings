@@ -9,6 +9,6 @@ namespace BoardGameRatings.WebSite.Mappers
     {
         Player Map(PlayerViewModel viewModel);
         PlayerViewModel Map(Player player);
-        PlayerViewModel Map(Player player, IEnumerable<SelectListItem> games, IEnumerable<GameViewModel> gamesOwned  );        
+        PlayerViewModel Map(Player player, IEnumerable<SelectListItem> games, IEnumerable<GameViewModel> gamesOwned);
     }
 }
