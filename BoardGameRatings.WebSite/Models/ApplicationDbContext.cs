@@ -20,6 +20,7 @@ namespace BoardGameRatings.WebSite.Models
         public DbSet<Player> Players { get; set; }
         public DbSet<PlayerGame> PlayerGames { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<GameCategory> GameCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -28,6 +29,7 @@ namespace BoardGameRatings.WebSite.Models
             new PlayerModelBuilder(builder.Entity<Player>()).Build();
             new PlayerGameModelBuilder(builder.Entity<PlayerGame>()).Build();
             new CategoryModelBuilder(builder.Entity<Category>()).Build();
+            new GameCategoryModelBuilder(builder.Entity<GameCategory>()).Build();
         }
     }
 }
