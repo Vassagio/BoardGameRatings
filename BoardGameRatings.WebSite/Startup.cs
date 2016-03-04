@@ -50,10 +50,10 @@ namespace BoardGameRatings.WebSite
 
             services.AddMvc();
 
-            services.AddScoped<IGameTypeRepository, GameTypeRepository>();
-            services.AddScoped<IGameTypesContext, GameTypesContext>();
-            services.AddScoped<IGameTypeContext, GameTypeContext>();
-            services.AddScoped<IGameTypeMapper, GameTypeMapper>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoriesContext, CategoriesContext>();
+            services.AddScoped<ICategoryContext, CategoryContext>();
+            services.AddScoped<ICategoryMapper, CategoryMapper>();
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IGamesContext, GamesContext>();
             services.AddScoped<IGameContext, GameContext>();
@@ -113,10 +113,10 @@ namespace BoardGameRatings.WebSite
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
-                routes.MapRoute("gameTypes", "{controller=GameTypes}/{action=Index}/{id?}");
-                routes.MapRoute("removeGameType", "{controller=GameTypes}/{action=Remove}/{id?}");
-                routes.MapRoute("editGameType", "{controller=GameTypes}/{action=Edit}/{id?}");
-                routes.MapRoute("addGameType", "{controller=GameTypes}/{action=Add}/{id?}");
+                routes.MapRoute("categories", "{controller=Categories}/{action=Index}/{id?}");
+                routes.MapRoute("removeCategory", "{controller=Categories}/{action=Remove}/{id?}");
+                routes.MapRoute("editCategory", "{controller=Categories}/{action=Edit}/{id?}");
+                routes.MapRoute("addCategory", "{controller=Categories}/{action=Add}/{id?}");
 
                 routes.MapRoute("games", "{controller=Games}/{action=Index}/{id?}");
                 routes.MapRoute("removeGame", "{controller=Games}/{action=Remove}/{id?}");

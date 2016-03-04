@@ -4,16 +4,16 @@ using Moq;
 
 namespace BoardGameRatings.WebSite.Tests.Mocks
 {
-    public class MockGameTypesContext : IGameTypesContext
+    public class MockCategoriesContext : ICategoriesContext
     {
-        private readonly Mock<IGameTypesContext> _mock;
+        private readonly Mock<ICategoriesContext> _mock;
 
-        public MockGameTypesContext()
+        public MockCategoriesContext()
         {
-            _mock = new Mock<IGameTypesContext>();
+            _mock = new Mock<ICategoriesContext>();
         }
 
-        public GameTypesViewModel BuildViewModel()
+        public CategoriesViewModel BuildViewModel()
         {
             return _mock.Object.BuildViewModel();
         }
@@ -23,9 +23,9 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Object.Remove(id);
         }
 
-        public MockGameTypesContext StubBuildViewModelToReturn(GameTypesViewModel gameTypesViewModel)
+        public MockCategoriesContext StubBuildViewModelToReturn(CategoriesViewModel categoriesViewModel)
         {
-            _mock.Setup(m => m.BuildViewModel()).Returns(gameTypesViewModel);
+            _mock.Setup(m => m.BuildViewModel()).Returns(categoriesViewModel);
             return this;
         }
 

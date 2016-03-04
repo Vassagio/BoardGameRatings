@@ -6,17 +6,17 @@ using Microsoft.AspNet.Routing;
 namespace BoardGameRatings.WebSite.Controllers
 {
     [Route("[controller]")]
-    public class GameTypesController : Controller
+    public class CategoriesController : Controller
     {
-        private static readonly string CONTROLLER_NAME = "GameTypes";
+        private static readonly string CONTROLLER_NAME = "Categories";
         private static readonly string INDEX_ACTION_NAME = "Index";
         private static readonly string REMOVE_ACTION_NAME = "Remove";
         private static readonly string EDIT_ACTION_NAME = "Edit";
         private static readonly string ADD_ACTION_NAME = "Add";
         private static readonly string ID_PARAMETER_NAME = "id";
-        private readonly IGameTypesContext _context;
+        private readonly ICategoriesContext _context;
 
-        public GameTypesController(IGameTypesContext context)
+        public CategoriesController(ICategoriesContext context)
         {
             _context = context;
         }
@@ -37,13 +37,13 @@ namespace BoardGameRatings.WebSite.Controllers
         [Route("[action]/{id}")]
         public RedirectToRouteResult Edit(int id)
         {
-            return RedirectToRoute(GameTypeController.BuildIndexActionRouteValues(id));
+            return RedirectToRoute(CategoryController.BuildIndexActionRouteValues(id));
         }
 
         [Route("[action]")]
         public RedirectToRouteResult Add()
         {
-            return RedirectToRoute(GameTypeController.BuildIndexActionRouteValues());
+            return RedirectToRoute(CategoryController.BuildIndexActionRouteValues());
         }
 
         public static RouteValueDictionary BuildIndexActionRouteValues()

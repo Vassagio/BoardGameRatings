@@ -6,16 +6,16 @@ using Microsoft.AspNet.Routing;
 
 namespace BoardGameRatings.WebSite.Controllers
 {
-    public class GameTypeController : Controller
+    public class CategoryController : Controller
     {
-        private static readonly string CONTROLLER_NAME = "GameType";
+        private static readonly string CONTROLLER_NAME = "Category";
         private static readonly string INDEX_ACTION_NAME = "Index";
         private static readonly string SAVE_ACTION_NAME = "Save";
         private static readonly string ID_PARAMETER_NAME = "id";
         private static readonly string MODEL_PARAMETER_NAME = "model";
-        private readonly IGameTypeContext _context;
+        private readonly ICategoryContext _context;
 
-        public GameTypeController(IGameTypeContext context)
+        public CategoryController(ICategoryContext context)
         {
             _context = context;
         }
@@ -45,13 +45,13 @@ namespace BoardGameRatings.WebSite.Controllers
             return View(viewModel);
         }
 
-        public RedirectToRouteResult Save(GameTypeViewModel viewModel)
+        public RedirectToRouteResult Save(CategoryViewModel viewModel)
         {
             _context.Save(viewModel);
-            return RedirectToRoute(GameTypesController.BuildIndexActionRouteValues());
+            return RedirectToRoute(CategoriesController.BuildIndexActionRouteValues());
         }
 
-        public static RouteValueDictionary BuildSaveActionRouteValues(GameTypeViewModel model)
+        public static RouteValueDictionary BuildSaveActionRouteValues(CategoryViewModel model)
         {
             return new RouteValueDictionaryBuilder()
                 .WithController(CONTROLLER_NAME)

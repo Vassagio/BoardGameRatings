@@ -1,11 +1,11 @@
 ﻿@using BoardGameRatings.WebSite.Controllers
-@model BoardGameRatings.WebSite.ViewModels.GameTypeViewModel
+@model BoardGameRatings.WebSite.ViewModels.CategoryViewModel
 
 @{
     ViewData["Title"] = @Model.Description;
 }
 
-@using (Html.BeginForm(GameTypeController.BuildSaveActionRouteValues(@Model)))
+@using (Html.BeginForm(CategoryController.BuildSaveActionRouteValues(@Model)))
 {
     @Html.AntiForgeryToken()
     <div>
@@ -26,7 +26,7 @@
 
         <div class="btn-group">
             <input type="submit" value="Save" class="btn btn-default"/>
-            <a href="@Url.RouteUrl(GameTypesController.BuildIndexActionRouteValues())" class="btn btn-default">Cancel</a>
+            <a href="@Url.RouteUrl(CategoriesController.BuildIndexActionRouteValues())" class="btn btn-default">Cancel</a>
         </div>
     </div>
 }

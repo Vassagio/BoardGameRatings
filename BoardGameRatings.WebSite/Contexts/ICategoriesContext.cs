@@ -2,9 +2,9 @@ using BoardGameRatings.WebSite.ViewModels;
 
 namespace BoardGameRatings.WebSite.Contexts
 {
-    public interface IGameTypesContext
+    public interface ICategoriesContext
     {
-        GameTypesViewModel BuildViewModel();
+        CategoriesViewModel BuildViewModel();
         void Remove(int id);
     }
 }

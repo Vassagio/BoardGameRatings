@@ -8,14 +8,31 @@ using BoardGameRatings.WebSite.Models;
 namespace BoardGameRatings.WebSite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160304144544_CreateGameTypeTable")]
-    partial class CreateGameTypeTable
+    [Migration("20160304212917_CreateCategoryTable")]
+    partial class CreateCategoryTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("BoardGameRatings.WebSite.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 50);
+
+                    b.HasKey("Id")
+                        .HasAnnotation("SqlServer:Clustered", false);
+
+                    b.HasIndex("Description")
+                        .IsUnique();
+                });
 
             modelBuilder.Entity("BoardGameRatings.WebSite.Models.Game", b =>
                 {
@@ -34,23 +51,6 @@ namespace BoardGameRatings.WebSite.Migrations
                         .HasAnnotation("SqlServer:Clustered", false);
 
                     b.HasIndex("Name")
-                        .IsUnique();
-                });
-
-            modelBuilder.Entity("BoardGameRatings.WebSite.Models.GameType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasAnnotation("MaxLength", 50);
-
-                    b.HasKey("Id")
-                        .HasAnnotation("SqlServer:Clustered", false);
-
-                    b.HasIndex("Description")
                         .IsUnique();
                 });
 
