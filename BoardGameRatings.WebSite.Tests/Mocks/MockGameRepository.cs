@@ -19,9 +19,9 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             return _mock.Object.GetAll();
         }
 
-        public Game Add(Game game)
+        public Game Add(Game gameType)
         {
-            return _mock.Object.Add(game);
+            return _mock.Object.Add(gameType);
         }
 
         public void Remove(Game game)
@@ -37,6 +37,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         public void Update(Game game)
         {
             _mock.Object.Update(game);
+        }
+
+        public Game GetBy(string name)
+        {
+            return _mock.Object.GetBy(name);
         }
 
         public MockGameRepository StubGetAllToReturn(List<Game> games)
@@ -74,6 +79,17 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         public void VerifyAddCalledWith(Game game)
         {
             _mock.Verify(m => m.Add(game));
+        }
+
+        public MockGameRepository StubGetByNameToReturn(Game game)
+        {
+            _mock.Setup(m => m.GetBy(It.IsAny<string>())).Returns(game);
+            return this;
+        }
+
+        internal void VerifyGetByCalledWith(string name)
+        {
+            _mock.Verify(m => m.GetBy(name));
         }
     }
 }

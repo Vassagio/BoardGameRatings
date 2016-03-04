@@ -66,8 +66,10 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         }
 
         [Fact]
-        public void DoesNotAddDuplicateGame() {
-            var game = new Game {
+        public void DoesNotAddDuplicateGame()
+        {
+            var game = new Game
+            {
                 Name = "Game 1"
             };
 
@@ -118,12 +120,13 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             Assert.Equal(game3.Name, result.Name);
             Assert.Equal(game3.Description, result.Description);
         }
-        
+
         [Theory]
         [InlineData("Game 3")]
         [InlineData("game 3")]
-        public void GetGameByName(string name) {
-            var game3 = new Game { Name = name };
+        public void GetGameByName(string name)
+        {
+            var game3 = new Game {Name = name};
             var games = new List<Game>
             {
                 new Game {Name = "Game 1"},

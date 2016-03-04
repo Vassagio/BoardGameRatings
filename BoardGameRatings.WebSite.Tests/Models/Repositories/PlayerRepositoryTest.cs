@@ -67,8 +67,10 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         }
 
         [Fact]
-        public void DoesNotAddDuplicatePlayer() {
-            var player = new Player {
+        public void DoesNotAddDuplicatePlayer()
+        {
+            var player = new Player
+            {
                 FirstName = "First 1",
                 LastName = "Last 1"
             };
@@ -123,8 +125,9 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         [Theory]
         [InlineData("First 3", "Last 3")]
         [InlineData("first 3", "last 3")]
-        public void GetPlayerByFirstLastName(string firstName, string lastName) {
-            var player3 = new Player { FirstName = firstName, LastName = lastName };
+        public void GetPlayerByFirstLastName(string firstName, string lastName)
+        {
+            var player3 = new Player {FirstName = firstName, LastName = lastName};
             var players = new List<Player>
             {
                 new Player {FirstName = "First 1", LastName = "Last 1"},
@@ -168,16 +171,16 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         public void GetAllGamesOwnedByPlayer()
         {
             var players = new List<Player>
-           {
+            {
                 new Player {Id = 1, FirstName = "First 1", LastName = "Last 1"},
                 new Player {Id = 2, FirstName = "First 2", LastName = "Last 2"}
             };
 
             var games = new List<Game>
             {
-               new Game {Id = 1, Name = "Game 1"},
-               new Game {Id = 2, Name = "Game 2"},
-               new Game {Id = 3, Name = "Game 3"}
+                new Game {Id = 1, Name = "Game 1"},
+                new Game {Id = 2, Name = "Game 2"},
+                new Game {Id = 3, Name = "Game 3"}
             };
 
             var playerGames = new List<PlayerGame>
@@ -185,7 +188,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
                 new PlayerGame {GameId = 1, PlayerId = 1},
                 new PlayerGame {GameId = 2, PlayerId = 1},
                 new PlayerGame {GameId = 3, PlayerId = 1},
-                new PlayerGame {GameId = 2, PlayerId = 2},
+                new PlayerGame {GameId = 2, PlayerId = 2}
             };
 
             var context = _fixture.Context
@@ -205,9 +208,9 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         public void AddGameOwned()
         {
             var player = new Player {Id = 1, FirstName = "First 1", LastName = "Last 1"};
-            var players = new List<Player>{player};
+            var players = new List<Player> {player};
             var game = new Game {Id = 1, Name = "Game 1"};
-            var games = new List<Game>{game};
+            var games = new List<Game> {game};
 
             var context = _fixture.Context
                 .PlayersContain(players)
@@ -223,11 +226,12 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         }
 
         [Fact]
-        public void DoesNotAddDuplicateGameOwned() {
-            var player = new Player { Id = 1, FirstName = "First 1", LastName = "Last 1" };
-            var players = new List<Player> { player };
-            var game = new Game { Id = 1, Name = "Game 1" };            
-            var games = new List<Game> { game };
+        public void DoesNotAddDuplicateGameOwned()
+        {
+            var player = new Player {Id = 1, FirstName = "First 1", LastName = "Last 1"};
+            var players = new List<Player> {player};
+            var game = new Game {Id = 1, Name = "Game 1"};
+            var games = new List<Game> {game};
 
             var context = _fixture.Context
                 .PlayersContain(players)
@@ -247,7 +251,6 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         [Fact]
         public void GetPlayerGameBy()
         {
-            
         }
     }
 }

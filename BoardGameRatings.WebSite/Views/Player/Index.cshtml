@@ -1,10 +1,10 @@
 ﻿@using System.Threading.Tasks
 @using BoardGameRatings.WebSite.Controllers
 @using BoardGameRatings.WebSite.ViewModels
-@model PlayerViewModel
+@model BoardGameRatings.WebSite.ViewModels.PlayerViewModel
 
 @{
-    ViewData["Title"] = @Model.GetFullName();
+    ViewData["Title"] = @Model.FullName;
 }
 
 @using (Html.BeginForm(PlayerController.BuildSaveActionRouteValues(@Model)))

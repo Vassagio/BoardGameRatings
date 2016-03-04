@@ -50,6 +50,10 @@ namespace BoardGameRatings.WebSite
 
             services.AddMvc();
 
+            services.AddScoped<IGameTypeRepository, GameTypeRepository>();
+            services.AddScoped<IGameTypesContext, GameTypesContext>();
+            services.AddScoped<IGameTypeContext, GameTypeContext>();
+            services.AddScoped<IGameTypeMapper, GameTypeMapper>();
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IGamesContext, GamesContext>();
             services.AddScoped<IGameContext, GameContext>();
@@ -108,6 +112,11 @@ namespace BoardGameRatings.WebSite
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute("gameTypes", "{controller=GameTypes}/{action=Index}/{id?}");
+                routes.MapRoute("removeGameType", "{controller=GameTypes}/{action=Remove}/{id?}");
+                routes.MapRoute("editGameType", "{controller=GameTypes}/{action=Edit}/{id?}");
+                routes.MapRoute("addGameType", "{controller=GameTypes}/{action=Add}/{id?}");
 
                 routes.MapRoute("games", "{controller=Games}/{action=Index}/{id?}");
                 routes.MapRoute("removeGame", "{controller=Games}/{action=Remove}/{id?}");

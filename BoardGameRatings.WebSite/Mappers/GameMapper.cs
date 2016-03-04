@@ -26,10 +26,12 @@ namespace BoardGameRatings.WebSite.Mappers
             };
         }
 
-        public SelectListItem SelectMap(Game game) {
-            return new SelectListItem {
+        public SelectListItem SelectMap(Game game)
+        {
+            return new SelectListItem
+            {
                 Value = game.Id.ToString(),
-                Text = game.Name                
+                Text = game.Name
             };
         }
     }

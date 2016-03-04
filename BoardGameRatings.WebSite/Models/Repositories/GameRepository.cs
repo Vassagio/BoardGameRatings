@@ -19,15 +19,15 @@ namespace BoardGameRatings.WebSite.Models.Repositories
             return _context.Games;
         }
 
-        public Game Add(Game game)
+        public Game Add(Game gameType)
         {
-            var found = GetBy(game.Name);
+            var found = GetBy(gameType.Name);
             if (found != null)
                 return found;
 
-            _context.Games.Add(game);
+            _context.Games.Add(gameType);
             _context.SaveChanges();
-            return game;
+            return gameType;
         }
 
         public void Remove(Game game)
@@ -41,7 +41,8 @@ namespace BoardGameRatings.WebSite.Models.Repositories
             return _context.Games.FirstOrDefault(g => g.Id == gameId);
         }
 
-        public Game GetBy(string name) {
+        public Game GetBy(string name)
+        {
             return _context.Games.FirstOrDefault(g => g.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
         }
 

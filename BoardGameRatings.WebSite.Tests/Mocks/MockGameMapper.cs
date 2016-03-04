@@ -40,7 +40,8 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Verify(m => m.Map(gameViewModel));
         }
 
-        public void VerifySelectMapCalledWith(Game game) {
+        public void VerifySelectMapCalledWith(Game game)
+        {
             _mock.Verify(m => m.SelectMap(game));
         }
 
@@ -51,7 +52,8 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         }
 
 
-        public MockGameMapper StubSelectMapToReturn(SelectListItem item) {
+        public MockGameMapper StubSelectMapToReturn(SelectListItem item)
+        {
             _mock.Setup(m => m.SelectMap(It.IsAny<Game>())).Returns(item);
             return this;
         }

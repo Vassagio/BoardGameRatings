@@ -55,10 +55,11 @@ namespace BoardGameRatings.WebSite.Tests.Controllers
         }
 
         [Fact]
-        public void AddsAnOwnedGame() {
-            var playerViewModel = new PlayerViewModel()
+        public void AddsAnOwnedGame()
+        {
+            var playerViewModel = new PlayerViewModel
             {
-                Id = 1, 
+                Id = 1,
                 GameId = 1
             };
             var mockPlayerContext = new MockPlayerContext();

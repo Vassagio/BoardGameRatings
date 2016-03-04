@@ -5,7 +5,8 @@
     ViewData["Title"] = @Model.Name;
 }
 
-@using (Html.BeginForm(GameController.BuildSaveActionRouteValues(@Model))) {
+@using (Html.BeginForm(GameController.BuildSaveActionRouteValues(@Model)))
+{
     @Html.AntiForgeryToken()
     <div>
         <div>
@@ -21,9 +22,10 @@
                 @Html.LabelFor(m => m.Description)
             </div>
             <div class="col-md-10 ">
-                @Html.TextAreaFor(m => m.Description, new {
-               @rows = "10"
-           })
+                @Html.TextAreaFor(m => m.Description, new
+                {
+                    @rows = "10"
+                })
             </div>
         </div>
         <div>
@@ -31,7 +33,7 @@
         </div>
 
         <div class="btn-group">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Save" class="btn btn-default"/>
             <a href="@Url.RouteUrl(GamesController.BuildIndexActionRouteValues())" class="btn btn-default">Cancel</a>
         </div>
     </div>

@@ -9,7 +9,9 @@
     <table class="table table-striped table-bordered table-responsive">
         <thead>
         <tr>
-            <th class="head"><a class="btn btn-default" href="@Url.RouteUrl(GamesController.BuildAddActionRouteValues())">Name</a></th>
+            <th class="head">
+                <a class="btn btn-default" href="@Url.RouteUrl(GamesController.BuildAddActionRouteValues())">Name</a>
+            </th>
             <th>Description</th>
             <th></th>
             <th></th>
@@ -19,11 +21,13 @@
         {
             <tr>
                 <td class="col-md-3">
-                    <a href="@Url.RouteUrl(GamesController.BuildEditActionRouteValues(game.Id))">@game.Name</a>                    
+                    <a href="@Url.RouteUrl(GamesController.BuildEditActionRouteValues(game.Id))">@game.Name</a>
                 </td>
-                <td class="col-md-8">@game.Description</td>  
+                <td class="col-md-8">@game.Description</td>
                 <td class="col-md-1 text-center">
-                    <a href="@Url.RouteUrl(GamesController.BuildRemoveActionRouteValues(game.Id))"><i class="fa fa-trash" style="color:red"></i></a>
+                    <a href="@Url.RouteUrl(GamesController.BuildRemoveActionRouteValues(game.Id))">
+                        <i class="fa fa-trash" style="color: red"></i>
+                    </a>
                 </td>
             </tr>
         }

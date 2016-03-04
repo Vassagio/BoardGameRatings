@@ -52,7 +52,8 @@ namespace BoardGameRatings.WebSite.Controllers
             return RedirectToRoute(PlayersController.BuildIndexActionRouteValues());
         }
 
-        public RedirectToRouteResult Add(PlayerViewModel playerViewModel) {
+        public RedirectToRouteResult Add(PlayerViewModel playerViewModel)
+        {
             _context.AddGameOwned(playerViewModel.Id, playerViewModel.GameId);
             return RedirectToRoute(BuildIndexActionRouteValues(playerViewModel.Id));
         }

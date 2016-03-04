@@ -32,14 +32,14 @@ namespace BoardGameRatings.WebSite.Models.Repositories
                 .FirstOrDefault(pg => pg.PlayerId == playerId && pg.GameId == gameId);
         }
 
-        public Player Add(Player player)
+        public Player Add(Player gameType)
         {
-            var found = GetBy(player.FirstName, player.LastName);
+            var found = GetBy(gameType.FirstName, gameType.LastName);
             if (found != null)
                 return found;
-            _context.Players.Add(player);
+            _context.Players.Add(gameType);
             _context.SaveChanges();
-            return player;
+            return gameType;
         }
 
         public void Remove(Player player)
@@ -69,8 +69,9 @@ namespace BoardGameRatings.WebSite.Models.Repositories
             _context.SaveChanges();
         }
 
-        public Player GetBy(string firstName, string lastName) {
-            return _context.Players.FirstOrDefault(g => 
+        public Player GetBy(string firstName, string lastName)
+        {
+            return _context.Players.FirstOrDefault(g =>
                 g.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
                 g.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase));
         }
