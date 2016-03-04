@@ -64,13 +64,13 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
         public void ContextRemovesAPlayer()
         {
             var player = new Player {Id = 1, FirstName = "First 2", LastName = "Last 2"};
-            var mockPlayerRepository = new MockPlayerRepository().StubGetByIdToReturn(player);
+            var mockPlayerRepository = new MockPlayerRepository().StubGetByToReturn(player);
             var mockPlayerMapper = new MockPlayerMapper();
             var playersContext = new PlayersContext(mockPlayerRepository, mockPlayerMapper);
 
             playersContext.Remove(player.Id);
 
-            mockPlayerRepository.VerifyGetByIdCalledWith(player.Id);
+            mockPlayerRepository.VerifyGetByCalledWith(player.Id);
             mockPlayerRepository.VerifyRemoveCalledWith(player);
         }
     }

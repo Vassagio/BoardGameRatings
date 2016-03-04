@@ -68,7 +68,7 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
 
             gamesContext.Remove(game.Id);
 
-            mockGameRepository.VerifyGetByIdCalledWith(game.Id);
+            mockGameRepository.VerifyGetByCalledWith(game.Id);
             mockGameRepository.VerifyRemoveCalledWith(game);
         }
     }

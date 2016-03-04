@@ -31,12 +31,12 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public void VerifyBuildViewModelCalledWith(int? id = null)
         {
-            _mock.Verify(m => m.BuildViewModel(id), Times.Once);
+            _mock.Verify(m => m.BuildViewModel(id));
         }
 
         public void VerifySaveCalledWith(GameViewModel gameViewModel)
         {
-            _mock.Verify(m => m.Save(gameViewModel), Times.Once);
+            _mock.Verify(m => m.Save(gameViewModel));
         }
     }
 }

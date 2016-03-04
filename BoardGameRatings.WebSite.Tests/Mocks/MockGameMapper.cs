@@ -1,6 +1,7 @@
 ﻿using BoardGameRatings.WebSite.Mappers;
 using BoardGameRatings.WebSite.Models;
 using BoardGameRatings.WebSite.ViewModels;
+using Microsoft.AspNet.Mvc.Rendering;
 using Moq;
 
 namespace BoardGameRatings.WebSite.Tests.Mocks
@@ -24,6 +25,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             return _mock.Object.Map(game);
         }
 
+        public SelectListItem SelectMap(Game game)
+        {
+            return _mock.Object.SelectMap(game);
+        }
+
         public void VerifyMapCalledWith(Game game)
         {
             _mock.Verify(m => m.Map(game));
@@ -34,9 +40,19 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Verify(m => m.Map(gameViewModel));
         }
 
+        public void VerifySelectMapCalledWith(Game game) {
+            _mock.Verify(m => m.SelectMap(game));
+        }
+
         public MockGameMapper StubMapToReturn(GameViewModel gameViewModel)
         {
             _mock.Setup(m => m.Map(It.IsAny<Game>())).Returns(gameViewModel);
+            return this;
+        }
+
+
+        public MockGameMapper StubSelectMapToReturn(SelectListItem item) {
+            _mock.Setup(m => m.SelectMap(It.IsAny<Game>())).Returns(item);
             return this;
         }
 

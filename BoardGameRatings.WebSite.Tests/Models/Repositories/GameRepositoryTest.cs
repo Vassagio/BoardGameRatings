@@ -66,6 +66,23 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         }
 
         [Fact]
+        public void DoesNotAddDuplicateGame() {
+            var game = new Game {
+                Name = "Game 1"
+            };
+
+            var gameRepository = new GameRepository(_fixture.Context);
+
+            gameRepository.Add(game);
+            gameRepository.Add(game);
+
+            var result = gameRepository.GetAll();
+
+            Assert.Equal(1, result.Count());
+            Assert.Equal(game, result.First());
+        }
+
+        [Fact]
         public void RemoveGame()
         {
             var game1 = new Game {Name = "Game 1"};
@@ -95,7 +112,28 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var gameRepository = new GameRepository(_fixture.Context.GamesContain(games));
 
-            var result = gameRepository.GetById(game3.Id);
+            var result = gameRepository.GetBy(game3.Id);
+
+            Assert.Equal(game3.Id, result.Id);
+            Assert.Equal(game3.Name, result.Name);
+            Assert.Equal(game3.Description, result.Description);
+        }
+        
+        [Theory]
+        [InlineData("Game 3")]
+        [InlineData("game 3")]
+        public void GetGameByName(string name) {
+            var game3 = new Game { Name = name };
+            var games = new List<Game>
+            {
+                new Game {Name = "Game 1"},
+                new Game {Name = "Game 2"},
+                game3
+            };
+
+            var gameRepository = new GameRepository(_fixture.Context.GamesContain(games));
+
+            var result = gameRepository.GetBy(game3.Name);
 
             Assert.Equal(game3.Id, result.Id);
             Assert.Equal(game3.Name, result.Name);
@@ -114,10 +152,10 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var gameRepository = new GameRepository(_fixture.Context.GamesContain(games));
 
-            var game = gameRepository.GetById(1);
+            var game = gameRepository.GetBy(1);
             game.Description = "Battleship boardgame";
             gameRepository.Update(game);
-            var result = gameRepository.GetById(1);
+            var result = gameRepository.GetBy(1);
 
             Assert.Equal(1, result.Id);
             Assert.Equal("Game 1", game.Name);

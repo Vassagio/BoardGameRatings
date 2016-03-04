@@ -1,5 +1,6 @@
 ﻿using BoardGameRatings.WebSite.Models;
 using BoardGameRatings.WebSite.ViewModels;
+using Microsoft.AspNet.Mvc.Rendering;
 
 namespace BoardGameRatings.WebSite.Mappers
 {
@@ -22,6 +23,13 @@ namespace BoardGameRatings.WebSite.Mappers
                 Id = game.Id,
                 Name = game.Name,
                 Description = game.Description
+            };
+        }
+
+        public SelectListItem SelectMap(Game game) {
+            return new SelectListItem {
+                Value = game.Id.ToString(),
+                Text = game.Name                
             };
         }
     }

@@ -40,5 +40,19 @@ namespace BoardGameRatings.WebSite.Tests.Mappers
             Assert.Equal(game.Name, viewModel.Name);
             Assert.Equal(game.Description, viewModel.Description);
         }
+
+        [Fact]
+        public void MapGameToSelectListItem() {
+            var game = new Game {
+                Id = 2,
+                Name = "Game Name",
+                Description = "This is a game"
+            };
+            var mapper = new GameMapper();
+            var item = mapper.SelectMap(game);
+
+            Assert.Equal(game.Id.ToString(), item.Value);
+            Assert.Equal(game.Name, item.Text);            
+        }
     }
 }

@@ -1,7 +1,10 @@
-﻿using BoardGameRatings.WebSite.Mappers;
+﻿using System.Collections.Generic;
+using BoardGameRatings.WebSite.Mappers;
 using BoardGameRatings.WebSite.Models;
 using BoardGameRatings.WebSite.ViewModels;
+using Microsoft.AspNet.Mvc.Rendering;
 using Xunit;
+using System.Linq;
 
 namespace BoardGameRatings.WebSite.Tests.Mappers
 {
@@ -25,7 +28,7 @@ namespace BoardGameRatings.WebSite.Tests.Mappers
         }
 
         [Fact]
-        public void MapPlayerToPlayerViewModel()
+        public void MapExistingPlayerToPlayerViewModel()
         {
             var player = new Player
             {
@@ -39,6 +42,58 @@ namespace BoardGameRatings.WebSite.Tests.Mappers
             Assert.Equal(player.Id, viewModel.Id);
             Assert.Equal(player.FirstName, viewModel.FirstName);
             Assert.Equal(player.LastName, viewModel.LastName);
+        }
+
+        [Fact]
+        public void MapNewPlayerToPlayerViewModel()
+        {
+            var player = new Player();
+            var mapper = new PlayerMapper();
+            var viewModel = mapper.Map(player);
+
+            Assert.NotNull(viewModel);
+        }
+
+        [Fact]
+        public void MapPlayerToPlayerViewModelWithGamesAndGamesOwned() {
+            var player = new Player {
+                Id = 2,
+                FirstName = "First Name",
+                LastName = "Last Name"
+            };
+            var games = new List<SelectListItem> {new SelectListItem() {Value = "1", Text = "Game 1"} };
+            var gamesOwned = new List<GameViewModel> {new GameViewModel {Id = 1, Name = "Game 1"}};
+            var mapper = new PlayerMapper();
+            var viewModel = mapper.Map(player, games, gamesOwned);
+
+            Assert.Equal(player.Id, viewModel.Id);
+            Assert.Equal(player.FirstName, viewModel.FirstName);
+            Assert.Equal(player.LastName, viewModel.LastName);
+            Assert.Equal(1, viewModel.Games.Count());
+            Assert.Equal(1, viewModel.GamesOwned.Count());
+        }
+
+        [Fact]
+        public void MapPlayerToPlayerViewModelWithGamesAndGamesOwnedOnly()
+        {
+            var player = new Player();            
+            var games = new List<SelectListItem> { new SelectListItem() { Value = "1", Text = "Game 1" } };
+            var gamesOwned = new List<GameViewModel> { new GameViewModel { Id = 1, Name = "Game 1" } };
+            var mapper = new PlayerMapper();
+            var viewModel = mapper.Map(player, games, gamesOwned);
+
+            Assert.NotNull(viewModel);
+            Assert.Equal(1, viewModel.Games.Count());
+        }
+
+        [Fact]
+        public void MapNullToPlayerViewModelWithGamesAndEmptyGamesOwnedOnly() {            
+            var games = new List<SelectListItem> { new SelectListItem() { Value = "1", Text = "Game 1" } };
+            var mapper = new PlayerMapper();
+            var viewModel = mapper.Map(null, games, new List<GameViewModel>());
+
+            Assert.NotNull(viewModel);
+            Assert.Equal(1, viewModel.Games.Count());
         }
     }
 }
