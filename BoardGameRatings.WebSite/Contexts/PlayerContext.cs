@@ -40,7 +40,7 @@ namespace BoardGameRatings.WebSite.Contexts
         private IEnumerable<SelectListItem> GetGameSelectListItems()
         {
             var games = _gameRepository.GetAll();
-            return games.Select(g => _gameMapper.SelectMap(g));
+            return games.Select(g => _gameMapper.SelectMap(g)).ToList();            
         }      
 
         public void Save(PlayerViewModel model)
@@ -63,6 +63,11 @@ namespace BoardGameRatings.WebSite.Contexts
         {
             var player = _playerMapper.Map(model);
             _playerRepository.Add(player);
+        }
+
+        public void AddGameOwned(int playerId, int gameId)
+        {
+            _playerRepository.AddGameOwned(playerId, gameId);
         }
     }
 }

@@ -67,6 +67,23 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         }
 
         [Fact]
+        public void DoesNotAddDuplicatePlayer() {
+            var player = new Player {
+                FirstName = "First 1",
+                LastName = "Last 1"
+            };
+
+            var playerRepository = new PlayerRepository(_fixture.Context);
+
+            playerRepository.Add(player);
+            playerRepository.Add(player);
+
+            var result = playerRepository.GetAll();
+            Assert.Equal(1, result.Count());
+            Assert.Equal(player, result.First());
+        }
+
+        [Fact]
         public void RemovePlayer()
         {
             var player1 = new Player {FirstName = "First 1", LastName = "Last 1"};
@@ -97,6 +114,27 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             var playerRepository = new PlayerRepository(_fixture.Context.PlayersContain(players));
 
             var result = playerRepository.GetBy(player3.Id);
+
+            Assert.Equal(player3.Id, result.Id);
+            Assert.Equal(player3.FirstName, result.FirstName);
+            Assert.Equal(player3.LastName, result.LastName);
+        }
+
+        [Theory]
+        [InlineData("First 3", "Last 3")]
+        [InlineData("first 3", "last 3")]
+        public void GetPlayerByFirstLastName(string firstName, string lastName) {
+            var player3 = new Player { FirstName = firstName, LastName = lastName };
+            var players = new List<Player>
+            {
+                new Player {FirstName = "First 1", LastName = "Last 1"},
+                new Player {FirstName = "First 2", LastName = "Last 2"},
+                player3
+            };
+
+            var playerRepository = new PlayerRepository(_fixture.Context.PlayersContain(players));
+
+            var result = playerRepository.GetBy(player3.FirstName, player3.LastName);
 
             Assert.Equal(player3.Id, result.Id);
             Assert.Equal(player3.FirstName, result.FirstName);
@@ -150,7 +188,8 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
                 new PlayerGame {GameId = 2, PlayerId = 2},
             };
 
-            var context = _fixture.Context.PlayersContain(players)
+            var context = _fixture.Context
+                .PlayersContain(players)
                 .GamesContain(games)
                 .PlayerGamesContain(playerGames);
             var playerRepository = new PlayerRepository(context);
@@ -160,6 +199,55 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             Assert.Equal(3, resultPlayer1.Count());
             Assert.Equal(1, resultPlayer2.Count());
+        }
+
+        [Fact]
+        public void AddGameOwned()
+        {
+            var player = new Player {Id = 1, FirstName = "First 1", LastName = "Last 1"};
+            var players = new List<Player>{player};
+            var game = new Game {Id = 1, Name = "Game 1"};
+            var games = new List<Game>{game};
+
+            var context = _fixture.Context
+                .PlayersContain(players)
+                .GamesContain(games);
+            var playerRepository = new PlayerRepository(context);
+
+            playerRepository.AddGameOwned(player.Id, game.Id);
+
+            var result = playerRepository.GetAllGamesBy(player.Id);
+
+            Assert.Equal(1, result.First().Id);
+            Assert.Equal("Game 1", result.First().Name);
+        }
+
+        [Fact]
+        public void DoesNotAddDuplicateGameOwned() {
+            var player = new Player { Id = 1, FirstName = "First 1", LastName = "Last 1" };
+            var players = new List<Player> { player };
+            var game = new Game { Id = 1, Name = "Game 1" };            
+            var games = new List<Game> { game };
+
+            var context = _fixture.Context
+                .PlayersContain(players)
+                .GamesContain(games);
+            var playerRepository = new PlayerRepository(context);
+
+            playerRepository.AddGameOwned(player.Id, game.Id);
+            playerRepository.AddGameOwned(player.Id, game.Id);
+
+            var result = playerRepository.GetAllGamesBy(player.Id);
+
+            Assert.Equal(1, result.Count());
+            Assert.Equal(1, result.First().Id);
+            Assert.Equal("Game 1", result.First().Name);
+        }
+
+        [Fact]
+        public void GetPlayerGameBy()
+        {
+            
         }
     }
 }

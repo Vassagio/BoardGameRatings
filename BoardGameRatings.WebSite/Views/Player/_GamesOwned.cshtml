@@ -1,0 +1,39 @@
+﻿@using System.Threading.Tasks
+@using BoardGameRatings.WebSite.Controllers
+@using BoardGameRatings.WebSite.ViewModels
+@model BoardGameRatings.WebSite.ViewModels.PlayerViewModel
+
+@using (Html.BeginForm(PlayerController.BuildAddActionRouteValues(@Model)))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.HiddenFor(model => model.Id)
+    </div>
+    @Html.LabelFor(m => m.Games, new
+    {
+        @class = "control-label col-md-2"
+    })
+
+    <div class="col-md-2 ">
+        @Html.DropDownListFor(m => m.GameId, Model.Games, "-- Select A Game Owned --")
+        <input type="submit" class="btn btn-default col-md-1" value="Add Game"/>
+    </div>
+
+    <table class="table table-striped table-bordered table-responsive">
+        <thead>
+        <tr>
+            <th class="head">Owned</th>
+            <th></th>
+        </tr>
+        </thead>
+        @foreach (var game in Model.GamesOwned)
+        {
+            <tr>
+                <td class="col-md-2">@game.Name</td>
+                <td class="col-md-1">
+                    <a href="#">Remove</a>
+                </td>
+            </tr>
+        }
+    </table>
+}

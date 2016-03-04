@@ -119,5 +119,18 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             mockPlayerRepository.VerifyAddCalledWith(player);
             mockPlayerMapper.VerifyMapCalledWith(playerViewModel);
         }
+
+        [Fact]
+        public void ContextAddsAnOwnedGame()
+        {
+            var gameId = 1;
+            var playerId = 1;
+            var mockPlayerRepository = new MockPlayerRepository();
+            var playerContext = BuildPlayerContext(mockPlayerRepository);
+
+            playerContext.AddGameOwned(playerId, gameId);
+
+            mockPlayerRepository.VerifyAddGameOwnedCalledWith(playerId, gameId);
+        }
     }
 }

@@ -53,27 +53,27 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public void VerifyGetAllCalled()
         {
-            _mock.Verify(m => m.GetAll(), Times.Once);
+            _mock.Verify(m => m.GetAll());
         }
 
         public void VerifyRemoveCalledWith(Game game)
         {
-            _mock.Verify(m => m.Remove(game), Times.Once);
+            _mock.Verify(m => m.Remove(game));
         }
 
         public void VerifyUpdateCalledWith(Game game)
         {
-            _mock.Verify(m => m.Update(game), Times.Once);
+            _mock.Verify(m => m.Update(game));
         }
 
         public void VerifyGetByCalledWith(int id)
         {
-            _mock.Verify(m => m.GetBy(id), Times.Once);
+            _mock.Verify(m => m.GetBy(id));
         }
 
         public void VerifyAddCalledWith(Game game)
         {
-            _mock.Verify(m => m.Add(game), Times.Once);
+            _mock.Verify(m => m.Add(game));
         }
     }
 }

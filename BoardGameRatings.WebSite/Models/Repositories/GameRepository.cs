@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Data.Entity;
 
@@ -20,6 +21,10 @@ namespace BoardGameRatings.WebSite.Models.Repositories
 
         public Game Add(Game game)
         {
+            var found = GetBy(game.Name);
+            if (found != null)
+                return found;
+
             _context.Games.Add(game);
             _context.SaveChanges();
             return game;
@@ -34,6 +39,10 @@ namespace BoardGameRatings.WebSite.Models.Repositories
         public Game GetBy(int gameId)
         {
             return _context.Games.FirstOrDefault(g => g.Id == gameId);
+        }
+
+        public Game GetBy(string name) {
+            return _context.Games.FirstOrDefault(g => g.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void Update(Game game)

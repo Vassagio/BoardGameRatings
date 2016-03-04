@@ -23,6 +23,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Object.Save(model);
         }
 
+        public void AddGameOwned(int playerId, int gameId)
+        {
+            _mock.Object.AddGameOwned(playerId, gameId);
+        }
+
         public MockPlayerContext StubBuildViewModelToReturn(PlayerViewModel playerViewModel)
         {
             _mock.Setup(m => m.BuildViewModel(It.IsAny<int?>())).Returns(playerViewModel);
@@ -31,12 +36,17 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public void VerifyBuildViewModelCalledWith(int? id = null)
         {
-            _mock.Verify(m => m.BuildViewModel(id), Times.Once);
+            _mock.Verify(m => m.BuildViewModel(id));
         }
 
         public void VerifySaveCalledWith(PlayerViewModel playerViewModel)
         {
-            _mock.Verify(m => m.Save(playerViewModel), Times.Once);
+            _mock.Verify(m => m.Save(playerViewModel));
+        }
+
+        public void VerifyAddGameOwnedCalledWith(int playerId, int gameId)
+        {
+            _mock.Verify(m => m.AddGameOwned(playerId, gameId));
         }
     }
 }

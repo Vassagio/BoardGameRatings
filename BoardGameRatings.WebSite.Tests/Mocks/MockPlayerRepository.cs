@@ -24,6 +24,16 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             return _mock.Object.GetAllGamesBy(playerId);
         }
 
+        public void AddGameOwned(int playerId, int gameId)
+        {
+            _mock.Object.AddGameOwned(playerId, gameId);
+        }
+
+        public PlayerGame GetPlayerGameBy(int playerId, int gameId)
+        {
+            return _mock.Object.GetPlayerGameBy(playerId, gameId);
+        }
+
         public Player Add(Player player)
         {
             return _mock.Object.Add(player);
@@ -58,7 +68,7 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public void VerifyGetAllCalled()
         {
-            _mock.Verify(m => m.GetAll(), Times.Once);
+            _mock.Verify(m => m.GetAll());
         }
 
         public MockPlayerRepository StubGetByToReturn(Player player)
@@ -69,27 +79,32 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public void VerifyGetByCalledWith(int playerId)
         {
-            _mock.Verify(m => m.GetBy(playerId), Times.Once);
+            _mock.Verify(m => m.GetBy(playerId));
         }
 
         public void VerifyRemoveCalledWith(Player player)
         {
-            _mock.Verify(m => m.Remove(player), Times.Once);
+            _mock.Verify(m => m.Remove(player));
         }
 
         public void VerifyUpdateCalledWith(Player player)
         {
-            _mock.Verify(m => m.Update(player), Times.Once);
+            _mock.Verify(m => m.Update(player));
         }
 
         public void VerifyAddCalledWith(Player player)
         {
-            _mock.Verify(m => m.Add(player), Times.Once);
+            _mock.Verify(m => m.Add(player));
         }
 
         public void VerifyGetAllGamesByCalledWith(int playerId)
         {
             _mock.Verify(m => m.GetAllGamesBy(playerId));
+        }
+
+        public void VerifyAddGameOwnedCalledWith(int playerId, int gameId)
+        {
+            _mock.Verify(m => m.AddGameOwned(playerId, gameId));
         }
     }
 }

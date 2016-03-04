@@ -51,7 +51,7 @@ namespace BoardGameRatings.WebSite.Models.Extensions
                 context.SaveChanges();
             }
 
-            context.Players.Add(BrandonLamkey);
+            context.Players.Add(BrandonLamkey);            
             context.Players.Add(CharlieKohlhaas);
             context.Players.Add(DerekKohlhagen);
             context.Players.Add(JohnDavidson);
