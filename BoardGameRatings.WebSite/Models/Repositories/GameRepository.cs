@@ -51,5 +51,29 @@ namespace BoardGameRatings.WebSite.Models.Repositories
             _context.Entry(game).State = EntityState.Modified;
             _context.SaveChanges();
         }
+
+        public IEnumerable<Category> GetAllCategoriesBy(int gameId)
+        {
+            return _context.GameCategories
+                .Where(pg => pg.GameId == gameId)
+                .Select(pg => pg.Category);
+        }
+
+
+        public GameCategory GetGameCategoryBy(int gameId, int categoryId)
+        {
+            return _context.GameCategories
+                .FirstOrDefault(pg => pg.GameId == gameId && pg.CategoryId == categoryId);
+        }
+
+        public void AddElectedCategory(int gameId, int categoryId)
+        {
+            if (GetGameCategoryBy(gameId, categoryId) != null)
+                return;
+
+            var gameCategory = new GameCategory {CategoryId = categoryId, GameId = gameId};
+            _context.GameCategories.Add(gameCategory);
+            _context.SaveChanges();
+        }
     }
 }

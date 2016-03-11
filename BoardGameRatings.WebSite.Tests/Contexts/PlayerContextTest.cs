@@ -55,7 +55,6 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             var mockGameRepository = new MockGameRepository().StubGetAllToReturn(games);
             var mockPlayerMapper = new MockPlayerMapper().StubMapWithGamesToReturn(playerViewModel);
             var mockGameMapper = new MockGameMapper().StubMapToReturn(gameViewModel).StubSelectMapToReturn(item);
-
             var playerContext = BuildPlayerContext(mockPlayerRepository, mockGameRepository, mockPlayerMapper,
                 mockGameMapper);
 

@@ -34,5 +34,14 @@ namespace BoardGameRatings.WebSite.Tests.Extensions
             context.SaveChanges();
             return context;
         }
+
+
+        public static ApplicationDbContext GameCategoriesContain(this ApplicationDbContext context,
+            IEnumerable<GameCategory> gameCategories)
+        {
+            context.GameCategories.AddRange(gameCategories);
+            context.SaveChanges();
+            return context;
+        }
     }
 }

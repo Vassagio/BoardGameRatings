@@ -164,5 +164,86 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             Assert.Equal("Game 1", game.Name);
             Assert.Equal("Battleship boardgame", game.Description);
         }
+
+        [Fact]
+        public void GetAllElectedCategoriesByGame()
+        {
+            var games = new List<Game>
+            {
+                new Game {Id = 1, Name = "Game 1"},
+                new Game {Id = 2, Name = "Game 2"}
+            };
+
+            var categories = new List<Category>
+            {
+                new Category {Id = 1, Description = "Category 1"},
+                new Category {Id = 2, Description = "Category 2"},
+                new Category {Id = 3, Description = "Category 3"}
+            };
+
+            var gameCategories = new List<GameCategory>
+            {
+                new GameCategory {CategoryId = 1, GameId = 1},
+                new GameCategory {CategoryId = 2, GameId = 1},
+                new GameCategory {CategoryId = 3, GameId = 1},
+                new GameCategory {CategoryId = 2, GameId = 2}
+            };
+
+            var context = _fixture.Context
+                .GamesContain(games)
+                .CategoriesContain(categories)
+                .GameCategoriesContain(gameCategories);
+            var gameRepository = new GameRepository(context);
+
+            var resultGame1 = gameRepository.GetAllCategoriesBy(1);
+            var resultGame2 = gameRepository.GetAllCategoriesBy(2);
+
+            Assert.Equal(3, resultGame1.Count());
+            Assert.Equal(1, resultGame2.Count());
+        }
+
+        [Fact]
+        public void AddElectedCategories()
+        {
+            var game = new Game {Id = 1, Name = "Game 1"};
+            var games = new List<Game> {game};
+            var category = new Category {Id = 1, Description = "Category 1"};
+            var categories = new List<Category> {category};
+
+            var context = _fixture.Context
+                .GamesContain(games)
+                .CategoriesContain(categories);
+            var gameRepository = new GameRepository(context);
+
+            gameRepository.AddElectedCategory(game.Id, category.Id);
+
+            var result = gameRepository.GetAllCategoriesBy(game.Id);
+
+            Assert.Equal(1, result.First().Id);
+            Assert.Equal("Category 1", result.First().Description);
+        }
+
+        [Fact]
+        public void DoesNotAddDuplicateGameOwned()
+        {
+            var player = new Player {Id = 1, FirstName = "First 1", LastName = "Last 1"};
+            var players = new List<Player> {player};
+            var game = new Game {Id = 1, Name = "Game 1"};
+            var games = new List<Game> {game};
+
+            var context = _fixture.Context
+                .PlayersContain(players)
+                .GamesContain(games);
+            var playerRepository = new PlayerRepository(context);
+
+            playerRepository.AddGameOwned(player.Id, game.Id);
+            playerRepository.AddGameOwned(player.Id, game.Id);
+
+            var result = playerRepository.GetAllGamesBy(player.Id);
+
+            Assert.Equal(1, result.Count());
+            Assert.Equal(1, result.First().Id);
+            Assert.Equal("Game 1", result.First().Name);
+        }
     }
 }

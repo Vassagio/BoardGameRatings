@@ -62,7 +62,7 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
         public void ContextRemovesAGame()
         {
             var game = new Game {Name = "Game 2"};
-            var mockGameRepository = new MockGameRepository().StubGetByIdToReturn(game);
+            var mockGameRepository = new MockGameRepository().StubGetByToReturn(game);
             var mockGameMapper = new MockGameMapper();
             var gamesContext = new GamesContext(mockGameRepository, mockGameMapper);
 

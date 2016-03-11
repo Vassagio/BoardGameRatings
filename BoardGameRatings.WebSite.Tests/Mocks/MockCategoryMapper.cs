@@ -52,5 +52,16 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         {
             _mock.Verify(m => m.Map(categoryViewModel));
         }
+
+        public MockCategoryMapper StubSelectMapToReturn(SelectListItem item)
+        {
+            _mock.Setup(m => m.SelectMap(It.IsAny<Category>())).Returns(item);
+            return this;
+        }
+
+        public void VerifySelectMapCalledWith(Category category)
+        {
+            _mock.Verify(m => m.SelectMap(category));
+        }
     }
 }
