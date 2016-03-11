@@ -1,5 +1,6 @@
 ﻿using BoardGameRatings.WebSite.Classes;
 using BoardGameRatings.WebSite.Contexts;
+using BoardGameRatings.WebSite.ViewModels;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Routing;
 

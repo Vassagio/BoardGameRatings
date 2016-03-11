@@ -137,5 +137,18 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             mockGameRepository.VerifyAddCalledWith(game);
             mockGameMapper.VerifyMapCalledWith(gameViewModel);
         }
+
+        [Fact]
+        public void ContextAddsAnElectedCategory()
+        {
+            var categoryId = 1;
+            var gameId = 1;
+            var mockGameRepository = new MockGameRepository();
+            var gameContext = BuildGameContext(mockGameRepository);
+
+            gameContext.AddElectedCategory(gameId, categoryId);
+
+            mockGameRepository.VerifyAddElectedCategoryCalledWith(gameId, categoryId);
+        }
     }
 }

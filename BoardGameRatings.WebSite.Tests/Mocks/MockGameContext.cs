@@ -23,6 +23,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Object.Save(model);
         }
 
+        public void AddElectedCategory(int gameId, int categoryId)
+        {
+            _mock.Object.AddElectedCategory(gameId, categoryId);
+        }
+
         public MockGameContext StubBuildViewModelToReturn(GameViewModel gameViewModel)
         {
             _mock.Setup(m => m.BuildViewModel(It.IsAny<int?>())).Returns(gameViewModel);
@@ -37,6 +42,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         public void VerifySaveCalledWith(GameViewModel gameViewModel)
         {
             _mock.Verify(m => m.Save(gameViewModel));
+        }
+
+        public void VerifyAddElectedCategoryCalledWith(int gameId, int categoryId)
+        {
+            _mock.Verify(m => m.AddElectedCategory(gameId, categoryId));
         }
     }
 }

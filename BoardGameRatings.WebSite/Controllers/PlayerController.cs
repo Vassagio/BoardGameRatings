@@ -2,6 +2,7 @@
 using BoardGameRatings.WebSite.Contexts;
 using BoardGameRatings.WebSite.ViewModels;
 using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Mvc.Routing;
 using Microsoft.AspNet.Routing;
 
 namespace BoardGameRatings.WebSite.Controllers
@@ -12,6 +13,7 @@ namespace BoardGameRatings.WebSite.Controllers
         private static readonly string INDEX_ACTION_NAME = "Index";
         private static readonly string SAVE_ACTION_NAME = "Save";
         private static readonly string ADD_ACTION_NAME = "Add";
+        private static readonly string REMOVE_ACTION_NAME = "Remove";
         private static readonly string ID_PARAMETER_NAME = "id";
         private static readonly string MODEL_PARAMETER_NAME = "model";
         private readonly IPlayerContext _context;
@@ -74,6 +76,15 @@ namespace BoardGameRatings.WebSite.Controllers
                 .WithAction(ADD_ACTION_NAME)
                 .WithParameter(MODEL_PARAMETER_NAME, model)
                 .Build();
+        }
+
+        public static RouteValueDictionary BuildRemoveActionRouteValues(int gameId)
+        {
+            return new RouteValueDictionaryBuilder()
+             .WithController(CONTROLLER_NAME)
+             .WithAction(REMOVE_ACTION_NAME)
+             .WithParameter(ID_PARAMETER_NAME, gameId)
+             .Build();
         }
     }
 }

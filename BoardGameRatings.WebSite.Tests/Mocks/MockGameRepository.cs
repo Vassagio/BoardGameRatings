@@ -117,5 +117,10 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         {
             _mock.Verify(m => m.GetAllCategoriesBy(gameId));
         }
+
+        public void VerifyAddElectedCategoryCalledWith(int gameId, int categoryId)
+        {
+            _mock.Verify(m => m.AddElectedCategory(gameId, categoryId));
+        }
     }
 }
