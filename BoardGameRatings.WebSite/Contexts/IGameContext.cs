@@ -7,5 +7,6 @@ namespace BoardGameRatings.WebSite.Contexts
         GameViewModel BuildViewModel(int? id);
         void Save(GameViewModel model);
         void AddElectedCategory(int gameId, int categoryId);
+        void RemoveElectedCategory(int gameId, int categoryId);
     }
 }

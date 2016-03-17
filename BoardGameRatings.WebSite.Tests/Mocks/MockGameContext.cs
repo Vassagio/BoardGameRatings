@@ -28,6 +28,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Object.AddElectedCategory(gameId, categoryId);
         }
 
+        public void RemoveElectedCategory(int gameId, int categoryId)
+        {
+            _mock.Object.RemoveElectedCategory(gameId, categoryId);
+        }
+
         public MockGameContext StubBuildViewModelToReturn(GameViewModel gameViewModel)
         {
             _mock.Setup(m => m.BuildViewModel(It.IsAny<int?>())).Returns(gameViewModel);

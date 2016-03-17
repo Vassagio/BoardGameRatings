@@ -72,5 +72,10 @@ namespace BoardGameRatings.WebSite.Contexts
             var gameCategories = _gameRepository.GetAllCategoriesBy(id ?? 0);
             return gameCategories.Select(c => _categoryMapper.Map(c));
         }
+
+        public void RemoveElectedCategory(int gameId, int categoryId)
+        {
+            _gameRepository.RemoveElectedCategory(gameId, categoryId);
+        }
     }
 }

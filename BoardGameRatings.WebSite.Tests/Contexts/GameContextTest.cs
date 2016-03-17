@@ -150,5 +150,18 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
 
             mockGameRepository.VerifyAddElectedCategoryCalledWith(gameId, categoryId);
         }
+
+        [Fact]
+        public void ContextRemovesAnElectedCategory()
+        {
+            var gameId = 1;
+            var categoryId = 1;
+            var mockGameRepository = new MockGameRepository();
+            var playerContext = BuildGameContext(mockGameRepository);
+
+            playerContext.RemoveElectedCategory(gameId, categoryId);
+
+            mockGameRepository.VerifyRemoveElectedCategoryCalledWith(gameId, categoryId);
+        }
     }
 }
