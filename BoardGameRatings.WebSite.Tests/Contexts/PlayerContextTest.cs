@@ -153,5 +153,18 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
 
             mockPlayerRepository.VerifyAddGameOwnedCalledWith(playerId, gameId);
         }
+
+        [Fact]
+        public void ContextRemovesAnOwnedGame()
+        {
+            var gameId = 1;
+            var playerId = 1;
+            var mockPlayerRepository = new MockPlayerRepository();
+            var playerContext = BuildPlayerContext(mockPlayerRepository);
+
+            playerContext.RemoveGameOwned(playerId, gameId);
+
+            mockPlayerRepository.VerifyRemoveGameOwnedCalledWith(playerId, gameId);
+        }
     }
 }

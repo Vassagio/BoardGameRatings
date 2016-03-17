@@ -28,6 +28,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Object.AddGameOwned(playerId, gameId);
         }
 
+        public void RemoveGameOwned(int playerId, int gameId)
+        {
+            _mock.Object.RemoveGameOwned(playerId, gameId);
+        }
+
         public MockPlayerContext StubBuildViewModelToReturn(PlayerViewModel playerViewModel)
         {
             _mock.Setup(m => m.BuildViewModel(It.IsAny<int?>())).Returns(playerViewModel);
@@ -47,6 +52,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         public void VerifyAddGameOwnedCalledWith(int playerId, int gameId)
         {
             _mock.Verify(m => m.AddGameOwned(playerId, gameId));
+        }
+
+        public void VerifyRemoveGameOwnedCalledWith(int playerId, int gameId)
+        {
+            _mock.Verify(m => m.RemoveGameOwned(playerId, gameId));
         }
     }
 }

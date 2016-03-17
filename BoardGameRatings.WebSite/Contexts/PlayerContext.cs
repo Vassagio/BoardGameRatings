@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BoardGameRatings.WebSite.Mappers;
 using BoardGameRatings.WebSite.Models;
@@ -70,6 +71,11 @@ namespace BoardGameRatings.WebSite.Contexts
         {
             var player = _playerMapper.Map(model);
             _playerRepository.Add(player);
+        }
+
+        public void RemoveGameOwned(int playerId, int gameId)
+        {            
+            _playerRepository.RemoveGameOwned(playerId, gameId);
         }
     }
 }
