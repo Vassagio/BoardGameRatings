@@ -59,6 +59,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             return _mock.Object.GetGameCategoryBy(gameId, categoryId);
         }
 
+        public void RemoveElectedCategory(int gameId, int categoryId)
+        {
+            _mock.Object.RemoveElectedCategory(gameId, categoryId);
+        }
+
         public MockGameRepository StubGetAllToReturn(List<Game> games)
         {
             _mock.Setup(m => m.GetAll()).Returns(games);

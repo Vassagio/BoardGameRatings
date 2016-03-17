@@ -8,5 +8,6 @@ namespace BoardGameRatings.WebSite.Models.Repositories
         void AddElectedCategory(int gameId, int categoryId);
         IEnumerable<Category> GetAllCategoriesBy(int gameId);
         GameCategory GetGameCategoryBy(int gameId, int categoryId);
+        void RemoveElectedCategory(int gameId, int categoryId);
     }
 }

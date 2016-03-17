@@ -2,7 +2,6 @@
 using BoardGameRatings.WebSite.Contexts;
 using BoardGameRatings.WebSite.ViewModels;
 using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Routing;
 using Microsoft.AspNet.Routing;
 
 namespace BoardGameRatings.WebSite.Controllers
@@ -89,12 +88,11 @@ namespace BoardGameRatings.WebSite.Controllers
         public static RouteValueDictionary BuildRemoveActionRouteValues(int playerId, int gameId)
         {
             return new RouteValueDictionaryBuilder()
-             .WithController(CONTROLLER_NAME)
-             .WithAction(REMOVE_ACTION_NAME)
-             .WithParameter(PLAYER_ID_PARAMETER_NAME, playerId)
-             .WithParameter(GAME_ID_PARAMETER_NAME, gameId)
-             .Build();
+                .WithController(CONTROLLER_NAME)
+                .WithAction(REMOVE_ACTION_NAME)
+                .WithParameter(PLAYER_ID_PARAMETER_NAME, playerId)
+                .WithParameter(GAME_ID_PARAMETER_NAME, gameId)
+                .Build();
         }
-
     }
 }

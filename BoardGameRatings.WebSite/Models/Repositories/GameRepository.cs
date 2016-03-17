@@ -75,5 +75,15 @@ namespace BoardGameRatings.WebSite.Models.Repositories
             _context.GameCategories.Add(gameCategory);
             _context.SaveChanges();
         }
+
+        public void RemoveElectedCategory(int gameId, int categoryId)
+        {
+            var gameCategory = GetGameCategoryBy(gameId, categoryId);
+            if (gameCategory == null)
+                return;
+
+            _context.GameCategories.Remove(gameCategory);
+            _context.SaveChanges();
+        }
     }
 }

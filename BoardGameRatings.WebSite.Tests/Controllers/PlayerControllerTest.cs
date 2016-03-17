@@ -76,7 +76,7 @@ namespace BoardGameRatings.WebSite.Tests.Controllers
         public void RemovesAnOwnedGame()
         {
             var playerId = 1;
-            var gameId = 1;            
+            var gameId = 1;
             var mockPlayerContext = new MockPlayerContext();
             var controller = new PlayerController(mockPlayerContext);
             var result = controller.Remove(playerId, gameId);

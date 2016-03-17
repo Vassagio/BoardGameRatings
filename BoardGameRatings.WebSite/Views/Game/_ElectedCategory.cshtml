@@ -9,21 +9,21 @@
         @Html.HiddenFor(model => model.Id)
     </div>
     @Html.LabelFor(m => m.Categories, new
-{
-    @class = "control-label col-md-2"
-})
+    {
+        @class = "control-label col-md-2"
+    })
 
     <div class="col-md-2 ">
         @Html.DropDownListFor(m => m.CategoryId, Model.Categories, "-- Select A Elected Category --")
-        <input type="submit" class="btn btn-default col-md-1" value="Add Category" />
+        <input type="submit" class="btn btn-default col-md-1" value="Add Category"/>
     </div>
 
     <table class="table table-striped table-bordered table-responsive">
         <thead>
-            <tr>
-                <th class="head">Elected</th>
-                <th></th>
-            </tr>
+        <tr>
+            <th class="head">Elected</th>
+            <th></th>
+        </tr>
         </thead>
         @foreach (var category in Model.ElectedCategories)
         {

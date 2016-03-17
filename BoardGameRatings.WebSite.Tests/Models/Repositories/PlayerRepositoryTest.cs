@@ -228,10 +228,10 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         [Fact]
         public void RemoveGameOwned()
         {
-            var player = new Player { Id = 1, FirstName = "First 1", LastName = "Last 1" };
-            var players = new List<Player> { player };
-            var game = new Game { Id = 1, Name = "Game 1" };
-            var games = new List<Game> { game };
+            var player = new Player {Id = 1, FirstName = "First 1", LastName = "Last 1"};
+            var players = new List<Player> {player};
+            var game = new Game {Id = 1, Name = "Game 1"};
+            var games = new List<Game> {game};
             var playerGame = new PlayerGame {GameId = game.Id, PlayerId = player.Id};
             var playerGames = new List<PlayerGame> {playerGame};
 
@@ -245,7 +245,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var result = playerRepository.GetAllGamesBy(player.Id);
 
-            Assert.False( result.Any());
+            Assert.False(result.Any());
         }
 
         [Fact]
@@ -269,11 +269,6 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             Assert.Equal(1, result.Count());
             Assert.Equal(1, result.First().Id);
             Assert.Equal("Game 1", result.First().Name);
-        }
-
-        [Fact]
-        public void GetPlayerGameBy()
-        {
         }
     }
 }

@@ -60,7 +60,7 @@ namespace BoardGameRatings.WebSite.Controllers
                 .WithParameter(MODEL_PARAMETER_NAME, model)
                 .Build();
         }
-    
+
         public RedirectToRouteResult Add(GameViewModel gameViewModel)
         {
             _context.AddElectedCategory(gameViewModel.Id, gameViewModel.CategoryId);
@@ -68,7 +68,8 @@ namespace BoardGameRatings.WebSite.Controllers
         }
 
         public static RouteValueDictionary BuildAddActionRouteValues(GameViewModel model)
-        {            ;
+        {
+            ;
             return new RouteValueDictionaryBuilder()
                 .WithController(CONTROLLER_NAME)
                 .WithAction(ADD_ACTION_NAME)

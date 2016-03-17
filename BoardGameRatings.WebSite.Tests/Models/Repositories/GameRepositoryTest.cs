@@ -224,6 +224,29 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         }
 
         [Fact]
+        public void RemoveElectedCategory()
+        {
+            var category = new Category {Id = 1, Description = "Category 1"};
+            var categories = new List<Category> {category};
+            var game = new Game {Id = 1, Name = "Game 1"};
+            var games = new List<Game> {game};
+            var electedCategory = new GameCategory {GameId = game.Id, CategoryId = category.Id};
+            var electedCategories = new List<GameCategory> {electedCategory};
+
+            var context = _fixture.Context
+                .CategoriesContain(categories)
+                .GamesContain(games)
+                .GameCategoriesContain(electedCategories);
+            var gameRepository = new GameRepository(context);
+
+            gameRepository.RemoveElectedCategory(game.Id, category.Id);
+
+            var result = gameRepository.GetAllCategoriesBy(category.Id);
+
+            Assert.False(result.Any());
+        }
+
+        [Fact]
         public void DoesNotAddDuplicateGameOwned()
         {
             var player = new Player {Id = 1, FirstName = "First 1", LastName = "Last 1"};
