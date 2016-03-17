@@ -8,6 +8,7 @@ namespace BoardGameRatings.WebSite.Models
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public List<PlayerGame> Players { get; set; }        
+        public List<PlayerGame> Players { get; set; }
+        public List<GameCategory> Categories { get; set; }
     }
 }

@@ -58,8 +58,27 @@ namespace BoardGameRatings.WebSite.Models.Extensions
             AddGames(context);
             AddPlayers(context);
             AddPlayerGames(context);
+            AddGameCategories(context);
 
             context.SaveChanges();
+        }
+
+        private static void AddGameCategories(ApplicationDbContext context)
+        {
+            if (context.GameCategories.Any())
+            {
+                context.GameCategories.RemoveRange(context.GameCategories);
+                context.SaveChanges();
+            }
+
+            context.GameCategories.Add(new GameCategory {GameId = BattlestarGalactica.Id, CategoryId = Cooperative.Id});
+            context.GameCategories.Add(new GameCategory {GameId = BattlestarGalactica.Id, CategoryId = Traitor.Id});
+            context.GameCategories.Add(new GameCategory {GameId = SettlersOfCatan.Id, CategoryId = Competitive.Id});
+            context.GameCategories.Add(new GameCategory {GameId = SheriffOfNottingham.Id, CategoryId = Competitive.Id});
+            context.GameCategories.Add(new GameCategory {GameId = StarWarsXWing.Id, CategoryId = Competitive.Id});
+            context.GameCategories.Add(new GameCategory {GameId = StarWarsXWing.Id, CategoryId = Teams.Id});
+            context.GameCategories.Add(new GameCategory {GameId = LastNightOnEarth.Id, CategoryId = Competitive.Id});
+            context.GameCategories.Add(new GameCategory {GameId = LastNightOnEarth.Id, CategoryId = Teams.Id});
         }
 
         private static void AddCategories(ApplicationDbContext context)

@@ -29,8 +29,10 @@
         {
             <tr>
                 <td class="col-md-2">@game.Name</td>
-                <td class="col-md-1">
-                    <a href="#">Remove</a>
+                <td class="col-md-1 text-center">
+                    <a href="@Url.RouteUrl(PlayerController.BuildRemoveActionRouteValues(@Model.Id, game.Id))">
+                        <i class="fa fa-trash" style="color: red"></i>
+                    </a>
                 </td>
             </tr>
         }

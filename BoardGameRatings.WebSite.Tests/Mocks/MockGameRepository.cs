@@ -44,13 +44,28 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             return _mock.Object.GetBy(name);
         }
 
+        public void AddElectedCategory(int gameId, int categoryId)
+        {
+            _mock.Object.AddElectedCategory(gameId, categoryId);
+        }
+
+        public IEnumerable<Category> GetAllCategoriesBy(int gameId)
+        {
+            return _mock.Object.GetAllCategoriesBy(gameId);
+        }
+
+        public GameCategory GetGameCategoryBy(int gameId, int categoryId)
+        {
+            return _mock.Object.GetGameCategoryBy(gameId, categoryId);
+        }
+
         public MockGameRepository StubGetAllToReturn(List<Game> games)
         {
             _mock.Setup(m => m.GetAll()).Returns(games);
             return this;
         }
 
-        public MockGameRepository StubGetByIdToReturn(Game game)
+        public MockGameRepository StubGetByToReturn(Game game)
         {
             _mock.Setup(m => m.GetBy(It.IsAny<int>())).Returns(game);
             return this;
@@ -90,6 +105,22 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         internal void VerifyGetByCalledWith(string name)
         {
             _mock.Verify(m => m.GetBy(name));
+        }
+
+        public MockGameRepository StubGetAllCategoriesByToReturn(IEnumerable<Category> categories)
+        {
+            _mock.Setup(m => m.GetAllCategoriesBy(It.IsAny<int>())).Returns(categories);
+            return this;
+        }
+
+        public void VerifyGetAllCategoriesByCalledWith(int gameId)
+        {
+            _mock.Verify(m => m.GetAllCategoriesBy(gameId));
+        }
+
+        public void VerifyAddElectedCategoryCalledWith(int gameId, int categoryId)
+        {
+            _mock.Verify(m => m.AddElectedCategory(gameId, categoryId));
         }
     }
 }

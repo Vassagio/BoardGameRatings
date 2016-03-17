@@ -1,30 +1,36 @@
-﻿using BoardGameRatings.WebSite.Mappers;
+﻿using System.Collections.Generic;
+using System.Linq;
+using BoardGameRatings.WebSite.Mappers;
 using BoardGameRatings.WebSite.Models;
 using BoardGameRatings.WebSite.Models.Repositories;
 using BoardGameRatings.WebSite.ViewModels;
+using Microsoft.AspNet.Mvc.Rendering;
 
 namespace BoardGameRatings.WebSite.Contexts
 {
     public class GameContext : IGameContext
     {
+        private readonly ICategoryMapper _categoryMapper;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IGameMapper _gameMapper;
         private readonly IGameRepository _gameRepository;
-        private readonly IGameMapper _mapper;
 
-        public GameContext(IGameRepository gameRepository, IGameMapper mapper)
+        public GameContext(IGameRepository gameRepository, ICategoryRepository categoryRepository,
+            IGameMapper gameMapper, ICategoryMapper categoryMapper)
         {
+            _categoryMapper = categoryMapper;
+            _categoryRepository = categoryRepository;
             _gameRepository = gameRepository;
-            _mapper = mapper;
+            _gameMapper = gameMapper;
         }
 
 
         public GameViewModel BuildViewModel(int? id = null)
         {
-            if (id.HasValue)
-            {
-                var game = _gameRepository.GetBy(id.Value);
-                return _mapper.Map(game);
-            }
-            return new GameViewModel();
+            var categorySelectListItems = GetCategorySelectListItems();
+            var game = _gameRepository.GetBy(id ?? 0);
+            var electedCategories = GetElectedCategories(id);
+            return _gameMapper.Map(game, categorySelectListItems, electedCategories);
         }
 
         public void Save(GameViewModel model)
@@ -45,8 +51,26 @@ namespace BoardGameRatings.WebSite.Contexts
 
         private void Add(GameViewModel model)
         {
-            var game = _mapper.Map(model);
+            var game = _gameMapper.Map(model);
             _gameRepository.Add(game);
+        }
+
+        private IEnumerable<SelectListItem> GetCategorySelectListItems()
+        {
+            var categories = _categoryRepository.GetAll();
+            return categories.Select(c => _categoryMapper.SelectMap(c)).ToList();
+        }
+
+
+        private IEnumerable<CategoryViewModel> GetElectedCategories(int? id)
+        {
+            var gameCategories = _gameRepository.GetAllCategoriesBy(id ?? 0);
+            return gameCategories.Select(c => _categoryMapper.Map(c));
+        }
+
+        public void AddElectedCategory(int gameId, int categoryId)
+        {
+            _gameRepository.AddElectedCategory(gameId, categoryId);
         }
     }
 }

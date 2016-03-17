@@ -55,7 +55,6 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             var mockGameRepository = new MockGameRepository().StubGetAllToReturn(games);
             var mockPlayerMapper = new MockPlayerMapper().StubMapWithGamesToReturn(playerViewModel);
             var mockGameMapper = new MockGameMapper().StubMapToReturn(gameViewModel).StubSelectMapToReturn(item);
-
             var playerContext = BuildPlayerContext(mockPlayerRepository, mockGameRepository, mockPlayerMapper,
                 mockGameMapper);
 
@@ -153,6 +152,19 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             playerContext.AddGameOwned(playerId, gameId);
 
             mockPlayerRepository.VerifyAddGameOwnedCalledWith(playerId, gameId);
+        }
+
+        [Fact]
+        public void ContextRemovesAnOwnedGame()
+        {
+            var gameId = 1;
+            var playerId = 1;
+            var mockPlayerRepository = new MockPlayerRepository();
+            var playerContext = BuildPlayerContext(mockPlayerRepository);
+
+            playerContext.RemoveGameOwned(playerId, gameId);
+
+            mockPlayerRepository.VerifyRemoveGameOwnedCalledWith(playerId, gameId);
         }
     }
 }

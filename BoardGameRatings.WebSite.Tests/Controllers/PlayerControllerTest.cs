@@ -71,5 +71,20 @@ namespace BoardGameRatings.WebSite.Tests.Controllers
             Assert.Equal("Player", result.RouteValues["controller"]);
             mockPlayerContext.VerifyAddGameOwnedCalledWith(1, 1);
         }
+
+        [Fact]
+        public void RemovesAnOwnedGame()
+        {
+            var playerId = 1;
+            var gameId = 1;            
+            var mockPlayerContext = new MockPlayerContext();
+            var controller = new PlayerController(mockPlayerContext);
+            var result = controller.Remove(playerId, gameId);
+
+            Assert.IsType<RedirectToRouteResult>(result);
+            Assert.Equal("Index", result.RouteValues["action"]);
+            Assert.Equal("Player", result.RouteValues["controller"]);
+            mockPlayerContext.VerifyRemoveGameOwnedCalledWith(1, 1);
+        }
     }
 }

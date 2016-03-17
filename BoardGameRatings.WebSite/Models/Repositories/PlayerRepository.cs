@@ -75,5 +75,15 @@ namespace BoardGameRatings.WebSite.Models.Repositories
                 g.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
                 g.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase));
         }
+
+        public void RemoveGameOwned(int playerId, int gameId)
+        {
+            var playerGame = GetPlayerGameBy(playerId, gameId);
+            if (playerGame == null)
+                return;
+
+            _context.PlayerGames.Remove(playerGame);
+            _context.SaveChanges();
+        }
     }
 }

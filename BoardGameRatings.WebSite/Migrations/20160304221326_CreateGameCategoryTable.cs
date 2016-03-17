@@ -3,25 +3,32 @@ using Microsoft.Data.Entity.Migrations;
 
 namespace BoardGameRatings.WebSite.Migrations
 {
-    public partial class CreateCategoryTable : Migration
+    public partial class CreateGameCategoryTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey("FK_PlayerGame_Game_GameId", "PlayerGame");
             migrationBuilder.DropForeignKey("FK_PlayerGame_Player_PlayerId", "PlayerGame");
-            migrationBuilder.CreateTable("Category", table => new
+            migrationBuilder.CreateTable("GameCategory", table => new
             {
                 Id = table.Column<int>(nullable: false)
                     .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                Description = table.Column<string>(nullable: false)
+                CategoryId = table.Column<int>(nullable: false),
+                GameId = table.Column<int>(nullable: false)
             },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id)
+                    table.PrimaryKey("PK_GameCategory", x => x.Id)
                         .Annotation("SqlServer:Clustered", false);
+                    table.ForeignKey("FK_GameCategory_Category_CategoryId", x => x.CategoryId, "Category", "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey("FK_GameCategory_Game_GameId", x => x.GameId, "Game", "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
-            migrationBuilder.CreateIndex("IX_Category_Description", "Category", "Description",
-                unique: true);
+            migrationBuilder.CreateIndex("IX_GameCategory_GameId_CategoryId", "GameCategory",
+                new[] {"GameId", "CategoryId"},
+                unique: true)
+                .Annotation("SqlServer:Clustered", true);
             migrationBuilder.AddForeignKey("FK_PlayerGame_Game_GameId", "PlayerGame", "GameId", "Game",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
@@ -34,7 +41,7 @@ namespace BoardGameRatings.WebSite.Migrations
         {
             migrationBuilder.DropForeignKey("FK_PlayerGame_Game_GameId", "PlayerGame");
             migrationBuilder.DropForeignKey("FK_PlayerGame_Player_PlayerId", "PlayerGame");
-            migrationBuilder.DropTable("Category");
+            migrationBuilder.DropTable("GameCategory");
             migrationBuilder.AddForeignKey("FK_PlayerGame_Game_GameId", "PlayerGame", "GameId", "Game",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);

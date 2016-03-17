@@ -226,6 +226,29 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         }
 
         [Fact]
+        public void RemoveGameOwned()
+        {
+            var player = new Player { Id = 1, FirstName = "First 1", LastName = "Last 1" };
+            var players = new List<Player> { player };
+            var game = new Game { Id = 1, Name = "Game 1" };
+            var games = new List<Game> { game };
+            var playerGame = new PlayerGame {GameId = game.Id, PlayerId = player.Id};
+            var playerGames = new List<PlayerGame> {playerGame};
+
+            var context = _fixture.Context
+                .PlayersContain(players)
+                .GamesContain(games)
+                .PlayerGamesContain(playerGames);
+            var playerRepository = new PlayerRepository(context);
+
+            playerRepository.RemoveGameOwned(player.Id, game.Id);
+
+            var result = playerRepository.GetAllGamesBy(player.Id);
+
+            Assert.False( result.Any());
+        }
+
+        [Fact]
         public void DoesNotAddDuplicateGameOwned()
         {
             var player = new Player {Id = 1, FirstName = "First 1", LastName = "Last 1"};

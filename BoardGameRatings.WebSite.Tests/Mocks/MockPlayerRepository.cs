@@ -39,6 +39,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             return _mock.Object.GetBy(firstName, lastName);
         }
 
+        public void RemoveGameOwned(int playerId, int gameId)
+        {
+            _mock.Object.RemoveGameOwned(playerId, gameId);
+        }
+
         public Player Add(Player player)
         {
             return _mock.Object.Add(player);
@@ -110,6 +115,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         public void VerifyAddGameOwnedCalledWith(int playerId, int gameId)
         {
             _mock.Verify(m => m.AddGameOwned(playerId, gameId));
+        }
+
+        public void VerifyRemoveGameOwnedCalledWith(int playerId, int gameId)
+        {
+            _mock.Verify(m => m.RemoveGameOwned(playerId, gameId));
         }
     }
 }

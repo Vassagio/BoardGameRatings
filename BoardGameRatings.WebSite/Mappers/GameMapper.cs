@@ -1,4 +1,5 @@
-﻿using BoardGameRatings.WebSite.Models;
+﻿using System.Collections.Generic;
+using BoardGameRatings.WebSite.Models;
 using BoardGameRatings.WebSite.ViewModels;
 using Microsoft.AspNet.Mvc.Rendering;
 
@@ -22,7 +23,8 @@ namespace BoardGameRatings.WebSite.Mappers
             {
                 Id = game.Id,
                 Name = game.Name,
-                Description = game.Description
+                Description = game.Description,
+                Categories = new List<SelectListItem>()
             };
         }
 
@@ -33,6 +35,17 @@ namespace BoardGameRatings.WebSite.Mappers
                 Value = game.Id.ToString(),
                 Text = game.Name
             };
+        }
+
+        public GameViewModel Map(Game game, IEnumerable<SelectListItem> categories,
+            IEnumerable<CategoryViewModel> electedCategories)
+        {
+            var viewModel = new GameViewModel();
+            if (game != null)
+                viewModel = Map(game);
+            viewModel.Categories = categories;
+            viewModel.ElectedCategories = electedCategories;
+            return viewModel;
         }
     }
 }
