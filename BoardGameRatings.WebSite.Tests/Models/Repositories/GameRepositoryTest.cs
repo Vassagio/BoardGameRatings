@@ -203,7 +203,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         }
 
         [Fact]
-        public void AddElectedCategories()
+        public void AddElectedCategory()
         {
             var game = new Game {Id = 1, Name = "Game 1"};
             var games = new List<Game> {game};
@@ -221,6 +221,24 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             Assert.Equal(1, result.First().Id);
             Assert.Equal("Category 1", result.First().Description);
+        }
+
+        [Theory]        
+        [InlineData(0, 1)]
+        [InlineData(1, 0)]
+        public void DoesNotAddInvalidElectedCategory(int gameId, int categoryId)
+        {
+            var game = new Game { Id = gameId, Name = "Game 1" };
+            var games = gameId == 0 ? new List<Game>() : new List<Game> { game };
+            var category = new Category { Id = categoryId, Description = "Category 1" };
+            var categories = categoryId == 0 ? new List<Category>() : new List<Category> { category };
+
+            var context = _fixture.Context
+                .GamesContain(games)
+                .CategoriesContain(categories);
+            var gameRepository = new GameRepository(context);            
+
+            Assert.Throws<ArgumentException>(() => gameRepository.AddElectedCategory(gameId, categoryId));
         }
 
         [Fact]
@@ -247,26 +265,20 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         }
 
         [Fact]
-        public void DoesNotAddDuplicateGameOwned()
-        {
-            var player = new Player {Id = 1, FirstName = "First 1", LastName = "Last 1"};
-            var players = new List<Player> {player};
+        public void DoesNotAddDuplicateElectedCategory()
+        {            
             var game = new Game {Id = 1, Name = "Game 1"};
             var games = new List<Game> {game};
+            var category = new Category { Id = 1, Description = "Category 1"};
+            var categories = new List<Category> { category };
 
             var context = _fixture.Context
-                .PlayersContain(players)
-                .GamesContain(games);
-            var playerRepository = new PlayerRepository(context);
+                .GamesContain(games)
+                .CategoriesContain(categories);
+            var gameRepository = new GameRepository(context);
 
-            playerRepository.AddGameOwned(player.Id, game.Id);
-            playerRepository.AddGameOwned(player.Id, game.Id);
-
-            var result = playerRepository.GetAllGamesBy(player.Id);
-
-            Assert.Equal(1, result.Count());
-            Assert.Equal(1, result.First().Id);
-            Assert.Equal("Game 1", result.First().Name);
+            gameRepository.AddElectedCategory(game.Id, category.Id);
+            Assert.Throws<ArgumentException>(() => gameRepository.AddElectedCategory(game.Id, category.Id));            
         }
     }
 }

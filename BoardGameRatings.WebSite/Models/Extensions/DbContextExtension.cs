@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using Microsoft.Data.Entity;
+﻿using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Migrations;
+using System.Linq;
 
 namespace BoardGameRatings.WebSite.Models.Extensions
 {

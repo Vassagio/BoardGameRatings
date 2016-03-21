@@ -61,8 +61,14 @@ namespace BoardGameRatings.WebSite.Models.Repositories
 
         public void AddGameOwned(int playerId, int gameId)
         {
+            if (GetBy(playerId) == null)
+                throw new ArgumentException("Player does not exist");
+
+            if (!IsValidGame(gameId))
+                throw new ArgumentException("Game does not exist");
+
             if (GetPlayerGameBy(playerId, gameId) != null)
-                return;
+                throw new ArgumentException("This game has already been selected for this player.");
 
             var playerGame = new PlayerGame {GameId = gameId, PlayerId = playerId};
             _context.PlayerGames.Add(playerGame);
@@ -84,6 +90,11 @@ namespace BoardGameRatings.WebSite.Models.Repositories
 
             _context.PlayerGames.Remove(playerGame);
             _context.SaveChanges();
+        }
+
+        private bool IsValidGame(int gameId)
+        {
+            return _context.Games.Any(g => g.Id == gameId);
         }
     }
 }

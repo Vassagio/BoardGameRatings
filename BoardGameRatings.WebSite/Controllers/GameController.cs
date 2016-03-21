@@ -12,7 +12,10 @@ namespace BoardGameRatings.WebSite.Controllers
         private static readonly string INDEX_ACTION_NAME = "Index";
         private static readonly string SAVE_ACTION_NAME = "Save";
         private static readonly string ADD_ACTION_NAME = "Add";
+        private static readonly string REMOVE_ACTION_NAME = "Remove";
         private static readonly string ID_PARAMETER_NAME = "id";
+        private static readonly string CATEGORY_ID_PARAMETER_NAME = "categoryId";
+        private static readonly string GAME_ID_PARAMETER_NAME = "gameId";
         private static readonly string MODEL_PARAMETER_NAME = "model";
         private readonly IGameContext _context;
 
@@ -67,6 +70,12 @@ namespace BoardGameRatings.WebSite.Controllers
             return RedirectToRoute(BuildIndexActionRouteValues(gameViewModel.Id));
         }
 
+        public RedirectToRouteResult Remove(int gameId, int categoryId)
+        {
+            _context.RemoveElectedCategory(gameId, categoryId);
+            return RedirectToRoute(BuildIndexActionRouteValues(gameId));
+        }
+
         public static RouteValueDictionary BuildAddActionRouteValues(GameViewModel model)
         {
             ;
@@ -74,6 +83,16 @@ namespace BoardGameRatings.WebSite.Controllers
                 .WithController(CONTROLLER_NAME)
                 .WithAction(ADD_ACTION_NAME)
                 .WithParameter(MODEL_PARAMETER_NAME, model)
+                .Build();
+        }
+
+        public static RouteValueDictionary BuildRemoveActionRouteValues(int gameId, int categoryId)
+        {
+            return new RouteValueDictionaryBuilder()
+                .WithController(CONTROLLER_NAME)
+                .WithAction(REMOVE_ACTION_NAME)
+                .WithParameter(GAME_ID_PARAMETER_NAME, gameId)
+                .WithParameter(CATEGORY_ID_PARAMETER_NAME, categoryId)
                 .Build();
         }
     }
