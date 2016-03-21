@@ -42,6 +42,16 @@ namespace BoardGameRatings.WebSite.Contexts
                 Add(model);
         }
 
+        public void AddElectedCategory(int gameId, int categoryId)
+        {
+            _gameRepository.AddElectedCategory(gameId, categoryId);
+        }
+
+        public void RemoveElectedCategory(int gameId, int categoryId)
+        {
+            _gameRepository.RemoveElectedCategory(gameId, categoryId);
+        }
+
         private void Update(Game game, GameViewModel model)
         {
             game.Name = model.Name;
@@ -66,11 +76,6 @@ namespace BoardGameRatings.WebSite.Contexts
         {
             var gameCategories = _gameRepository.GetAllCategoriesBy(id ?? 0);
             return gameCategories.Select(c => _categoryMapper.Map(c));
-        }
-
-        public void AddElectedCategory(int gameId, int categoryId)
-        {
-            _gameRepository.AddElectedCategory(gameId, categoryId);
         }
     }
 }

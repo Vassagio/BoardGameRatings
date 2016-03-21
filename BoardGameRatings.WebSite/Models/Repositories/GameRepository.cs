@@ -68,12 +68,33 @@ namespace BoardGameRatings.WebSite.Models.Repositories
 
         public void AddElectedCategory(int gameId, int categoryId)
         {
+            if (GetBy(gameId) == null)
+                throw new ArgumentException("Game does not exist");
+
+            if (!IsValidCategory(categoryId))
+                throw new ArgumentException("Category does not exist");
+
             if (GetGameCategoryBy(gameId, categoryId) != null)
-                return;
+                throw new ArgumentException("This category has already been elected for this game.");
 
             var gameCategory = new GameCategory {CategoryId = categoryId, GameId = gameId};
             _context.GameCategories.Add(gameCategory);
             _context.SaveChanges();
+        }
+
+        public void RemoveElectedCategory(int gameId, int categoryId)
+        {
+            var gameCategory = GetGameCategoryBy(gameId, categoryId);
+            if (gameCategory == null)
+                return;
+
+            _context.GameCategories.Remove(gameCategory);
+            _context.SaveChanges();
+        }
+
+        private bool IsValidCategory(int categoryId)
+        {
+            return _context.Categories.Any(c => c.Id == categoryId);
         }
     }
 }

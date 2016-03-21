@@ -225,13 +225,31 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             Assert.Equal("Game 1", result.First().Name);
         }
 
+        [Theory]
+        [InlineData(0, 1)]
+        [InlineData(1, 0)]
+        public void DoesNotAddInvalidGameOwned(int playerId, int gameId)
+        {            
+            var player = new Player { Id = playerId, FirstName = "First 1", LastName = "Last 1"};
+            var players = playerId == 0 ? new List<Player>() : new List<Player> { player };
+            var game = new Game { Id = gameId, Name = "Game 1" };
+            var games = gameId == 0 ? new List<Game>() : new List<Game> { game };
+
+            var context = _fixture.Context
+                .GamesContain(games)
+                .PlayersContain(players);
+            var playerRepository = new PlayerRepository(context);
+
+            Assert.Throws<ArgumentException>(() => playerRepository.AddGameOwned(playerId, gameId));
+        }
+
         [Fact]
         public void RemoveGameOwned()
         {
-            var player = new Player { Id = 1, FirstName = "First 1", LastName = "Last 1" };
-            var players = new List<Player> { player };
-            var game = new Game { Id = 1, Name = "Game 1" };
-            var games = new List<Game> { game };
+            var player = new Player {Id = 1, FirstName = "First 1", LastName = "Last 1"};
+            var players = new List<Player> {player};
+            var game = new Game {Id = 1, Name = "Game 1"};
+            var games = new List<Game> {game};
             var playerGame = new PlayerGame {GameId = game.Id, PlayerId = player.Id};
             var playerGames = new List<PlayerGame> {playerGame};
 
@@ -245,7 +263,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var result = playerRepository.GetAllGamesBy(player.Id);
 
-            Assert.False( result.Any());
+            Assert.False(result.Any());
         }
 
         [Fact]
@@ -262,18 +280,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             var playerRepository = new PlayerRepository(context);
 
             playerRepository.AddGameOwned(player.Id, game.Id);
-            playerRepository.AddGameOwned(player.Id, game.Id);
-
-            var result = playerRepository.GetAllGamesBy(player.Id);
-
-            Assert.Equal(1, result.Count());
-            Assert.Equal(1, result.First().Id);
-            Assert.Equal("Game 1", result.First().Name);
-        }
-
-        [Fact]
-        public void GetPlayerGameBy()
-        {
+            Assert.Throws<ArgumentException>(() => playerRepository.AddGameOwned(player.Id, game.Id));
         }
     }
 }

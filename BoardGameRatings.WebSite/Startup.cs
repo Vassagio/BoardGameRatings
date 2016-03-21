@@ -87,7 +87,7 @@ namespace BoardGameRatings.WebSite
             app.UseApplicationInsightsRequestTelemetry();
 
             if (!env.IsDevelopment())
-            {          
+            {
                 app.UseExceptionHandler("/Home/Error");
 
                 // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859

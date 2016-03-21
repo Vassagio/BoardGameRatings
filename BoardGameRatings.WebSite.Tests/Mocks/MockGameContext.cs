@@ -28,6 +28,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Object.AddElectedCategory(gameId, categoryId);
         }
 
+        public void RemoveElectedCategory(int gameId, int categoryId)
+        {
+            _mock.Object.RemoveElectedCategory(gameId, categoryId);
+        }
+
         public MockGameContext StubBuildViewModelToReturn(GameViewModel gameViewModel)
         {
             _mock.Setup(m => m.BuildViewModel(It.IsAny<int?>())).Returns(gameViewModel);
@@ -47,6 +52,11 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         public void VerifyAddElectedCategoryCalledWith(int gameId, int categoryId)
         {
             _mock.Verify(m => m.AddElectedCategory(gameId, categoryId));
+        }
+
+        public void VerifyRemoveElectedCategoryCalledWith(int gameId, int categoryId)
+        {
+            _mock.Verify(m => m.RemoveElectedCategory(gameId, categoryId));
         }
     }
 }
