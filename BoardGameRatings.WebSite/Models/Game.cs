@@ -10,5 +10,7 @@ namespace BoardGameRatings.WebSite.Models
 
         public List<PlayerGame> Players { get; set; }
         public List<GameCategory> Categories { get; set; }
+
+        public List<GamePlayedDate> PlayedDates { get; set; }
     }
 }

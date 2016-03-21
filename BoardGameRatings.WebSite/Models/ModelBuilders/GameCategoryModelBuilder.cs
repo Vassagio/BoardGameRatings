@@ -3,7 +3,7 @@ using Microsoft.Data.Entity.Metadata.Builders;
 
 namespace BoardGameRatings.WebSite.Models.ModelBuilders
 {
-    public class GameCategoryModelBuilder
+    public class GameCategoryModelBuilder : IModelBuilder
     {
         private readonly EntityTypeBuilder<GameCategory> _builder;
 
