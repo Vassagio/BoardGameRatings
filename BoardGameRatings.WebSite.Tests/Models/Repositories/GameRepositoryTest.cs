@@ -18,7 +18,6 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             _fixture.Begin();
         }
 
-
         public void Dispose()
         {
             _fixture.End();
@@ -203,6 +202,43 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         }
 
         [Fact]
+        public void GetElectedCategoriesBy()
+        {
+            var games = new List<Game>
+            {
+                new Game {Id = 1, Name = "Game 1"},
+                new Game {Id = 2, Name = "Game 2"}
+            };
+
+            var categories = new List<Category>
+            {
+                new Category {Id = 1, Description = "Category 1"},
+                new Category {Id = 2, Description = "Category 2"},
+                new Category {Id = 3, Description = "Category 3"}
+            };
+
+            var gameCategories = new List<GameCategory>
+            {
+                new GameCategory {CategoryId = 1, GameId = 1},
+                new GameCategory {CategoryId = 2, GameId = 1},
+                new GameCategory {CategoryId = 3, GameId = 1},
+                new GameCategory {CategoryId = 2, GameId = 2}
+            };
+
+            var context = _fixture.Context
+                .GamesContain(games)
+                .CategoriesContain(categories)
+                .GameCategoriesContain(gameCategories);
+            var gameRepository = new GameRepository(context);
+
+            var resultGameCategory = gameRepository.GetGameCategoryBy(1, 2);
+
+            Assert.Equal(2, resultGameCategory.Id);
+            Assert.Equal(1, resultGameCategory.GameId);
+            Assert.Equal(2, resultGameCategory.CategoryId);
+        }
+
+        [Fact]
         public void AddElectedCategory()
         {
             var game = new Game {Id = 1, Name = "Game 1"};
@@ -223,20 +259,20 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             Assert.Equal("Category 1", result.First().Description);
         }
 
-        [Theory]        
+        [Theory]
         [InlineData(0, 1)]
         [InlineData(1, 0)]
         public void DoesNotAddInvalidElectedCategory(int gameId, int categoryId)
         {
-            var game = new Game { Id = gameId, Name = "Game 1" };
-            var games = gameId == 0 ? new List<Game>() : new List<Game> { game };
-            var category = new Category { Id = categoryId, Description = "Category 1" };
-            var categories = categoryId == 0 ? new List<Category>() : new List<Category> { category };
+            var game = new Game {Id = gameId, Name = "Game 1"};
+            var games = gameId == 0 ? new List<Game>() : new List<Game> {game};
+            var category = new Category {Id = categoryId, Description = "Category 1"};
+            var categories = categoryId == 0 ? new List<Category>() : new List<Category> {category};
 
             var context = _fixture.Context
                 .GamesContain(games)
                 .CategoriesContain(categories);
-            var gameRepository = new GameRepository(context);            
+            var gameRepository = new GameRepository(context);
 
             Assert.Throws<ArgumentException>(() => gameRepository.AddElectedCategory(gameId, categoryId));
         }
@@ -266,11 +302,11 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
         [Fact]
         public void DoesNotAddDuplicateElectedCategory()
-        {            
+        {
             var game = new Game {Id = 1, Name = "Game 1"};
             var games = new List<Game> {game};
-            var category = new Category { Id = 1, Description = "Category 1"};
-            var categories = new List<Category> { category };
+            var category = new Category {Id = 1, Description = "Category 1"};
+            var categories = new List<Category> {category};
 
             var context = _fixture.Context
                 .GamesContain(games)
@@ -278,7 +314,133 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             var gameRepository = new GameRepository(context);
 
             gameRepository.AddElectedCategory(game.Id, category.Id);
-            Assert.Throws<ArgumentException>(() => gameRepository.AddElectedCategory(game.Id, category.Id));            
+            Assert.Throws<ArgumentException>(() => gameRepository.AddElectedCategory(game.Id, category.Id));
+        }
+
+        [Fact]
+        public void GetAllPlayedDatesByGame()
+        {
+            var games = new List<Game>
+            {
+                new Game {Id = 1, Name = "Game 1"},
+                new Game {Id = 2, Name = "Game 2"}
+            };
+
+            var gamePlayedDates = new List<GamePlayedDate>
+            {
+                new GamePlayedDate {PlayedDate = new DateTime(2016, 1, 1), GameId = 1},
+                new GamePlayedDate {PlayedDate = new DateTime(2016, 2, 2), GameId = 1},
+                new GamePlayedDate {PlayedDate = new DateTime(2016, 1, 1), GameId = 2},
+                new GamePlayedDate {PlayedDate = new DateTime(2016, 3, 3), GameId = 2}
+            };
+
+            var context = _fixture.Context
+                .GamesContain(games)
+                .GamePlayedDatesContain(gamePlayedDates);
+            var gameRepository = new GameRepository(context);
+
+            var resultGame1 = gameRepository.GetAllPlayedDatesBy(1);
+            var resultGame2 = gameRepository.GetAllPlayedDatesBy(2);
+
+            Assert.Equal(2, resultGame1.Count());
+            Assert.Equal(2, resultGame2.Count());
+        }
+
+        [Fact]
+        public void GetPlayedDatesBy()
+        {
+            var playedDate = new DateTime(2016, 1, 1);
+            var games = new List<Game>
+            {
+                new Game {Id = 1, Name = "Game 1"},
+                new Game {Id = 2, Name = "Game 2"}
+            };
+
+            var gamePlayedDates = new List<GamePlayedDate>
+            {
+                new GamePlayedDate {PlayedDate = playedDate, GameId = 1},
+                new GamePlayedDate {PlayedDate = new DateTime(2016, 2, 2), GameId = 1},
+                new GamePlayedDate {PlayedDate = playedDate, GameId = 2},
+                new GamePlayedDate {PlayedDate = new DateTime(2016, 3, 3), GameId = 2}
+            };
+
+            var context = _fixture.Context
+                .GamesContain(games)
+                .GamePlayedDatesContain(gamePlayedDates);
+            var gameRepository = new GameRepository(context);
+
+            var resultGame = gameRepository.GetGamePlayedDateBy(1, playedDate);
+
+            Assert.Equal(1, resultGame.Id);
+            Assert.Equal(1, resultGame.GameId);
+            Assert.Equal(playedDate, resultGame.PlayedDate);
+        }
+
+        [Fact]
+        public void AddPlayedDate()
+        {
+            var game = new Game {Id = 1, Name = "Game 1"};
+            var games = new List<Game> {game};
+            var playedDate = new DateTime(2016, 1, 1);
+
+            var context = _fixture.Context
+                .GamesContain(games);
+            var gameRepository = new GameRepository(context);
+
+            gameRepository.AddPlayedDate(game.Id, playedDate);
+
+            var result = gameRepository.GetAllPlayedDatesBy(game.Id);
+
+            Assert.Equal(playedDate, result.First());
+        }
+
+        [Fact]
+        public void DoesNotAddInvalidDatePlayed()
+        {
+            var gameId = 0;
+            var playedDate = new DateTime(2016, 1, 1);
+
+            var context = _fixture.Context
+                .GamesContain(new List<Game>());
+            var gameRepository = new GameRepository(context);
+
+            Assert.Throws<ArgumentException>(() => gameRepository.AddPlayedDate(gameId, playedDate));
+        }
+
+        [Fact]
+        public void RemovePlayedGame()
+        {
+            var game = new Game {Id = 1, Name = "Game 1"};
+            var games = new List<Game> {game};
+            var playedGame = new DateTime(2016, 1, 1);
+            var gamePlayedDate = new GamePlayedDate {GameId = game.Id, PlayedDate = playedGame};
+            var gamePlayedDates = new List<GamePlayedDate> {gamePlayedDate};
+
+            var context = _fixture.Context
+                .GamesContain(games)
+                .GamePlayedDatesContain(gamePlayedDates);
+            var gameRepository = new GameRepository(context);
+
+            gameRepository.RemovePlayedGame(game.Id, playedGame);
+
+            var result = gameRepository.GetAllPlayedDatesBy(game.Id);
+
+            Assert.False(result.Any());
+        }
+
+        [Fact]
+        public void DoesNotAddDuplicateDatePlayed()
+        {
+            var game = new Game {Id = 1, Name = "Game 1"};
+            var games = new List<Game> {game};
+            var playedDate = new DateTime(2016, 1, 1);
+
+            var context = _fixture.Context
+                .GamesContain(games);
+            var gameRepository = new GameRepository(context);
+
+            gameRepository.AddPlayedDate(game.Id, playedDate);
+            Assert.Throws<ArgumentException>(() => gameRepository.AddPlayedDate(game.Id, playedDate));
         }
     }
 }

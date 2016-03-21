@@ -73,15 +73,51 @@ namespace BoardGameRatings.WebSite.Models.Extensions
                 context.SaveChanges();
             }
 
-            context.GamePlayedDates.Add(new GamePlayedDate { GameId = BattlestarGalactica.Id, PlayedDate = new DateTime(2015, 9, 21) });
-            context.GamePlayedDates.Add(new GamePlayedDate { GameId = BattlestarGalactica.Id, PlayedDate = new DateTime(2015, 12, 17) });
-            context.GamePlayedDates.Add(new GamePlayedDate { GameId = BattlestarGalactica.Id, PlayedDate = new DateTime(2016, 2, 29 ) });
-            context.GamePlayedDates.Add(new GamePlayedDate { GameId = SettlersOfCatan.Id, PlayedDate = new DateTime(2015, 7, 7) });
-            context.GamePlayedDates.Add(new GamePlayedDate { GameId = SettlersOfCatan.Id, PlayedDate = new DateTime(2014, 11, 19) });
-            context.GamePlayedDates.Add(new GamePlayedDate { GameId = LastNightOnEarth.Id, PlayedDate = new DateTime(2015, 4, 3) });
-            context.GamePlayedDates.Add(new GamePlayedDate { GameId = LastNightOnEarth.Id, PlayedDate = new DateTime(2015, 8, 27) });
-            context.GamePlayedDates.Add(new GamePlayedDate { GameId = SheriffOfNottingham.Id, PlayedDate = new DateTime(2016, 10, 16) });
-            context.GamePlayedDates.Add(new GamePlayedDate { GameId = SheriffOfNottingham.Id, PlayedDate = new DateTime(2016, 3, 22) });            
+            context.GamePlayedDates.Add(new GamePlayedDate
+            {
+                GameId = BattlestarGalactica.Id,
+                PlayedDate = new DateTime(2015, 9, 21)
+            });
+            context.GamePlayedDates.Add(new GamePlayedDate
+            {
+                GameId = BattlestarGalactica.Id,
+                PlayedDate = new DateTime(2015, 12, 17)
+            });
+            context.GamePlayedDates.Add(new GamePlayedDate
+            {
+                GameId = BattlestarGalactica.Id,
+                PlayedDate = new DateTime(2016, 2, 29)
+            });
+            context.GamePlayedDates.Add(new GamePlayedDate
+            {
+                GameId = SettlersOfCatan.Id,
+                PlayedDate = new DateTime(2015, 7, 7)
+            });
+            context.GamePlayedDates.Add(new GamePlayedDate
+            {
+                GameId = SettlersOfCatan.Id,
+                PlayedDate = new DateTime(2014, 11, 19)
+            });
+            context.GamePlayedDates.Add(new GamePlayedDate
+            {
+                GameId = LastNightOnEarth.Id,
+                PlayedDate = new DateTime(2015, 4, 3)
+            });
+            context.GamePlayedDates.Add(new GamePlayedDate
+            {
+                GameId = LastNightOnEarth.Id,
+                PlayedDate = new DateTime(2015, 8, 27)
+            });
+            context.GamePlayedDates.Add(new GamePlayedDate
+            {
+                GameId = SheriffOfNottingham.Id,
+                PlayedDate = new DateTime(2016, 10, 16)
+            });
+            context.GamePlayedDates.Add(new GamePlayedDate
+            {
+                GameId = SheriffOfNottingham.Id,
+                PlayedDate = new DateTime(2016, 3, 22)
+            });
         }
 
         private static void AddGameCategories(ApplicationDbContext context)

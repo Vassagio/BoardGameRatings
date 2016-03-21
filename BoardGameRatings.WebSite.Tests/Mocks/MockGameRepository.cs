@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BoardGameRatings.WebSite.Models;
 using BoardGameRatings.WebSite.Models.Repositories;
 using Moq;
@@ -62,6 +63,26 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         public void RemoveElectedCategory(int gameId, int categoryId)
         {
             _mock.Object.RemoveElectedCategory(gameId, categoryId);
+        }
+
+        public IEnumerable<DateTime> GetAllPlayedDatesBy(int gameId)
+        {
+            return _mock.Object.GetAllPlayedDatesBy(gameId);
+        }
+
+        public void AddPlayedDate(int gameId, DateTime playedDate)
+        {
+            _mock.Object.AddPlayedDate(gameId, playedDate);
+        }
+
+        public GamePlayedDate GetGamePlayedDateBy(int gameId, DateTime playedDate)
+        {
+            return _mock.Object.GetGamePlayedDateBy(gameId, playedDate);
+        }
+
+        public void RemovePlayedGame(int gameId, DateTime playedGame)
+        {
+            _mock.Object.RemovePlayedGame(gameId, playedGame);
         }
 
         public MockGameRepository StubGetAllToReturn(List<Game> games)

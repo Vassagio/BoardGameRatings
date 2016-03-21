@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BoardGameRatings.WebSite.Models
 {
@@ -9,8 +6,8 @@ namespace BoardGameRatings.WebSite.Models
     {
         public int Id { get; set; }
         public int GameId { get; set; }
-        public DateTime PlayedDate { get; set; }  
+        public DateTime PlayedDate { get; set; }
 
-        public Game Game { get; set; }    
+        public Game Game { get; set; }
     }
 }

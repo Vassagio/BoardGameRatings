@@ -59,7 +59,6 @@ namespace BoardGameRatings.WebSite.Models.Repositories
                 .Select(pg => pg.Category);
         }
 
-
         public GameCategory GetGameCategoryBy(int gameId, int categoryId)
         {
             return _context.GameCategories
@@ -89,6 +88,42 @@ namespace BoardGameRatings.WebSite.Models.Repositories
                 return;
 
             _context.GameCategories.Remove(gameCategory);
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<DateTime> GetAllPlayedDatesBy(int gameId)
+        {
+            return _context.GamePlayedDates
+                .Where(pg => pg.GameId == gameId)
+                .Select(pg => pg.PlayedDate);
+        }
+
+        public void AddPlayedDate(int gameId, DateTime playedDate)
+        {
+            if (GetBy(gameId) == null)
+                throw new ArgumentException("Game does not exist");
+
+            if (GetGamePlayedDateBy(gameId, playedDate) != null)
+                throw new ArgumentException("This date has already been set for this game.");
+
+            var gamePlayedDate = new GamePlayedDate {GameId = gameId, PlayedDate = playedDate};
+            _context.GamePlayedDates.Add(gamePlayedDate);
+            _context.SaveChanges();
+        }
+
+        public GamePlayedDate GetGamePlayedDateBy(int gameId, DateTime playedDate)
+        {
+            return _context.GamePlayedDates
+                .FirstOrDefault(pg => pg.GameId == gameId && pg.PlayedDate == playedDate);
+        }
+
+        public void RemovePlayedGame(int gameId, DateTime playedGame)
+        {
+            var gamePlayedDate = GetGamePlayedDateBy(gameId, playedGame);
+            if (gamePlayedDate == null)
+                return;
+
+            _context.GamePlayedDates.Remove(gamePlayedDate);
             _context.SaveChanges();
         }
 

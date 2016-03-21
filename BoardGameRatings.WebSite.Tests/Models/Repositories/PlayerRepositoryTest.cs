@@ -229,11 +229,11 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         [InlineData(0, 1)]
         [InlineData(1, 0)]
         public void DoesNotAddInvalidGameOwned(int playerId, int gameId)
-        {            
-            var player = new Player { Id = playerId, FirstName = "First 1", LastName = "Last 1"};
-            var players = playerId == 0 ? new List<Player>() : new List<Player> { player };
-            var game = new Game { Id = gameId, Name = "Game 1" };
-            var games = gameId == 0 ? new List<Game>() : new List<Game> { game };
+        {
+            var player = new Player {Id = playerId, FirstName = "First 1", LastName = "Last 1"};
+            var players = playerId == 0 ? new List<Player>() : new List<Player> {player};
+            var game = new Game {Id = gameId, Name = "Game 1"};
+            var games = gameId == 0 ? new List<Game>() : new List<Game> {game};
 
             var context = _fixture.Context
                 .GamesContain(games)

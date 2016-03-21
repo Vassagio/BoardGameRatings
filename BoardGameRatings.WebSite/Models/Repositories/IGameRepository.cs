@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace BoardGameRatings.WebSite.Models.Repositories
@@ -9,5 +10,9 @@ namespace BoardGameRatings.WebSite.Models.Repositories
         IEnumerable<Category> GetAllCategoriesBy(int gameId);
         GameCategory GetGameCategoryBy(int gameId, int categoryId);
         void RemoveElectedCategory(int gameId, int categoryId);
+        IEnumerable<DateTime> GetAllPlayedDatesBy(int gameId);
+        void AddPlayedDate(int gameId, DateTime playedDate);
+        GamePlayedDate GetGamePlayedDateBy(int gameId, DateTime playedDate);
+        void RemovePlayedGame(int gameId, DateTime playedGame);
     }
 }

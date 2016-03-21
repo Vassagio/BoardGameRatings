@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
-using Microsoft.Data.Entity.Migrations;
 using Microsoft.Data.Entity.Metadata;
+using Microsoft.Data.Entity.Migrations;
 
 namespace BoardGameRatings.WebSite.Migrations
 {
@@ -9,99 +8,61 @@ namespace BoardGameRatings.WebSite.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(name: "FK_GameCategory_Category_CategoryId", table: "GameCategory");
-            migrationBuilder.DropForeignKey(name: "FK_GameCategory_Game_GameId", table: "GameCategory");
-            migrationBuilder.DropForeignKey(name: "FK_PlayerGame_Game_GameId", table: "PlayerGame");
-            migrationBuilder.DropForeignKey(name: "FK_PlayerGame_Player_PlayerId", table: "PlayerGame");
-            migrationBuilder.CreateTable(
-                name: "GamePlayedDate",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    GameId = table.Column<int>(nullable: false),
-                    PlayedDate = table.Column<DateTime>(nullable: false)
-                },
+            migrationBuilder.DropForeignKey("FK_GameCategory_Category_CategoryId", "GameCategory");
+            migrationBuilder.DropForeignKey("FK_GameCategory_Game_GameId", "GameCategory");
+            migrationBuilder.DropForeignKey("FK_PlayerGame_Game_GameId", "PlayerGame");
+            migrationBuilder.DropForeignKey("FK_PlayerGame_Player_PlayerId", "PlayerGame");
+            migrationBuilder.CreateTable("GamePlayedDate", table => new
+            {
+                Id = table.Column<int>(nullable: false)
+                    .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                GameId = table.Column<int>(nullable: false),
+                PlayedDate = table.Column<DateTime>(nullable: false)
+            },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GamePlayedDate", x => x.Id)
                         .Annotation("SqlServer:Clustered", false);
-                    table.ForeignKey(
-                        name: "FK_GamePlayedDate_Game_GameId",
-                        column: x => x.GameId,
-                        principalTable: "Game",
-                        principalColumn: "Id",
+                    table.ForeignKey("FK_GamePlayedDate_Game_GameId", x => x.GameId, "Game", "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-            migrationBuilder.CreateIndex(
-                name: "IX_GamePlayedDate_GameId_PlayedDate",
-                table: "GamePlayedDate",
-                columns: new[] { "GameId", "PlayedDate" },
+            migrationBuilder.CreateIndex("IX_GamePlayedDate_GameId_PlayedDate", "GamePlayedDate",
+                new[] {"GameId", "PlayedDate"},
                 unique: true)
                 .Annotation("SqlServer:Clustered", true);
-            migrationBuilder.AddForeignKey(
-                name: "FK_GameCategory_Category_CategoryId",
-                table: "GameCategory",
-                column: "CategoryId",
-                principalTable: "Category",
+            migrationBuilder.AddForeignKey("FK_GameCategory_Category_CategoryId", "GameCategory", "CategoryId",
+                "Category",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
-            migrationBuilder.AddForeignKey(
-                name: "FK_GameCategory_Game_GameId",
-                table: "GameCategory",
-                column: "GameId",
-                principalTable: "Game",
+            migrationBuilder.AddForeignKey("FK_GameCategory_Game_GameId", "GameCategory", "GameId", "Game",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
-            migrationBuilder.AddForeignKey(
-                name: "FK_PlayerGame_Game_GameId",
-                table: "PlayerGame",
-                column: "GameId",
-                principalTable: "Game",
+            migrationBuilder.AddForeignKey("FK_PlayerGame_Game_GameId", "PlayerGame", "GameId", "Game",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
-            migrationBuilder.AddForeignKey(
-                name: "FK_PlayerGame_Player_PlayerId",
-                table: "PlayerGame",
-                column: "PlayerId",
-                principalTable: "Player",
+            migrationBuilder.AddForeignKey("FK_PlayerGame_Player_PlayerId", "PlayerGame", "PlayerId", "Player",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(name: "FK_GameCategory_Category_CategoryId", table: "GameCategory");
-            migrationBuilder.DropForeignKey(name: "FK_GameCategory_Game_GameId", table: "GameCategory");
-            migrationBuilder.DropForeignKey(name: "FK_PlayerGame_Game_GameId", table: "PlayerGame");
-            migrationBuilder.DropForeignKey(name: "FK_PlayerGame_Player_PlayerId", table: "PlayerGame");
+            migrationBuilder.DropForeignKey("FK_GameCategory_Category_CategoryId", "GameCategory");
+            migrationBuilder.DropForeignKey("FK_GameCategory_Game_GameId", "GameCategory");
+            migrationBuilder.DropForeignKey("FK_PlayerGame_Game_GameId", "PlayerGame");
+            migrationBuilder.DropForeignKey("FK_PlayerGame_Player_PlayerId", "PlayerGame");
             migrationBuilder.DropTable("GamePlayedDate");
-            migrationBuilder.AddForeignKey(
-                name: "FK_GameCategory_Category_CategoryId",
-                table: "GameCategory",
-                column: "CategoryId",
-                principalTable: "Category",
+            migrationBuilder.AddForeignKey("FK_GameCategory_Category_CategoryId", "GameCategory", "CategoryId",
+                "Category",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
-            migrationBuilder.AddForeignKey(
-                name: "FK_GameCategory_Game_GameId",
-                table: "GameCategory",
-                column: "GameId",
-                principalTable: "Game",
+            migrationBuilder.AddForeignKey("FK_GameCategory_Game_GameId", "GameCategory", "GameId", "Game",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
-            migrationBuilder.AddForeignKey(
-                name: "FK_PlayerGame_Game_GameId",
-                table: "PlayerGame",
-                column: "GameId",
-                principalTable: "Game",
+            migrationBuilder.AddForeignKey("FK_PlayerGame_Game_GameId", "PlayerGame", "GameId", "Game",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
-            migrationBuilder.AddForeignKey(
-                name: "FK_PlayerGame_Player_PlayerId",
-                table: "PlayerGame",
-                column: "PlayerId",
-                principalTable: "Player",
+            migrationBuilder.AddForeignKey("FK_PlayerGame_Player_PlayerId", "PlayerGame", "PlayerId", "Player",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
