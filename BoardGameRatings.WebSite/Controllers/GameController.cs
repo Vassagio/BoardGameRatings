@@ -15,6 +15,7 @@ namespace BoardGameRatings.WebSite.Controllers
         private static readonly string REMOVE_ACTION_NAME = "Remove";
         private static readonly string ID_PARAMETER_NAME = "id";
         private static readonly string CATEGORY_ID_PARAMETER_NAME = "categoryId";
+        private static readonly string PLAYED_DATE_ID_PARAMETER_NAME = "playedDateId";
         private static readonly string GAME_ID_PARAMETER_NAME = "gameId";
         private static readonly string MODEL_PARAMETER_NAME = "model";
         private readonly IGameContext _context;
@@ -86,13 +87,23 @@ namespace BoardGameRatings.WebSite.Controllers
                 .Build();
         }
 
-        public static RouteValueDictionary BuildRemoveActionRouteValues(int gameId, int categoryId)
+        public static RouteValueDictionary BuildRemoveCategoryActionRouteValues(int gameId, int categoryId)
         {
             return new RouteValueDictionaryBuilder()
                 .WithController(CONTROLLER_NAME)
                 .WithAction(REMOVE_ACTION_NAME)
                 .WithParameter(GAME_ID_PARAMETER_NAME, gameId)
                 .WithParameter(CATEGORY_ID_PARAMETER_NAME, categoryId)
+                .Build();
+        }
+
+        public static RouteValueDictionary BuildRemovePlayedDateActionRouteValues(int gameId, int playedDateId)
+        {
+            return new RouteValueDictionaryBuilder()
+                .WithController(CONTROLLER_NAME)
+                .WithAction(REMOVE_ACTION_NAME)
+                .WithParameter(GAME_ID_PARAMETER_NAME, gameId)
+                .WithParameter(PLAYED_DATE_ID_PARAMETER_NAME, playedDateId)
                 .Build();
         }
     }
