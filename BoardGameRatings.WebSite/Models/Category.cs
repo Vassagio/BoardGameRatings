@@ -2,10 +2,10 @@
 
 namespace BoardGameRatings.WebSite.Models
 {
-    public class Category
+    public class Category : IEntity
     {
-        public int Id { get; set; }
         public string Description { get; set; }
         public List<GameCategory> Games { get; set; }
+        public int Id { get; set; }
     }
 }

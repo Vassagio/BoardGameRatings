@@ -5,10 +5,8 @@ using Microsoft.AspNet.Mvc.Rendering;
 
 namespace BoardGameRatings.WebSite.Mappers
 {
-    public interface IPlayerMapper
+    public interface IPlayerMapper : IMapper<Player, PlayerViewModel>
     {
-        Player Map(PlayerViewModel viewModel);
-        PlayerViewModel Map(Player player);
         PlayerViewModel Map(Player player, IEnumerable<SelectListItem> games, IEnumerable<GameViewModel> gamesOwned);
     }
 }

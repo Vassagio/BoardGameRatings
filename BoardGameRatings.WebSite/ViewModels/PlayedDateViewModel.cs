@@ -1,8 +1,8 @@
 ﻿namespace BoardGameRatings.WebSite.ViewModels
 {
-    public class PlayedDateViewModel
+    public class PlayedDateViewModel : IViewModel
     {
-        public int Id { get; set; }
         public string FormattedPlayedDate { get; set; }
+        public int Id { get; set; }
     }
 }

@@ -2,12 +2,12 @@
 
 namespace BoardGameRatings.WebSite.Models
 {
-    public class GamePlayedDate
+    public class GamePlayedDate : IEntity
     {
-        public int Id { get; set; }
         public int GameId { get; set; }
         public DateTime PlayedDate { get; set; }
 
         public Game Game { get; set; }
+        public int Id { get; set; }
     }
 }

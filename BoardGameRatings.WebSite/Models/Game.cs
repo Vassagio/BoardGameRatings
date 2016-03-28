@@ -2,9 +2,8 @@
 
 namespace BoardGameRatings.WebSite.Models
 {
-    public class Game
+    public class Game : IEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
@@ -12,5 +11,6 @@ namespace BoardGameRatings.WebSite.Models
         public List<GameCategory> Categories { get; set; }
 
         public List<GamePlayedDate> PlayedDates { get; set; }
+        public int Id { get; set; }
     }
 }

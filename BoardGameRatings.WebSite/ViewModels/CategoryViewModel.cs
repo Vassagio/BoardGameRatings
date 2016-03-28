@@ -1,8 +1,8 @@
 ﻿namespace BoardGameRatings.WebSite.ViewModels
 {
-    public class CategoryViewModel
+    public class CategoryViewModel : IViewModel
     {
-        public int Id { get; set; }
         public string Description { get; set; }
+        public int Id { get; set; }
     }
 }

@@ -5,12 +5,8 @@ using Microsoft.AspNet.Mvc.Rendering;
 
 namespace BoardGameRatings.WebSite.Mappers
 {
-    public interface IGameMapper
+    public interface IGameMapper : IMapper<Game, GameViewModel>, ISelectListItemMapper<Game>
     {
-        Game Map(GameViewModel viewModel);
-        GameViewModel Map(Game game);
-        SelectListItem SelectMap(Game game);
-
         GameViewModel Map(Game game, IEnumerable<SelectListItem> categories,
             IEnumerable<CategoryViewModel> electedCategories);
     }
