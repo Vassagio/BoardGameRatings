@@ -14,7 +14,7 @@ namespace BoardGameRatings.WebSite.Tests.Mappers
             var viewModel = new PlayedDateViewModel
             {
                 Id = 2,
-                FormattedPlayedDate = "1/1/2016"
+                PlayedDate = new DateTime(2016, 1, 1)
             };
             var mapper = new PlayedDateMapper();
             var playedDate = mapper.Map(viewModel);
@@ -36,6 +36,7 @@ namespace BoardGameRatings.WebSite.Tests.Mappers
 
             Assert.Equal(playedDate.Id, viewModel.Id);
             Assert.Equal("1/1/2016", viewModel.FormattedPlayedDate);
+            Assert.Equal(new DateTime(2016, 1, 1), viewModel.PlayedDate);
         }
     }
 }

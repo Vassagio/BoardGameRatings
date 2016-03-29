@@ -70,5 +70,15 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         {
             _mock.Verify(m => m.RemoveElectedCategory(gameId, categoryId));
         }
+
+        public void VerifyAddPlayedDateCalledWith(int gameId, DateTime playedDate)
+        {
+            _mock.Verify(m => m.AddPlayedDate(gameId, playedDate));
+        }
+
+        public void VerifyRemovePlayedDateCalledWith(int gameId, DateTime playedDate)
+        {
+            _mock.Verify(m => m.RemovePlayedDate(gameId, playedDate));
+        }
     }
 }

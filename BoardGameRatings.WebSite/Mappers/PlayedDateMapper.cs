@@ -1,5 +1,4 @@
-﻿using System;
-using BoardGameRatings.WebSite.Models;
+﻿using BoardGameRatings.WebSite.Models;
 using BoardGameRatings.WebSite.ViewModels;
 
 namespace BoardGameRatings.WebSite.Mappers
@@ -11,7 +10,7 @@ namespace BoardGameRatings.WebSite.Mappers
             return new GamePlayedDate
             {
                 Id = viewModel.Id,
-                PlayedDate = DateTime.Parse(viewModel.FormattedPlayedDate)
+                PlayedDate = viewModel.PlayedDate
             };
         }
 
@@ -20,6 +19,7 @@ namespace BoardGameRatings.WebSite.Mappers
             return new PlayedDateViewModel
             {
                 Id = playedDate.Id,
+                PlayedDate = playedDate.PlayedDate,
                 FormattedPlayedDate = playedDate.PlayedDate.ToString("M/d/yyyy")
             };
         }

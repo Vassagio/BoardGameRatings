@@ -3,7 +3,7 @@
 @model BoardGameRatings.WebSite.ViewModels.GameViewModel
 
 <div>
-    @using (Html.BeginForm(GameController.BuildAddActionRouteValues(@Model)))
+    @using (Html.BeginForm(GameController.BuildAddCategoryActionRouteValues(@Model)))
     {
         @Html.AntiForgeryToken()
         <div class="form-group">
@@ -30,7 +30,7 @@
                     <tr>
                         <td class="col-md-2">@category.Description</td>
                         <td class="col-md-1 text-center">
-                            <a href="@Url.RouteUrl(GameController.BuildRemoveActionRouteValues(@Model.Id, category.Id))">
+                            <a href="@Url.RouteUrl(GameController.BuildRemoveCategoryActionRouteValues(@Model.Id, category.Id))">
                                 <i class="fa fa-trash" style="color: red"></i>
                             </a>
                         </td>

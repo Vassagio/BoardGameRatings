@@ -3,7 +3,7 @@
 @model BoardGameRatings.WebSite.ViewModels.GameViewModel
 
 <div>
-    @using (Html.BeginForm(GameController.BuildAddActionRouteValues(@Model)))
+    @using (Html.BeginForm(GameController.BuildAddPlayedDateActionRouteValues(@Model)))
     {
         @Html.AntiForgeryToken()
         <div class="form-group">
@@ -28,7 +28,7 @@
                     <tr>
                         <td class="col-md-2">@playedDate.FormattedPlayedDate</td>
                         <td class="col-md-1 text-center">
-                            <a href="@Url.RouteUrl(GameController.BuildRemovePlayedDateActionRouteValues(@Model.Id, playedDate.Id))">
+                            <a href="@Url.RouteUrl(GameController.BuildRemovePlayedDateActionRouteValues(@Model.Id, playedDate.PlayedDate))">
                                 <i class="fa fa-trash" style="color: red"></i>
                             </a>
                         </td>

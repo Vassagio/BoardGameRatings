@@ -62,6 +62,7 @@ namespace BoardGameRatings.WebSite
             services.AddScoped<IPlayersContext, PlayersContext>();
             services.AddScoped<IPlayerContext, PlayerContext>();
             services.AddScoped<IPlayerMapper, PlayerMapper>();
+            services.AddScoped<IPlayedDateMapper, PlayedDateMapper>();
         }
 
         public void ConfigureDevelopment(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
