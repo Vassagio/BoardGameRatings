@@ -48,7 +48,8 @@ namespace BoardGameRatings.WebSite.Models.Repositories
 
         public void Update(Game game)
         {
-            _context.Entry(game).State = EntityState.Modified;
+            _context.Entry(game)
+                .State = EntityState.Modified;
             _context.SaveChanges();
         }
 
@@ -91,11 +92,10 @@ namespace BoardGameRatings.WebSite.Models.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<DateTime> GetAllPlayedDatesBy(int gameId)
+        public IEnumerable<GamePlayedDate> GetAllPlayedDatesBy(int gameId)
         {
             return _context.GamePlayedDates
-                .Where(pg => pg.GameId == gameId)
-                .Select(pg => pg.PlayedDate);
+                .Where(pg => pg.GameId == gameId);
         }
 
         public void AddPlayedDate(int gameId, DateTime playedDate)
@@ -117,7 +117,7 @@ namespace BoardGameRatings.WebSite.Models.Repositories
                 .FirstOrDefault(pg => pg.GameId == gameId && pg.PlayedDate == playedDate);
         }
 
-        public void RemovePlayedGame(int gameId, DateTime playedGame)
+        public void RemovePlayedDate(int gameId, DateTime playedGame)
         {
             var gamePlayedDate = GetGamePlayedDateBy(gameId, playedGame);
             if (gamePlayedDate == null)

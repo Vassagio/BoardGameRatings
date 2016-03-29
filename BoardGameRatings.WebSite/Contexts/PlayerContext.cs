@@ -61,7 +61,8 @@ namespace BoardGameRatings.WebSite.Contexts
         private IEnumerable<SelectListItem> GetGameSelectListItems()
         {
             var games = _gameRepository.GetAll();
-            return games.Select(g => _gameMapper.SelectMap(g)).ToList();
+            return games.Select(g => _gameMapper.SelectMap(g))
+                .ToList();
         }
 
         private void Update(Player player, PlayerViewModel model)

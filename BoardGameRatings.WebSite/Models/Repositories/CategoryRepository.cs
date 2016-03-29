@@ -50,7 +50,8 @@ namespace BoardGameRatings.WebSite.Models.Repositories
 
         public void Update(Category category)
         {
-            _context.Entry(category).State = EntityState.Modified;
+            _context.Entry(category)
+                .State = EntityState.Modified;
             _context.SaveChanges();
         }
     }

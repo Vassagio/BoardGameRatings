@@ -25,7 +25,8 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public MockCategoriesContext StubBuildViewModelToReturn(CategoriesViewModel categoriesViewModel)
         {
-            _mock.Setup(m => m.BuildViewModel()).Returns(categoriesViewModel);
+            _mock.Setup(m => m.BuildViewModel())
+                .Returns(categoriesViewModel);
             return this;
         }
 

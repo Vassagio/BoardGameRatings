@@ -23,5 +23,17 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         {
             return _mock.Object.Map(gamePlayedDate);
         }
+
+        public MockPlayedDateMapper StubMapToReturn(PlayedDateViewModel playedDateViewModel)
+        {
+            _mock.Setup(m => m.Map(It.IsAny<GamePlayedDate>()))
+                .Returns(playedDateViewModel);
+            return this;
+        }
+
+        public void VerifyMapCalledWith(GamePlayedDate gamePlayedDate)
+        {
+            _mock.Verify(m => m.Map(gamePlayedDate));
+        }
     }
 }

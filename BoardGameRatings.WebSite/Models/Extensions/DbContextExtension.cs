@@ -17,7 +17,8 @@ namespace BoardGameRatings.WebSite.Models.Extensions
                 .Migrations
                 .Select(m => m.Key);
 
-            return !total.Except(applied).Any();
+            return !total.Except(applied)
+                .Any();
         }
     }
 }

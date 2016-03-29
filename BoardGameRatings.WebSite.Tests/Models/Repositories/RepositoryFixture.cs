@@ -12,7 +12,8 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         public RepositoryFixture()
         {
             _serviceCollection = new ServiceCollection();
-            _serviceCollection.AddEntityFramework().AddInMemoryDatabase();
+            _serviceCollection.AddEntityFramework()
+                .AddInMemoryDatabase();
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseInMemoryDatabase();

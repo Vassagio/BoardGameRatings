@@ -51,7 +51,8 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public MockPlayerMapper StubMapToReturn(PlayerViewModel playerViewModel)
         {
-            _mock.Setup(m => m.Map(It.IsAny<Player>())).Returns(playerViewModel);
+            _mock.Setup(m => m.Map(It.IsAny<Player>()))
+                .Returns(playerViewModel);
             return this;
         }
 
@@ -60,13 +61,15 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Setup(
                 m =>
                     m.Map(It.IsAny<Player>(), It.IsAny<IEnumerable<SelectListItem>>(),
-                        It.IsAny<IEnumerable<GameViewModel>>())).Returns(playerViewModel);
+                        It.IsAny<IEnumerable<GameViewModel>>()))
+                .Returns(playerViewModel);
             return this;
         }
 
         public MockPlayerMapper StubMapToReturn(Player player)
         {
-            _mock.Setup(m => m.Map(It.IsAny<PlayerViewModel>())).Returns(player);
+            _mock.Setup(m => m.Map(It.IsAny<PlayerViewModel>()))
+                .Returns(player);
             return this;
         }
     }

@@ -43,7 +43,8 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var playerRepository = new PlayerRepository(_fixture.Context.PlayersContain(players));
 
-            var result = playerRepository.GetAll().ToList();
+            var result = playerRepository.GetAll()
+                .ToList();
 
             Assert.Equal(3, result.Count());
             Assert.Equal(players, result.OrderBy(r => r.Id));
@@ -96,7 +97,8 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             var playerRepository = new PlayerRepository(_fixture.Context.PlayersContain(players));
 
             playerRepository.Remove(player2);
-            var result = playerRepository.GetAll().ToList();
+            var result = playerRepository.GetAll()
+                .ToList();
 
             Assert.Equal(2, result.Count());
             Assert.Equal(new List<Player> {player1, player3}, result.OrderBy(r => r.Id));
@@ -221,8 +223,10 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var result = playerRepository.GetAllGamesBy(player.Id);
 
-            Assert.Equal(1, result.First().Id);
-            Assert.Equal("Game 1", result.First().Name);
+            Assert.Equal(1, result.First()
+                .Id);
+            Assert.Equal("Game 1", result.First()
+                .Name);
         }
 
         [Theory]

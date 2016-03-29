@@ -32,7 +32,8 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public MockCategoryMapper StubMapToReturn(CategoryViewModel categoryViewModel)
         {
-            _mock.Setup(m => m.Map(It.IsAny<Category>())).Returns(categoryViewModel);
+            _mock.Setup(m => m.Map(It.IsAny<Category>()))
+                .Returns(categoryViewModel);
             return this;
         }
 
@@ -43,7 +44,8 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public MockCategoryMapper StubMapToReturn(Category category)
         {
-            _mock.Setup(m => m.Map(It.IsAny<CategoryViewModel>())).Returns(category);
+            _mock.Setup(m => m.Map(It.IsAny<CategoryViewModel>()))
+                .Returns(category);
             return this;
         }
 
@@ -55,7 +57,8 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public MockCategoryMapper StubSelectMapToReturn(SelectListItem item)
         {
-            _mock.Setup(m => m.SelectMap(It.IsAny<Category>())).Returns(item);
+            _mock.Setup(m => m.SelectMap(It.IsAny<Category>()))
+                .Returns(item);
             return this;
         }
 

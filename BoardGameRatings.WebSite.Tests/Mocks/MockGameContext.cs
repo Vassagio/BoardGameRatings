@@ -1,4 +1,5 @@
-﻿using BoardGameRatings.WebSite.Contexts;
+﻿using System;
+using BoardGameRatings.WebSite.Contexts;
 using BoardGameRatings.WebSite.ViewModels;
 using Moq;
 
@@ -33,9 +34,20 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Object.RemoveElectedCategory(gameId, categoryId);
         }
 
+        public void AddPlayedDate(int gameId, DateTime playedDate)
+        {
+            _mock.Object.AddPlayedDate(gameId, playedDate);
+        }
+
+        public void RemovePlayedDate(int gameId, DateTime playedDate)
+        {
+            _mock.Object.RemovePlayedDate(gameId, playedDate);
+        }
+
         public MockGameContext StubBuildViewModelToReturn(GameViewModel gameViewModel)
         {
-            _mock.Setup(m => m.BuildViewModel(It.IsAny<int?>())).Returns(gameViewModel);
+            _mock.Setup(m => m.BuildViewModel(It.IsAny<int?>()))
+                .Returns(gameViewModel);
             return this;
         }
 

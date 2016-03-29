@@ -18,7 +18,8 @@ namespace BoardGameRatings.WebSite.Contexts
 
         public PlayersViewModel BuildViewModel()
         {
-            var players = _playerRepository.GetAll().Select(player => _mapper.Map(player));
+            var players = _playerRepository.GetAll()
+                .Select(player => _mapper.Map(player));
             return new PlayersViewModel
             {
                 Players = players

@@ -8,6 +8,6 @@ namespace BoardGameRatings.WebSite.Mappers
     public interface IGameMapper : IMapper<Game, GameViewModel>, ISelectListItemMapper<Game>
     {
         GameViewModel Map(Game game, IEnumerable<SelectListItem> categories,
-            IEnumerable<CategoryViewModel> electedCategories);
+            IEnumerable<CategoryViewModel> electedCategories, IEnumerable<PlayedDateViewModel> playedDates);
     }
 }

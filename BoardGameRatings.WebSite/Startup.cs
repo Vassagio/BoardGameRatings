@@ -72,8 +72,10 @@ namespace BoardGameRatings.WebSite
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
                 .CreateScope())
             {
-                serviceScope.ServiceProvider.GetService<ApplicationDbContext>().Database.Migrate();
-                serviceScope.ServiceProvider.GetService<ApplicationDbContext>().EnsureSeedData();
+                serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+                    .Database.Migrate();
+                serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+                    .EnsureSeedData();
             }
             Configure(app, env, loggerFactory);
         }

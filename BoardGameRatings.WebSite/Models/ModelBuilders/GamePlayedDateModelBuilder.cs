@@ -14,12 +14,21 @@ namespace BoardGameRatings.WebSite.Models.ModelBuilders
 
         public void Build()
         {
-            _builder.HasKey(e => e.Id).ForSqlServerIsClustered(false);
-            _builder.Property(e => e.Id).IsRequired().UseSqlServerIdentityColumn();
-            _builder.HasIndex(e => new {e.GameId, e.PlayedDate}).IsUnique().ForSqlServerIsClustered();
-            _builder.Property(e => e.GameId).IsRequired();
-            _builder.HasOne(e => e.Game).WithMany(e => e.PlayedDates).HasForeignKey(e => e.GameId);
-            _builder.Property(e => e.PlayedDate).IsRequired();
+            _builder.HasKey(e => e.Id)
+                .ForSqlServerIsClustered(false);
+            _builder.Property(e => e.Id)
+                .IsRequired()
+                .UseSqlServerIdentityColumn();
+            _builder.HasIndex(e => new {e.GameId, e.PlayedDate})
+                .IsUnique()
+                .ForSqlServerIsClustered();
+            _builder.Property(e => e.GameId)
+                .IsRequired();
+            _builder.HasOne(e => e.Game)
+                .WithMany(e => e.PlayedDates)
+                .HasForeignKey(e => e.GameId);
+            _builder.Property(e => e.PlayedDate)
+                .IsRequired();
         }
     }
 }

@@ -42,7 +42,8 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var gameRepository = new GameRepository(_fixture.Context.GamesContain(games));
 
-            var result = gameRepository.GetAll().ToList();
+            var result = gameRepository.GetAll()
+                .ToList();
 
             Assert.Equal(3, result.Count());
             Assert.Equal(games, result.OrderBy(r => r.Id));
@@ -94,7 +95,8 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             var gameRepository = new GameRepository(_fixture.Context.GamesContain(games));
 
             gameRepository.Remove(game2);
-            var result = gameRepository.GetAll().ToList();
+            var result = gameRepository.GetAll()
+                .ToList();
 
             Assert.Equal(2, result.Count());
             Assert.Equal(new List<Game> {game1, game3}, result.OrderBy(r => r.Id));
@@ -255,8 +257,10 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var result = gameRepository.GetAllCategoriesBy(game.Id);
 
-            Assert.Equal(1, result.First().Id);
-            Assert.Equal("Category 1", result.First().Description);
+            Assert.Equal(1, result.First()
+                .Id);
+            Assert.Equal("Category 1", result.First()
+                .Description);
         }
 
         [Theory]
@@ -391,7 +395,8 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var result = gameRepository.GetAllPlayedDatesBy(game.Id);
 
-            Assert.Equal(playedDate, result.First());
+            Assert.Equal(playedDate, result.First()
+                .PlayedDate);
         }
 
         [Fact]
@@ -421,7 +426,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
                 .GamePlayedDatesContain(gamePlayedDates);
             var gameRepository = new GameRepository(context);
 
-            gameRepository.RemovePlayedGame(game.Id, playedGame);
+            gameRepository.RemovePlayedDate(game.Id, playedGame);
 
             var result = gameRepository.GetAllPlayedDatesBy(game.Id);
 
