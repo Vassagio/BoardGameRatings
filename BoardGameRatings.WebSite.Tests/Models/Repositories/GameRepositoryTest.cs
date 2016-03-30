@@ -322,7 +322,7 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
         }
 
         [Fact]
-        public void GetAllPlayedDatesByGame()
+        public void GetAllPlayedDatesByGameOrderDescending()
         {
             var games = new List<Game>
             {
@@ -330,10 +330,12 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
                 new Game {Id = 2, Name = "Game 2"}
             };
 
+            var gamePlayed1 = new GamePlayedDate {PlayedDate = new DateTime(2016, 1, 1), GameId = 1};
+            var gamePlayed2 = new GamePlayedDate {PlayedDate = new DateTime(2016, 2, 2), GameId = 1};
             var gamePlayedDates = new List<GamePlayedDate>
             {
-                new GamePlayedDate {PlayedDate = new DateTime(2016, 1, 1), GameId = 1},
-                new GamePlayedDate {PlayedDate = new DateTime(2016, 2, 2), GameId = 1},
+                gamePlayed1,
+                gamePlayed2,
                 new GamePlayedDate {PlayedDate = new DateTime(2016, 1, 1), GameId = 2},
                 new GamePlayedDate {PlayedDate = new DateTime(2016, 3, 3), GameId = 2}
             };
@@ -343,11 +345,14 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
                 .GamePlayedDatesContain(gamePlayedDates);
             var gameRepository = new GameRepository(context);
 
-            var resultGame1 = gameRepository.GetAllPlayedDatesBy(1);
+            var resultGame1 = gameRepository.GetAllPlayedDatesBy(1)
+                .ToList();
             var resultGame2 = gameRepository.GetAllPlayedDatesBy(2);
 
             Assert.Equal(2, resultGame1.Count());
             Assert.Equal(2, resultGame2.Count());
+            Assert.Equal(gamePlayed2, resultGame1.First());
+            Assert.Equal(gamePlayed1, resultGame1.Last());
         }
 
         [Fact]

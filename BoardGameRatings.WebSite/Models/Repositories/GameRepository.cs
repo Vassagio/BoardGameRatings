@@ -95,7 +95,8 @@ namespace BoardGameRatings.WebSite.Models.Repositories
         public IEnumerable<GamePlayedDate> GetAllPlayedDatesBy(int gameId)
         {
             return _context.GamePlayedDates
-                .Where(pg => pg.GameId == gameId);
+                .Where(pg => pg.GameId == gameId)
+                .OrderByDescending(pg => pg.PlayedDate);
         }
 
         public void AddPlayedDate(int gameId, DateTime playedDate)
