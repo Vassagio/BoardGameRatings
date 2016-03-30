@@ -55,7 +55,8 @@ namespace BoardGameRatings.WebSite.Models.Repositories
 
         public void Update(Player player)
         {
-            _context.Entry(player).State = EntityState.Modified;
+            _context.Entry(player)
+                .State = EntityState.Modified;
             _context.SaveChanges();
         }
 

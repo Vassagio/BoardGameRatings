@@ -43,7 +43,8 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var playerRepository = new PlayerRepository(_fixture.Context.PlayersContain(players));
 
-            var result = playerRepository.GetAll().ToList();
+            var result = playerRepository.GetAll()
+                .ToList();
 
             Assert.Equal(3, result.Count());
             Assert.Equal(players, result.OrderBy(r => r.Id));
@@ -96,7 +97,8 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             var playerRepository = new PlayerRepository(_fixture.Context.PlayersContain(players));
 
             playerRepository.Remove(player2);
-            var result = playerRepository.GetAll().ToList();
+            var result = playerRepository.GetAll()
+                .ToList();
 
             Assert.Equal(2, result.Count());
             Assert.Equal(new List<Player> {player1, player3}, result.OrderBy(r => r.Id));
@@ -221,19 +223,21 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var result = playerRepository.GetAllGamesBy(player.Id);
 
-            Assert.Equal(1, result.First().Id);
-            Assert.Equal("Game 1", result.First().Name);
+            Assert.Equal(1, result.First()
+                .Id);
+            Assert.Equal("Game 1", result.First()
+                .Name);
         }
 
         [Theory]
         [InlineData(0, 1)]
         [InlineData(1, 0)]
         public void DoesNotAddInvalidGameOwned(int playerId, int gameId)
-        {            
-            var player = new Player { Id = playerId, FirstName = "First 1", LastName = "Last 1"};
-            var players = playerId == 0 ? new List<Player>() : new List<Player> { player };
-            var game = new Game { Id = gameId, Name = "Game 1" };
-            var games = gameId == 0 ? new List<Game>() : new List<Game> { game };
+        {
+            var player = new Player {Id = playerId, FirstName = "First 1", LastName = "Last 1"};
+            var players = playerId == 0 ? new List<Player>() : new List<Player> {player};
+            var game = new Game {Id = gameId, Name = "Game 1"};
+            var games = gameId == 0 ? new List<Game>() : new List<Game> {game};
 
             var context = _fixture.Context
                 .GamesContain(games)

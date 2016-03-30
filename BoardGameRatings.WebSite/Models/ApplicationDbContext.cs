@@ -21,6 +21,7 @@ namespace BoardGameRatings.WebSite.Models
         public DbSet<PlayerGame> PlayerGames { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<GameCategory> GameCategories { get; set; }
+        public DbSet<GamePlayedDate> GamePlayedDates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -30,6 +31,7 @@ namespace BoardGameRatings.WebSite.Models
             new PlayerGameModelBuilder(builder.Entity<PlayerGame>()).Build();
             new CategoryModelBuilder(builder.Entity<Category>()).Build();
             new GameCategoryModelBuilder(builder.Entity<GameCategory>()).Build();
+            new GamePlayedDateModelBuilder(builder.Entity<GamePlayedDate>()).Build();
         }
     }
 }

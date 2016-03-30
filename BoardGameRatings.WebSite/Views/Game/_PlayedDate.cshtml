@@ -3,34 +3,32 @@
 @model BoardGameRatings.WebSite.ViewModels.GameViewModel
 
 <div>
-    @using (Html.BeginForm(GameController.BuildAddCategoryActionRouteValues(@Model)))
+    @using (Html.BeginForm(GameController.BuildAddPlayedDateActionRouteValues(@Model)))
     {
         @Html.AntiForgeryToken()
         <div class="form-group">
             <input type="hidden" asp-for="Id"/>
         </div>
         <div class="form-inline">
-            <label asp-for="Categories" class="control-label"></label>
-            <select asp-for="CategoryId" asp-items="Model.Categories" class="form-control">
-                <option selected="">-- Select a Category --</option>
-            </select>
-            <input type="submit" class="btn btn-default" value="Add Category"/>
+            <label asp-for="PlayedDates" class="control-label"></label>
+            <input asp-for="SelectedPlayedDate" class="form-control"/>
+            <input type="submit" class="btn btn-default" value="Add Played Date"/>
         </div>
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-condensed">
                 <thead>
                 <tr>
-                    <th class="head">Elected</th>
+                    <th class="head">Played Date</th>
                     <th></th>
                 </tr>
                 </thead>
-                @foreach (var category in Model.ElectedCategories)
+                @foreach (var playedDate in Model.PlayedDates)
                 {
                     <tr>
-                        <td class="col-md-2">@category.Description</td>
+                        <td class="col-md-2">@playedDate.FormattedPlayedDate</td>
                         <td class="col-md-1 text-center">
-                            <a href="@Url.RouteUrl(GameController.BuildRemoveCategoryActionRouteValues(@Model.Id, category.Id))">
+                            <a href="@Url.RouteUrl(GameController.BuildRemovePlayedDateActionRouteValues(@Model.Id, playedDate.PlayedDate))">
                                 <i class="fa fa-trash" style="color: red"></i>
                             </a>
                         </td>

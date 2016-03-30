@@ -46,13 +46,15 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public MockCategoryRepository StubGetAllToReturn(IEnumerable<Category> categories)
         {
-            _mock.Setup(m => m.GetAll()).Returns(categories);
+            _mock.Setup(m => m.GetAll())
+                .Returns(categories);
             return this;
         }
 
         public MockCategoryRepository StubGetByIdToReturn(Category category)
         {
-            _mock.Setup(m => m.GetBy(It.IsAny<int>())).Returns(category);
+            _mock.Setup(m => m.GetBy(It.IsAny<int>()))
+                .Returns(category);
             return this;
         }
 

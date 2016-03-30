@@ -48,7 +48,8 @@ namespace BoardGameRatings.WebSite.Models.Repositories
 
         public void Update(Game game)
         {
-            _context.Entry(game).State = EntityState.Modified;
+            _context.Entry(game)
+                .State = EntityState.Modified;
             _context.SaveChanges();
         }
 
@@ -58,7 +59,6 @@ namespace BoardGameRatings.WebSite.Models.Repositories
                 .Where(pg => pg.GameId == gameId)
                 .Select(pg => pg.Category);
         }
-
 
         public GameCategory GetGameCategoryBy(int gameId, int categoryId)
         {
@@ -89,6 +89,42 @@ namespace BoardGameRatings.WebSite.Models.Repositories
                 return;
 
             _context.GameCategories.Remove(gameCategory);
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<GamePlayedDate> GetAllPlayedDatesBy(int gameId)
+        {
+            return _context.GamePlayedDates
+                .Where(pg => pg.GameId == gameId)
+                .OrderByDescending(pg => pg.PlayedDate);
+        }
+
+        public void AddPlayedDate(int gameId, DateTime playedDate)
+        {
+            if (GetBy(gameId) == null)
+                throw new ArgumentException("Game does not exist");
+
+            if (GetGamePlayedDateBy(gameId, playedDate) != null)
+                throw new ArgumentException("This date has already been set for this game.");
+
+            var gamePlayedDate = new GamePlayedDate {GameId = gameId, PlayedDate = playedDate};
+            _context.GamePlayedDates.Add(gamePlayedDate);
+            _context.SaveChanges();
+        }
+
+        public GamePlayedDate GetGamePlayedDateBy(int gameId, DateTime playedDate)
+        {
+            return _context.GamePlayedDates
+                .FirstOrDefault(pg => pg.GameId == gameId && pg.PlayedDate == playedDate);
+        }
+
+        public void RemovePlayedDate(int gameId, DateTime playedGame)
+        {
+            var gamePlayedDate = GetGamePlayedDateBy(gameId, playedGame);
+            if (gamePlayedDate == null)
+                return;
+
+            _context.GamePlayedDates.Remove(gamePlayedDate);
             _context.SaveChanges();
         }
 

@@ -1,3 +1,4 @@
+using System;
 using BoardGameRatings.WebSite.Models;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
@@ -69,6 +70,24 @@ namespace BoardGameRatings.WebSite.Migrations
                     .HasAnnotation("SqlServer:Clustered", true);
             });
 
+            modelBuilder.Entity("BoardGameRatings.WebSite.Models.GamePlayedDate", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                b.Property<int>("GameId");
+
+                b.Property<DateTime>("PlayedDate");
+
+                b.HasKey("Id")
+                    .HasAnnotation("SqlServer:Clustered", false);
+
+                b.HasIndex("GameId", "PlayedDate")
+                    .IsUnique()
+                    .HasAnnotation("SqlServer:Clustered", true);
+            });
+
             modelBuilder.Entity("BoardGameRatings.WebSite.Models.Player", b =>
             {
                 b.Property<int>("Id")
@@ -114,6 +133,13 @@ namespace BoardGameRatings.WebSite.Migrations
                     .WithMany()
                     .HasForeignKey("CategoryId");
 
+                b.HasOne("BoardGameRatings.WebSite.Models.Game")
+                    .WithMany()
+                    .HasForeignKey("GameId");
+            });
+
+            modelBuilder.Entity("BoardGameRatings.WebSite.Models.GamePlayedDate", b =>
+            {
                 b.HasOne("BoardGameRatings.WebSite.Models.Game")
                     .WithMany()
                     .HasForeignKey("GameId");

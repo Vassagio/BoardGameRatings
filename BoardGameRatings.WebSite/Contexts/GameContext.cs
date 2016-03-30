@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BoardGameRatings.WebSite.Mappers;
 using BoardGameRatings.WebSite.Models;
@@ -14,14 +15,16 @@ namespace BoardGameRatings.WebSite.Contexts
         private readonly ICategoryRepository _categoryRepository;
         private readonly IGameMapper _gameMapper;
         private readonly IGameRepository _gameRepository;
+        private readonly IPlayedDateMapper _playedDateMapper;
 
         public GameContext(IGameRepository gameRepository, ICategoryRepository categoryRepository,
-            IGameMapper gameMapper, ICategoryMapper categoryMapper)
+            IGameMapper gameMapper, ICategoryMapper categoryMapper, IPlayedDateMapper playedDateMapper)
         {
             _categoryMapper = categoryMapper;
             _categoryRepository = categoryRepository;
             _gameRepository = gameRepository;
             _gameMapper = gameMapper;
+            _playedDateMapper = playedDateMapper;
         }
 
 
@@ -30,7 +33,8 @@ namespace BoardGameRatings.WebSite.Contexts
             var categorySelectListItems = GetCategorySelectListItems();
             var game = _gameRepository.GetBy(id ?? 0);
             var electedCategories = GetElectedCategories(id);
-            return _gameMapper.Map(game, categorySelectListItems, electedCategories);
+            var playedDates = GetPlayedDates(id);
+            return _gameMapper.Map(game, categorySelectListItems, electedCategories, playedDates);
         }
 
         public void Save(GameViewModel model)
@@ -52,6 +56,16 @@ namespace BoardGameRatings.WebSite.Contexts
             _gameRepository.RemoveElectedCategory(gameId, categoryId);
         }
 
+        public void AddPlayedDate(int gameId, DateTime playedDate)
+        {
+            _gameRepository.AddPlayedDate(gameId, playedDate);
+        }
+
+        public void RemovePlayedDate(int gameId, DateTime playedDate)
+        {
+            _gameRepository.RemovePlayedDate(gameId, playedDate);
+        }
+
         private void Update(Game game, GameViewModel model)
         {
             game.Name = model.Name;
@@ -68,7 +82,8 @@ namespace BoardGameRatings.WebSite.Contexts
         private IEnumerable<SelectListItem> GetCategorySelectListItems()
         {
             var categories = _categoryRepository.GetAll();
-            return categories.Select(c => _categoryMapper.SelectMap(c)).ToList();
+            return categories.Select(c => _categoryMapper.SelectMap(c))
+                .ToList();
         }
 
 
@@ -76,6 +91,13 @@ namespace BoardGameRatings.WebSite.Contexts
         {
             var gameCategories = _gameRepository.GetAllCategoriesBy(id ?? 0);
             return gameCategories.Select(c => _categoryMapper.Map(c));
+        }
+
+
+        private IEnumerable<PlayedDateViewModel> GetPlayedDates(int? id)
+        {
+            var gamePlayedDates = _gameRepository.GetAllPlayedDatesBy(id ?? 0);
+            return gamePlayedDates.Select(d => _playedDateMapper.Map(d));
         }
     }
 }

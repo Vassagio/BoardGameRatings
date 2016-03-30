@@ -38,13 +38,16 @@ namespace BoardGameRatings.WebSite.Mappers
         }
 
         public GameViewModel Map(Game game, IEnumerable<SelectListItem> categories,
-            IEnumerable<CategoryViewModel> electedCategories)
+            IEnumerable<CategoryViewModel> electedCategories, IEnumerable<PlayedDateViewModel> playedDates)
         {
             var viewModel = new GameViewModel();
-            if (game != null)
-                viewModel = Map(game);
-            viewModel.Categories = categories;
-            viewModel.ElectedCategories = electedCategories;
+            if (game == null)
+                return viewModel;
+
+            viewModel = Map(game);
+            viewModel.Categories = categories ?? viewModel.Categories;
+            viewModel.ElectedCategories = electedCategories ?? viewModel.ElectedCategories;
+            viewModel.PlayedDates = playedDates ?? viewModel.PlayedDates;
             return viewModel;
         }
     }

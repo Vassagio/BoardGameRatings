@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BoardGameRatings.WebSite.Models;
 using BoardGameRatings.WebSite.Models.Repositories;
 using Moq;
@@ -64,15 +65,37 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
             _mock.Object.RemoveElectedCategory(gameId, categoryId);
         }
 
+        public IEnumerable<GamePlayedDate> GetAllPlayedDatesBy(int gameId)
+        {
+            return _mock.Object.GetAllPlayedDatesBy(gameId);
+        }
+
+        public void AddPlayedDate(int gameId, DateTime playedDate)
+        {
+            _mock.Object.AddPlayedDate(gameId, playedDate);
+        }
+
+        public GamePlayedDate GetGamePlayedDateBy(int gameId, DateTime playedDate)
+        {
+            return _mock.Object.GetGamePlayedDateBy(gameId, playedDate);
+        }
+
+        public void RemovePlayedDate(int gameId, DateTime playedGame)
+        {
+            _mock.Object.RemovePlayedDate(gameId, playedGame);
+        }
+
         public MockGameRepository StubGetAllToReturn(List<Game> games)
         {
-            _mock.Setup(m => m.GetAll()).Returns(games);
+            _mock.Setup(m => m.GetAll())
+                .Returns(games);
             return this;
         }
 
         public MockGameRepository StubGetByToReturn(Game game)
         {
-            _mock.Setup(m => m.GetBy(It.IsAny<int>())).Returns(game);
+            _mock.Setup(m => m.GetBy(It.IsAny<int>()))
+                .Returns(game);
             return this;
         }
 
@@ -103,7 +126,8 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public MockGameRepository StubGetByNameToReturn(Game game)
         {
-            _mock.Setup(m => m.GetBy(It.IsAny<string>())).Returns(game);
+            _mock.Setup(m => m.GetBy(It.IsAny<string>()))
+                .Returns(game);
             return this;
         }
 
@@ -114,7 +138,8 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public MockGameRepository StubGetAllCategoriesByToReturn(IEnumerable<Category> categories)
         {
-            _mock.Setup(m => m.GetAllCategoriesBy(It.IsAny<int>())).Returns(categories);
+            _mock.Setup(m => m.GetAllCategoriesBy(It.IsAny<int>()))
+                .Returns(categories);
             return this;
         }
 
@@ -131,6 +156,28 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         public void VerifyRemoveElectedCategoryCalledWith(int gameId, int categoryId)
         {
             _mock.Verify(m => m.RemoveElectedCategory(gameId, categoryId));
+        }
+
+        public MockGameRepository StubGetAllPlayedDatesByToReturn(IEnumerable<GamePlayedDate> gamePlayedDates)
+        {
+            _mock.Setup(m => m.GetAllPlayedDatesBy(It.IsAny<int>()))
+                .Returns(gamePlayedDates);
+            return this;
+        }
+
+        public void VerifyGetAllPlayedDatesByCalledWith(int gameId)
+        {
+            _mock.Verify(m => m.GetAllPlayedDatesBy(gameId));
+        }
+
+        public void VerifyAddPlayedDateCalledWith(int gameId, DateTime playedDate)
+        {
+            _mock.Verify(m => m.AddPlayedDate(gameId, playedDate));
+        }
+
+        public void VerifyRemovePlayedDateCalledWith(int gameId, DateTime playedDate)
+        {
+            _mock.Verify(m => m.RemovePlayedDate(gameId, playedDate));
         }
     }
 }

@@ -43,5 +43,13 @@ namespace BoardGameRatings.WebSite.Tests.Extensions
             context.SaveChanges();
             return context;
         }
+
+        public static ApplicationDbContext GamePlayedDatesContain(this ApplicationDbContext context,
+            IEnumerable<GamePlayedDate> gamePlayedDates)
+        {
+            context.GamePlayedDates.AddRange(gamePlayedDates);
+            context.SaveChanges();
+            return context;
+        }
     }
 }

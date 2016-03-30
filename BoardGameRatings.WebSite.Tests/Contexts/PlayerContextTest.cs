@@ -51,10 +51,12 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             };
 
             var mockPlayerRepository =
-                new MockPlayerRepository().StubGetAllGamesByToReturn(games).StubGetByToReturn(player);
+                new MockPlayerRepository().StubGetAllGamesByToReturn(games)
+                    .StubGetByToReturn(player);
             var mockGameRepository = new MockGameRepository().StubGetAllToReturn(games);
             var mockPlayerMapper = new MockPlayerMapper().StubMapWithGamesToReturn(playerViewModel);
-            var mockGameMapper = new MockGameMapper().StubMapToReturn(gameViewModel).StubSelectMapToReturn(item);
+            var mockGameMapper = new MockGameMapper().StubMapToReturn(gameViewModel)
+                .StubSelectMapToReturn(item);
             var playerContext = BuildPlayerContext(mockPlayerRepository, mockGameRepository, mockPlayerMapper,
                 mockGameMapper);
 

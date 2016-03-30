@@ -35,7 +35,8 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public MockPlayerContext StubBuildViewModelToReturn(PlayerViewModel playerViewModel)
         {
-            _mock.Setup(m => m.BuildViewModel(It.IsAny<int?>())).Returns(playerViewModel);
+            _mock.Setup(m => m.BuildViewModel(It.IsAny<int?>()))
+                .Returns(playerViewModel);
             return this;
         }
 

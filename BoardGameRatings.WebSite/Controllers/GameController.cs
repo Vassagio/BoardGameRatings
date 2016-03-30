@@ -1,4 +1,5 @@
-﻿using BoardGameRatings.WebSite.Classes;
+﻿using System;
+using BoardGameRatings.WebSite.Classes;
 using BoardGameRatings.WebSite.Contexts;
 using BoardGameRatings.WebSite.ViewModels;
 using Microsoft.AspNet.Mvc;
@@ -11,10 +12,12 @@ namespace BoardGameRatings.WebSite.Controllers
         private static readonly string CONTROLLER_NAME = "Game";
         private static readonly string INDEX_ACTION_NAME = "Index";
         private static readonly string SAVE_ACTION_NAME = "Save";
-        private static readonly string ADD_ACTION_NAME = "Add";
+        private static readonly string ADD_CATEGORY_ACTION_NAME = "AddCategory";
+        private static readonly string ADD_PLAYED_DATE_ACTION_NAME = "AddPlayedDate";
         private static readonly string REMOVE_ACTION_NAME = "Remove";
         private static readonly string ID_PARAMETER_NAME = "id";
         private static readonly string CATEGORY_ID_PARAMETER_NAME = "categoryId";
+        private static readonly string PLAYED_DATE_ID_PARAMETER_NAME = "playedDateId";
         private static readonly string GAME_ID_PARAMETER_NAME = "gameId";
         private static readonly string MODEL_PARAMETER_NAME = "model";
         private readonly IGameContext _context;
@@ -64,11 +67,18 @@ namespace BoardGameRatings.WebSite.Controllers
                 .Build();
         }
 
-        public RedirectToRouteResult Add(GameViewModel gameViewModel)
+        public RedirectToRouteResult AddCategory(GameViewModel gameViewModel)
         {
             _context.AddElectedCategory(gameViewModel.Id, gameViewModel.CategoryId);
             return RedirectToRoute(BuildIndexActionRouteValues(gameViewModel.Id));
         }
+
+        public RedirectToRouteResult AddPlayedDate(GameViewModel gameViewModel)
+        {
+            _context.AddPlayedDate(gameViewModel.Id, gameViewModel.SelectedPlayedDate);
+            return RedirectToRoute(BuildIndexActionRouteValues(gameViewModel.Id));
+        }
+
 
         public RedirectToRouteResult Remove(int gameId, int categoryId)
         {
@@ -76,23 +86,47 @@ namespace BoardGameRatings.WebSite.Controllers
             return RedirectToRoute(BuildIndexActionRouteValues(gameId));
         }
 
-        public static RouteValueDictionary BuildAddActionRouteValues(GameViewModel model)
+        public RedirectToRouteResult Remove(int gameId, DateTime playedDate)
         {
-            ;
+            _context.RemovePlayedDate(gameId, playedDate);
+            return RedirectToRoute(BuildIndexActionRouteValues(gameId));
+        }
+
+        public static RouteValueDictionary BuildAddCategoryActionRouteValues(GameViewModel model)
+        {
             return new RouteValueDictionaryBuilder()
                 .WithController(CONTROLLER_NAME)
-                .WithAction(ADD_ACTION_NAME)
+                .WithAction(ADD_CATEGORY_ACTION_NAME)
                 .WithParameter(MODEL_PARAMETER_NAME, model)
                 .Build();
         }
 
-        public static RouteValueDictionary BuildRemoveActionRouteValues(int gameId, int categoryId)
+        public static RouteValueDictionary BuildAddPlayedDateActionRouteValues(GameViewModel model)
+        {
+            return new RouteValueDictionaryBuilder()
+                .WithController(CONTROLLER_NAME)
+                .WithAction(ADD_PLAYED_DATE_ACTION_NAME)
+                .WithParameter(MODEL_PARAMETER_NAME, model)
+                .Build();
+        }
+
+        public static RouteValueDictionary BuildRemoveCategoryActionRouteValues(int gameId, int categoryId)
         {
             return new RouteValueDictionaryBuilder()
                 .WithController(CONTROLLER_NAME)
                 .WithAction(REMOVE_ACTION_NAME)
                 .WithParameter(GAME_ID_PARAMETER_NAME, gameId)
                 .WithParameter(CATEGORY_ID_PARAMETER_NAME, categoryId)
+                .Build();
+        }
+
+        public static RouteValueDictionary BuildRemovePlayedDateActionRouteValues(int gameId, DateTime playedDate)
+        {
+            return new RouteValueDictionaryBuilder()
+                .WithController(CONTROLLER_NAME)
+                .WithAction(REMOVE_ACTION_NAME)
+                .WithParameter(GAME_ID_PARAMETER_NAME, gameId)
+                .WithParameter(PLAYED_DATE_ID_PARAMETER_NAME, playedDate)
                 .Build();
         }
     }

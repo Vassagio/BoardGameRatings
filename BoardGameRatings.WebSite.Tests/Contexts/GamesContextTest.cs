@@ -50,9 +50,12 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             Assert.Equal(games.Count, viewModel.Games.Count());
 
             var gameViewModels = viewModel.Games.ToList();
-            Assert.Equal(game.Id, gameViewModels.First().Id);
-            Assert.Equal(game.Name, gameViewModels.First().Name);
-            Assert.Equal(game.Description, gameViewModels.First().Description);
+            Assert.Equal(game.Id, gameViewModels.First()
+                .Id);
+            Assert.Equal(game.Name, gameViewModels.First()
+                .Name);
+            Assert.Equal(game.Description, gameViewModels.First()
+                .Description);
 
             mockGameRepository.VerifyGetAllCalled();
             mockGameMapper.VerifyMapCalledWith(game);

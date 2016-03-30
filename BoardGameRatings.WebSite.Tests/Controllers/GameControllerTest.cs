@@ -1,4 +1,5 @@
-﻿using BoardGameRatings.WebSite.Controllers;
+﻿using System;
+using BoardGameRatings.WebSite.Controllers;
 using BoardGameRatings.WebSite.Tests.Mocks;
 using BoardGameRatings.WebSite.ViewModels;
 using Microsoft.AspNet.Mvc;
@@ -64,7 +65,7 @@ namespace BoardGameRatings.WebSite.Tests.Controllers
             };
             var mockGameContext = new MockGameContext();
             var controller = new GameController(mockGameContext);
-            var result = controller.Add(gameViewModel);
+            var result = controller.AddCategory(gameViewModel);
 
             Assert.IsType<RedirectToRouteResult>(result);
             Assert.Equal("Index", result.RouteValues["action"]);
@@ -86,6 +87,40 @@ namespace BoardGameRatings.WebSite.Tests.Controllers
             Assert.Equal("Index", result.RouteValues["action"]);
             Assert.Equal("Game", result.RouteValues["controller"]);
             mockGameContext.VerifyRemoveElectedCategoryCalledWith(1, 1);
+        }
+
+        [Fact]
+        public void AddsAPlayedDate()
+        {
+            var gameViewModel = new GameViewModel
+            {
+                Id = 1,
+                SelectedPlayedDate = new DateTime(2016, 1, 1)
+            };
+            var mockGameContext = new MockGameContext();
+            var controller = new GameController(mockGameContext);
+            var result = controller.AddPlayedDate(gameViewModel);
+
+            Assert.IsType<RedirectToRouteResult>(result);
+            Assert.Equal("Index", result.RouteValues["action"]);
+            Assert.Equal("Game", result.RouteValues["controller"]);
+            mockGameContext.VerifyAddPlayedDateCalledWith(1, new DateTime(2016, 1, 1));
+        }
+
+
+        [Fact]
+        public void RemovesAPlayedDate()
+        {
+            var gameId = 1;
+            var playedDate = new DateTime(2016, 1, 1);
+            var mockGameContext = new MockGameContext();
+            var controller = new GameController(mockGameContext);
+            var result = controller.Remove(gameId, playedDate);
+
+            Assert.IsType<RedirectToRouteResult>(result);
+            Assert.Equal("Index", result.RouteValues["action"]);
+            Assert.Equal("Game", result.RouteValues["controller"]);
+            mockGameContext.VerifyRemovePlayedDateCalledWith(1, new DateTime(2016, 1, 1));
         }
     }
 }

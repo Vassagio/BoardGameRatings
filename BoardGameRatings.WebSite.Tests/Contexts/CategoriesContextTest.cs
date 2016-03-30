@@ -50,8 +50,10 @@ namespace BoardGameRatings.WebSite.Tests.Contexts
             Assert.Equal(categories.Count, viewModel.Categories.Count());
 
             var categoryViewModels = viewModel.Categories.ToList();
-            Assert.Equal(category.Id, categoryViewModels.First().Id);
-            Assert.Equal(category.Description, categoryViewModels.First().Description);
+            Assert.Equal(category.Id, categoryViewModels.First()
+                .Id);
+            Assert.Equal(category.Description, categoryViewModels.First()
+                .Description);
 
             mockCategoryRepository.VerifyGetAllCalled();
             mockCategoryMapper.VerifyMapCalledWith(category);

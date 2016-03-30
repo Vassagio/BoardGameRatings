@@ -43,7 +43,8 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
 
             var categoryRepository = new CategoryRepository(_fixture.Context.CategoriesContain(categories));
 
-            var result = categoryRepository.GetAll().ToList();
+            var result = categoryRepository.GetAll()
+                .ToList();
 
             Assert.Equal(3, result.Count());
             Assert.Equal(categories, result.OrderBy(r => r.Id));
@@ -95,7 +96,8 @@ namespace BoardGameRatings.WebSite.Tests.Models.Repositories
             var categoryRepository = new CategoryRepository(_fixture.Context.CategoriesContain(categories));
 
             categoryRepository.Remove(category2);
-            var result = categoryRepository.GetAll().ToList();
+            var result = categoryRepository.GetAll()
+                .ToList();
 
             Assert.Equal(2, result.Count());
             Assert.Equal(new List<Category> {category1, category3}, result.OrderBy(r => r.Id));

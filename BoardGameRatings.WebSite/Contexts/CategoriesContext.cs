@@ -18,7 +18,8 @@ namespace BoardGameRatings.WebSite.Contexts
 
         public CategoriesViewModel BuildViewModel()
         {
-            var categories = _categoryRepository.GetAll().Select(category => _mapper.Map(category));
+            var categories = _categoryRepository.GetAll()
+                .Select(category => _mapper.Map(category));
             return new CategoriesViewModel
             {
                 Categories = categories

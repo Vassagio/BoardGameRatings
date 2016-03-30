@@ -66,13 +66,15 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public MockPlayerRepository StubGetAllToReturn(IEnumerable<Player> players)
         {
-            _mock.Setup(m => m.GetAll()).Returns(players);
+            _mock.Setup(m => m.GetAll())
+                .Returns(players);
             return this;
         }
 
         public MockPlayerRepository StubGetAllGamesByToReturn(IEnumerable<Game> games)
         {
-            _mock.Setup(m => m.GetAllGamesBy(It.IsAny<int>())).Returns(games);
+            _mock.Setup(m => m.GetAllGamesBy(It.IsAny<int>()))
+                .Returns(games);
             return this;
         }
 
@@ -83,7 +85,8 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public MockPlayerRepository StubGetByToReturn(Player player)
         {
-            _mock.Setup(m => m.GetBy(It.IsAny<int>())).Returns(player);
+            _mock.Setup(m => m.GetBy(It.IsAny<int>()))
+                .Returns(player);
             return this;
         }
 

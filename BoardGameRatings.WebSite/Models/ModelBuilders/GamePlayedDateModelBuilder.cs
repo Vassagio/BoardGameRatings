@@ -3,11 +3,11 @@ using Microsoft.Data.Entity.Metadata.Builders;
 
 namespace BoardGameRatings.WebSite.Models.ModelBuilders
 {
-    public class GameCategoryModelBuilder : IModelBuilder
+    public class GamePlayedDateModelBuilder : IModelBuilder
     {
-        private readonly EntityTypeBuilder<GameCategory> _builder;
+        private readonly EntityTypeBuilder<GamePlayedDate> _builder;
 
-        public GameCategoryModelBuilder(EntityTypeBuilder<GameCategory> builder)
+        public GamePlayedDateModelBuilder(EntityTypeBuilder<GamePlayedDate> builder)
         {
             _builder = builder;
         }
@@ -19,18 +19,15 @@ namespace BoardGameRatings.WebSite.Models.ModelBuilders
             _builder.Property(e => e.Id)
                 .IsRequired()
                 .UseSqlServerIdentityColumn();
-            _builder.HasIndex(e => new {e.GameId, e.CategoryId})
+            _builder.HasIndex(e => new {e.GameId, e.PlayedDate})
                 .IsUnique()
                 .ForSqlServerIsClustered();
-            _builder.Property(e => e.CategoryId)
-                .IsRequired();
-            _builder.HasOne(e => e.Category)
-                .WithMany(e => e.Games)
-                .HasForeignKey(e => e.CategoryId);
-            _builder.HasOne(e => e.Game)
-                .WithMany(e => e.Categories)
-                .HasForeignKey(e => e.GameId);
             _builder.Property(e => e.GameId)
+                .IsRequired();
+            _builder.HasOne(e => e.Game)
+                .WithMany(e => e.PlayedDates)
+                .HasForeignKey(e => e.GameId);
+            _builder.Property(e => e.PlayedDate)
                 .IsRequired();
         }
     }

@@ -32,9 +32,9 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
         }
 
         public GameViewModel Map(Game game, IEnumerable<SelectListItem> categories,
-            IEnumerable<CategoryViewModel> electedCategories)
+            IEnumerable<CategoryViewModel> electedCategories, IEnumerable<PlayedDateViewModel> playedDates)
         {
-            return _mock.Object.Map(game, categories, electedCategories);
+            return _mock.Object.Map(game, categories, electedCategories, playedDates);
         }
 
         public void VerifyMapCalledWith(Game game)
@@ -54,35 +54,36 @@ namespace BoardGameRatings.WebSite.Tests.Mocks
 
         public MockGameMapper StubMapToReturn(GameViewModel gameViewModel)
         {
-            _mock.Setup(m => m.Map(It.IsAny<Game>())).Returns(gameViewModel);
+            _mock.Setup(m => m.Map(It.IsAny<Game>()))
+                .Returns(gameViewModel);
             return this;
         }
 
 
         public MockGameMapper StubSelectMapToReturn(SelectListItem item)
         {
-            _mock.Setup(m => m.SelectMap(It.IsAny<Game>())).Returns(item);
+            _mock.Setup(m => m.SelectMap(It.IsAny<Game>()))
+                .Returns(item);
             return this;
         }
 
         public MockGameMapper StubMapToReturn(Game game)
         {
-            _mock.Setup(m => m.Map(It.IsAny<GameViewModel>())).Returns(game);
+            _mock.Setup(m => m.Map(It.IsAny<GameViewModel>()))
+                .Returns(game);
             return this;
         }
 
         public void VerifyMapCalledWith(Game game, IEnumerable<SelectListItem> categorySelectListItems,
-            IEnumerable<CategoryViewModel> electedCategories)
+            IEnumerable<CategoryViewModel> electedCategories, IEnumerable<PlayedDateViewModel> playedDates)
         {
-            _mock.Verify(m => m.Map(game, categorySelectListItems, electedCategories));
+            _mock.Verify(m => m.Map(game, categorySelectListItems, electedCategories, playedDates));
         }
 
         public MockGameMapper StubMapWithCategoriesToReturn(GameViewModel gameViewModel)
         {
-            _mock.Setup(
-                m =>
-                    m.Map(It.IsAny<Game>(), It.IsAny<IEnumerable<SelectListItem>>(),
-                        It.IsAny<IEnumerable<CategoryViewModel>>())).Returns(gameViewModel);
+            _mock.Setup(m => m.Map(It.IsAny<Game>(), It.IsAny<IEnumerable<SelectListItem>>(), It.IsAny<IEnumerable<CategoryViewModel>>(), It.IsAny<IEnumerable<PlayedDateViewModel>>()))
+                .Returns(gameViewModel);
             return this;
         }
     }
